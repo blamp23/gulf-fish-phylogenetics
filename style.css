@@ -1,0 +1,143 @@
+/* Gulf Fish Phylogenetics — shared stylesheet */
+
+:root {
+  --accent: #0a6e7c;
+  --accent-dark: #064f5a;
+  --accent-light: #e0f4f7;
+  --text: #1a1a1a;
+  --muted: #555;
+  --border: #cde8ed;
+  --max-width: 860px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  background: #fff;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+/* ── Navigation ── */
+nav {
+  background: var(--accent);
+  padding: 0 1.5rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+nav ul li a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.88rem;
+  padding: 0.85rem 1rem;
+  transition: background 0.15s;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  background: var(--accent-dark);
+}
+
+/* ── Page header ── */
+header.page-header {
+  background: var(--accent-light);
+  border-bottom: 2px solid var(--border);
+  padding: 2.5rem 1.5rem 2rem;
+  text-align: center;
+}
+
+header.page-header h1 {
+  font-size: 2rem;
+  color: var(--accent-dark);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* ── Main content ── */
+main {
+  max-width: var(--max-width);
+  margin: 2.5rem auto;
+  padding: 0 1.5rem;
+}
+
+/* ── Hero buttons (landing page) ── */
+.hero-intro {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.hero-intro p {
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.btn-card {
+  display: block;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  padding: 1.6rem 1.2rem;
+  border-radius: 4px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1.4;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.btn-card:hover {
+  background: var(--accent-dark);
+  transform: translateY(-2px);
+}
+
+/* ── Placeholder block ── */
+.placeholder {
+  background: var(--accent-light);
+  border: 1.5px dashed var(--accent);
+  border-radius: 4px;
+  padding: 1.5rem 1.75rem;
+  margin: 2rem 0;
+  color: var(--muted);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.92rem;
+}
+
+.placeholder p {
+  margin-bottom: 0.4rem;
+}
+
+/* ── Footer ── */
+footer {
+  border-top: 2px solid var(--border);
+  text-align: center;
+  padding: 1.25rem 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 4rem;
+}
