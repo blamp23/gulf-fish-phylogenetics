@@ -24,46 +24,340 @@
 
   <main>
 
-    <!-- PLACEHOLDER
-         This page presents your actual phylogenetic results.
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 1 — WHAT YOU'RE LOOKING AT
+    ══════════════════════════════════════════════════════ -->
+    <h2>What You're Looking At</h2>
 
-         Section 1: Study taxa overview
-           - Map or species list of Gulf fish included in the analysis
-           - Photo gallery of representative species
+    <p>
+      This analysis examines eight species collected from Galveston Bay and the broader
+      Gulf of Mexico, chosen to represent a range of families and lifestyles you'd
+      encounter on a single fishing trip. Four species belong to the family Sciaenidae —
+      the drums and croakers: <em>Red Drum</em> (<em>Sciaenops ocellatus</em>),
+      <em>Black Drum</em> (<em>Pogonias cromis</em>),
+      <em>Speckled Trout</em> (<em>Cynoscion nebulosus</em>), and
+      <em>Atlantic Croaker</em> (<em>Micropogonias undulatus</em>).
+      The other bony fish are <em>Southern Flounder</em>
+      (<em>Paralichthys lethostigma</em>, family Paralichthyidae),
+      <em>Sheepshead</em> (<em>Archosargus probatocephalus</em>, family Sparidae), and
+      <em>Flathead Mullet</em> (<em>Mugil cephalus</em>, family Mugilidae).
+      Rounding out the dataset as our evolutionary outgroup is <em>Bull Shark</em>
+      (<em>Carcharhinus leucas</em>, family Carcharhinidae) — the only cartilaginous fish
+      in the group, included precisely because its deep divergence from all bony fish
+      gives us an unambiguous anchor for the root of the tree.
+    </p>
 
-         Section 2: The phylogeny
-           - Embed or link to an interactive tree (e.g., iTOL, OneZoom) OR
-             display a high-resolution static figure
-           - Annotate major clades and key nodes
+    <p>
+      For each species, two or three COI (cytochrome oxidase I) sequences were downloaded
+      from GenBank, giving us 24 sequences total. Using multiple sequences per species
+      serves as a built-in quality check: if three independent submissions for the same
+      species always cluster tightly together on the tree, we know the sequences are
+      consistently labeled and the gene is behaving as a reliable marker. If one sequence
+      strays far from its siblings, that's a flag to investigate — a possible mislabeled
+      entry or a contamination issue in the original study. In our analysis, every
+      within-species triplet clustered perfectly, which is a satisfying confirmation that
+      the data are clean.
+    </p>
 
-         Section 3: Key findings
-           - Surprising groupings, non-monophyletic families, divergence times
-           - Comparison to previous morphological classifications
+    <p>
+      All sequences were aligned using MUSCLE, a fast multiple sequence alignment
+      algorithm well-suited to mitochondrial protein-coding genes. The final aligned
+      matrix was approximately 660 base pairs long. Three independent methods were then
+      used to infer the tree: Neighbor-Joining (NJ), Maximum Likelihood (ML), and
+      Bayesian inference. Running all three is standard practice — when independent
+      methods built on different mathematical frameworks agree, confidence in the result
+      goes up considerably.
+    </p>
 
-         Section 4: Data and methods summary
-           - Number of taxa, loci, alignment length
-           - Tree inference method and model of evolution used
-           - Link to data repository (NCBI, Dryad, etc.) if available
-    -->
 
-    <div class="placeholder">
-      <p><strong>[PLACEHOLDER]</strong> Section 1 — Study taxa overview</p>
-      <p>Replace with a species list, map, or photo gallery of the Gulf fish in your dataset.</p>
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 2 — THE NEIGHBOR-JOINING TREE
+    ══════════════════════════════════════════════════════ -->
+    <h2>The Neighbor-Joining Tree</h2>
+
+    <p>
+      The Neighbor-Joining tree, built from pairwise K80 distances, gives us our first
+      look at the data and sets the stage for the more sophisticated analyses that follow.
+      The most immediately striking feature is the Bull Shark's branch: it is dramatically
+      longer than every other branch in the tree combined. This isn't an error — it
+      reflects roughly 420 million years of independent evolution separating cartilaginous
+      fish (sharks, rays) from ray-finned bony fish (everything else in the dataset).
+      That kind of deep divergence is exactly why Bull Shark makes such a clean outgroup.
+    </p>
+
+    <p>
+      The four Sciaenidae — Red Drum, Black Drum, Speckled Trout, and Atlantic Croaker —
+      form a tight, well-supported cluster that sits apart from all other bony fish in the
+      tree. Bootstrap values support this grouping consistently across both NJ trees,
+      confirming that the gene is doing its job: it correctly identifies all four drum and
+      croaker species as members of the same evolutionary family. Within that cluster,
+      Red Drum and Black Drum are sister taxa, meaning they share a more recent common
+      ancestor with each other than either does with Speckled Trout or Atlantic Croaker.
+      This makes biological sense — the two species are known to hybridize in Galveston
+      Bay waters, something that is only possible when organisms are genetically very
+      similar.
+    </p>
+
+    <p>
+      Perhaps the most instructive result for anyone who has grown up fishing Galveston
+      Bay is where Speckled Trout lands on the tree. Despite the word "trout" in its
+      common name — a name that evokes Salmonidae, the family of salmon, rainbow trout,
+      and their relatives — Speckled Trout clusters unambiguously inside the drums and
+      croakers. DNA places it firmly in Sciaenidae, not as a distant cousin of freshwater
+      trout. The common name was given because early observers noticed the spotted pattern
+      and similar soft flesh, not because of any close evolutionary kinship with true
+      trout. This is a recurring theme in fish systematics: common names can mislead,
+      while molecular data rarely do.
+    </p>
+
+    <p>
+      Southern Flounder, on the other hand, sits completely outside the Sciaenidae clade
+      with strong support. Its flat body plan, both eyes migrating to one side of the
+      head during development, and bottom-ambush hunting strategy all look strikingly
+      different from a Red Drum — but that's exactly the point. Those traits evolved
+      independently in response to the demands of life on the estuary floor. Sheepshead
+      is similarly well-separated from the drums, despite juvenile Black Drum and young
+      Sheepshead sharing a somewhat similar black-and-white banded coloration. The
+      Flathead Mullet forms its own branch in the tree, consistent with its placement
+      in the order Mugiliformes rather than the Perciformes group that includes the drums.
+    </p>
+
+    <p>
+      It's worth noting that some of the internal branching points <em>within</em>
+      Sciaenidae show moderate NJ bootstrap values in the range of 30–50%. This means
+      we cannot say with high confidence whether, for example, Atlantic Croaker diverged
+      before or after Speckled Trout within the family. That uncertainty is real and
+      expected — a single 650 bp gene contains limited signal for resolving very recent
+      divergences among closely related species. Crucially, this does not cast doubt on
+      the family grouping itself, which is supported at 100% in both trees. It simply
+      means the internal branching order within Sciaenidae is a question better answered
+      with more data, such as a multi-locus or whole-genome approach.
+    </p>
+
+    <!-- IMAGE PLACEHOLDER: NJ tree Bull Shark outgroup (tree_NJ_bullshark.pdf) -->
+    <div class="fig-placeholder">
+      [Figure 1] NJ tree with Bull Shark outgroup — insert tree_NJ_bullshark.pdf here.
+      Caption: Neighbor-Joining tree (K80 model) of eight Gulf of Mexico fish species,
+      rooted on Bull Shark. Node values = bootstrap support (1000 replicates).
+      Tip colors: blue = Sciaenidae, orange = Paralichthyidae, green = Sparidae,
+      gray = Mugilidae, red = Carcharhinidae.
     </div>
 
-    <div class="placeholder">
-      <p><strong>[PLACEHOLDER]</strong> Section 2 — The phylogeny</p>
-      <p>Embed your tree figure or interactive visualization here.</p>
+    <p>
+      To check how sensitive the tree is to our outgroup choice, a second NJ tree was
+      built using Flathead Mullet as the outgroup instead of Bull Shark. This is a more
+      conservative test: Mullet is a bony fish like the ingroup, just from a different
+      order, so rooting on it places the root at a shallower level in the tree. All major
+      family-level groupings — Sciaenidae monophyly, Southern Flounder's separation, and
+      Sheepshead's placement — remain stable regardless of which outgroup is used. The
+      internal branching order within Sciaenidae is slightly rearranged in one version,
+      which is consistent with the moderate bootstrap values we saw: those nodes are
+      genuinely ambiguous. Everything that matters for interpreting family relationships
+      is robust.
+    </p>
+
+    <!-- IMAGE PLACEHOLDER: NJ tree Flathead Mullet outgroup (tree_NJ_mullet.pdf) -->
+    <div class="fig-placeholder">
+      [Figure 2] NJ tree with Flathead Mullet outgroup — insert tree_NJ_mullet.pdf here.
+      Caption: Same dataset and method as Figure 1, re-rooted on Flathead Mullet
+      to test outgroup sensitivity. Major groupings are consistent between the two trees.
     </div>
 
-    <div class="placeholder">
-      <p><strong>[PLACEHOLDER]</strong> Section 3 — Key findings</p>
-      <p>Summarize the most notable results from your analysis.</p>
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 3 — THE MAXIMUM LIKELIHOOD TREE
+    ══════════════════════════════════════════════════════ -->
+    <h2>The Maximum Likelihood Tree</h2>
+
+    <p>
+      The Maximum Likelihood tree was built using the GTR+Gamma+I substitution model
+      fitted to the aligned COI matrix. GTR stands for General Time Reversible — it
+      allows all six possible types of DNA substitution (A↔G, C↔T, A↔C, A↔T, G↔C,
+      G↔T) to occur at their own estimated rates, rather than assuming they're all
+      equally likely. Gamma adds a shape parameter that lets substitution rate vary
+      across different positions in the gene, reflecting the biological reality that some
+      sites (particularly the wobble position of codons) evolve much faster than others.
+      I accounts for invariant sites — positions that appear fixed across the entire
+      dataset and are assumed to never change. For a mitochondrial protein-coding gene
+      like COI, all three components are biologically justified.
+    </p>
+
+    <p>
+      The overall topology of the ML tree matches NJ for every family-level grouping.
+      Sciaenidae is again recovered as a clean monophyletic group, with bootstrap values
+      of 100% at the node uniting all four drum and croaker species. Every individual
+      species triplet is also supported at 100%, confirming the NJ quality-check result.
+      The deeper splits — Southern Flounder from the Perciformes cluster, Sheepshead from
+      Sciaenidae — are fully consistent between the two methods, which substantially
+      increases confidence in those results.
+    </p>
+
+    <p>
+      As expected, some within-Sciaenidae nodes continue to show lower ML bootstrap
+      values in the 38–63% range. These are the same internal branches that showed
+      uncertainty in the NJ analysis, and the fact that three independent bootstrap
+      experiments (NJ Bull Shark, NJ Mullet, ML) all flag the same nodes is itself
+      informative: the data are consistently telling us that those particular divergence
+      events happened close together in time and left little distinguishable signal in
+      650 bp of COI. This is a normal limitation of single-gene phylogenetics among
+      closely related species, not a flaw in the analysis.
+    </p>
+
+    <p>
+      One subtle pattern worth noting: three sequences — Bull Shark 3, Southern Flounder
+      3, and Flathead Mullet 2 — show slightly scattered placement in the ML tree
+      compared to their siblings. Within each species, pairwise COI distances are
+      extremely small (0.0016 or less), meaning these sequences are nearly identical to
+      the others from the same species. When sequences are this similar, ML optimization
+      can place them in slightly different positions from replicate to replicate because
+      the likelihood surface is nearly flat in that region — there is essentially no
+      signal distinguishing one arrangement from another. This is a known artifact with
+      near-duplicate sequences, and it has no effect on the family-level topology, which
+      is what this analysis is designed to test.
+    </p>
+
+    <!-- IMAGE PLACEHOLDER: ML tree (tree_ML.pdf) -->
+    <div class="fig-placeholder">
+      [Figure 3] Maximum Likelihood tree — insert tree_ML.pdf here.
+      Caption: Maximum Likelihood tree (GTR+Gamma+I model) rooted on Bull Shark.
+      Node values = bootstrap support (1000 replicates). Values below 50% not shown.
+      Tip colors as in Figure 1.
     </div>
 
-    <div class="placeholder">
-      <p><strong>[PLACEHOLDER]</strong> Section 4 — Data and methods summary</p>
-      <p>Add taxon counts, loci, inference software, and links to data repositories.</p>
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 4 — THE BAYESIAN TREE
+    ══════════════════════════════════════════════════════ -->
+    <h2>The Bayesian Tree</h2>
+
+    <p>
+      The Bayesian analysis, run in MrBayes with the GTR+Gamma model over 500,000 MCMC
+      generations, produces the cleanest-looking result of the three methods. Nearly every
+      node carries a posterior probability of 1.00 — meaning that in 100% of post-burn-in
+      MCMC samples, that grouping appeared in the sampled tree. That is a very strong
+      statement about clade reliability. The topology is otherwise identical to NJ and ML
+      for all biologically meaningful groupings: Sciaenidae is monophyletic, Southern
+      Flounder and Sheepshead are well-separated from the drums, and the Bull Shark branch
+      anchors the root.
+    </p>
+
+    <p>
+      The only nodes with lower posterior support — 0.68, 0.70, and 0.83 — occur at
+      deeper internal splits within Sciaenidae. These are exactly the same nodes that
+      showed lower NJ bootstrap values and lower ML bootstrap values. All three methods
+      agreeing on where uncertainty lies is a reassuring sign: the data are consistently
+      pointing to the same genuinely ambiguous branching events, and the uncertainty is
+      biological rather than methodological.
+    </p>
+
+    <p>
+      It's worth being precise about what posterior probability means, because it is often
+      misunderstood. A posterior probability of 0.68 at a node does not mean the node
+      is wrong — it means that given the data and the model, there is a 68% probability
+      that those taxa form the grouping shown, and a 32% probability that the true
+      branching order is slightly different. Bayesian posterior probabilities tend to be
+      numerically higher than ML bootstrap values for the same node, and the two are not
+      directly comparable. A node with PP = 0.68 and ML bootstrap = 40% are both expressing
+      genuine uncertainty about that particular branching order in consistent ways.
+      For the purposes of this analysis — demonstrating that COI correctly identifies
+      family-level groupings in Gulf of Mexico fish — the fully supported nodes are
+      more than sufficient.
+    </p>
+
+    <!-- IMAGE PLACEHOLDER: Bayesian tree (tree_Bayesian.pdf) -->
+    <div class="fig-placeholder">
+      [Figure 4] Bayesian consensus tree — insert tree_Bayesian.pdf here.
+      Caption: 50% majority-rule consensus tree from MrBayes (GTR+Gamma, 500,000
+      MCMC generations, 25% burn-in), rooted on Bull Shark.
+      Node values = posterior probability. Values below 0.50 not shown.
+      Tip colors as in Figure 1.
+    </div>
+
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 5 — DISCUSSION QUESTIONS
+    ══════════════════════════════════════════════════════ -->
+    <h2>Discussion Questions</h2>
+
+    <p>
+      Each question below is based on something the trees actually show. Read the question,
+      think through it, then click to reveal a possible answer.
+    </p>
+
+    <details>
+      <summary>Speckled Trout clusters with the drums and croakers — not with freshwater trout. What does this tell us about the reliability of common names for understanding evolutionary relationships?</summary>
+      <div class="details-body">
+        <p>
+          Common names reflect cultural familiarity and often describe appearance, flavor,
+          or behavior — not ancestry. Speckled Trout was named for its spotted pattern and
+          table quality, both of which reminded early settlers of true trout (Salmonidae).
+          But DNA reveals it is a drum, more closely related to Red Drum and Atlantic
+          Croaker than to any Salmonid. This is why biologists use Latin binomial names:
+          <em>Cynoscion nebulosus</em> carries no assumptions about ancestry, while
+          "trout" carries a misleading one. The molecular tree corrects the record.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Red Drum and Black Drum are sister taxa in every tree. What biological evidence from Galveston Bay is consistent with this close relationship?</summary>
+      <div class="details-body">
+        <p>
+          Red Drum and Black Drum can interbreed and produce viable hybrids in the wild —
+          a phenomenon documented in Gulf coastal waters. Hybridization between species
+          typically requires a high degree of genetic similarity, particularly in the
+          molecular machinery governing reproduction. Sister taxa, by definition, share
+          the most recent common ancestor in the dataset, which places them genetically
+          closer to each other than either is to Speckled Trout or Atlantic Croaker.
+          The COI tree is thus consistent with what field biologists have observed: these
+          two species are close enough to occasionally cross the reproductive barrier.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Southern Flounder is consistently placed far from the drums despite living in the same estuary and sharing a similar bottom-dwelling lifestyle. What evolutionary concept explains this pattern?</summary>
+      <div class="details-body">
+        <p>
+          This is a textbook example of convergent evolution — unrelated lineages
+          independently evolving similar traits in response to similar ecological pressures.
+          Southern Flounder and drums both occupy Galveston Bay's shallow estuarine habitat,
+          and both are ambush predators that benefit from camouflage against a sandy bottom.
+          But the flounder's dramatically flat body and eye migration evolved in the lineage
+          Paralichthyidae completely independently from anything that happened in Sciaenidae.
+          Shared habitat can produce shared adaptations without shared ancestry.
+          The molecular tree sees through the ecological convergence and recovers the true
+          history.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Some internal nodes within Sciaenidae have bootstrap values of 30–50% even though the family itself is supported at 100%. What does this mean, and is it a problem?</summary>
+      <div class="details-body">
+        <p>
+          Bootstrap values measure confidence in a specific branching order, not in the
+          existence of a group. A node with 40% bootstrap support means that only 40% of
+          resampled datasets recovered that exact split — the remaining 60% recovered
+          slightly different arrangements among the same taxa. This reflects genuine
+          ambiguity about whether, say, Atlantic Croaker diverged before or after Speckled
+          Trout within Sciaenidae. For the question this tutorial is designed to ask —
+          does COI correctly identify family membership? — the answer is clearly yes.
+          All three methods (NJ, ML, Bayesian) unanimously place all four Sciaenidae
+          together at 100% support, separated from all other families. Resolving the
+          fine internal branching order would require more data, such as multiple loci
+          or a genome-wide approach. That's a different (and more expensive) question.
+        </p>
+      </div>
+    </details>
+
+
+    <!-- ══════════════════════════════════════════════════════
+         PAGE NAVIGATION
+    ══════════════════════════════════════════════════════ -->
+    <div class="page-nav">
+      <a href="how-dna-builds-a-tree.html">&larr; Back: How DNA Builds a Tree</a>
+      <a href="build-your-own-tree.html">Next: Build Your Own Tree &rarr;</a>
     </div>
 
   </main>

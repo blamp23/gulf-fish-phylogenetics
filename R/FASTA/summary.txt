@@ -1,0 +1,121 @@
+Fish : Red_Drum
+
+1. Sciaenops ocellatus isolate 11629 cytochrome oxidase subunit 1 (coi) gene, partial cds; mitochondrial
+648 bp linear DNA 
+MT879846.1 GI:1967464516
+
+2. Sciaenops ocellatus voucher USNM:FISH:426169 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+655 bp linear DNA 
+MT456179.1 GI:1842679239
+
+3. Sciaenops ocellatus voucher USNM:FISH:423951 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+655 bp linear DNA 
+MT456047.1 GI:1842678843
+
+Fish: Spec
+
+1. Cynoscion nebulosus voucher MXIII349 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+652 bp linear DNA 
+GU672720.1 GI:296462770
+
+2. Cynoscion nebulosus voucher USNM:FISH:438472 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+655 bp linear DNA 
+MT456255.1 GI:1842679397
+
+3. Cynoscion nebulosus isolate 11628 cytochrome oxidase subunit 1 (coi) gene, partial cds; mitochondrial
+648 bp linear DNA 
+MT879816.1 GI:1967464456
+
+
+Fish: Black Drum
+
+
+1. Pogonias cromis voucher USNM:FISH:431109 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+655 bp linear DNA 
+MT455865.1 GI:1842678384
+
+2. Pogonias cromis voucher USNM:FISH:429962 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+655 bp linear DNA 
+MT455861.1 GI:1842678376
+
+3. Pogonias cromis voucher USNM:FISH:429961 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+655 bp linear DNA 
+MT456022.1 GI:1842678768
+
+
+Fish: Southern Flounder
+
+
+1. Paralichthys lethostigma voucher Ple-241118-01 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+655 bp linear DNA 
+MN869893.1 GI:2185074463
+
+2. Paralichthys lethostigma voucher MXV0063 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+652 bp linear DNA 
+MG837972.1 GI:1385141798
+
+3. Paralichthys lethostigma voucher MXV0031 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+652 bp linear DNA 
+MG837973.1 GI:1385141800
+
+
+Fish: Atlantic Croaker
+
+
+1. Micropogonias undulatus voucher USNM:FISH:405878 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+655 bp linear DNA 
+MT456167.1 GI:1842679203
+
+2. Micropogonias undulatus voucher USNM:FISH:405877 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+655 bp linear DNA 
+MT455752.1 GI:1842678157
+
+3. Micropogonias undulatus voucher USNM:FISH:405875 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+655 bp linear DNA 
+MT455659.1 GI:1842677971
+
+
+Fish: Sheepshead
+
+1. Archosargus probatocephalus voucher USNM:FISH:429837 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+655 bp linear DNA 
+MT455647.1 GI:1842677947
+
+2. Archosargus probatocephalus voucher USNM:FISH:438863 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+655 bp linear DNA 
+MT456170.1 GI:1842679212
+
+3. Archosargus probatocephalus voucher USNM:FISH:431111 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+655 bp linear DNA 
+MT456245.1 GI:1842679377
+
+
+Fish: Flathead_Mullet
+
+1. Mugil cephalus voucher FWRI00210 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+655 bp linear DNA 
+PQ347332.1 GI:3043448189
+
+2. Mugil cephalus voucher FWRI00551 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+655 bp linear DNA 
+PQ347331.1 GI:3043448187
+
+3. Mugil cephalus voucher FWRI00550 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+655 bp linear DNA 
+PQ347330.1 GI:3043448185
+
+
+Fish: Bull_Shark
+
+1. Carcharhinus leucas voucher STRI-X-6485 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+655 bp linear DNA 
+PV837658.1 GI:3064561904
+
+2. Carcharhinus leucas voucher USNM:FISH:451243 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+655 bp linear DNA 
+MT456152.1 GI:1842679158
+
+3. Carcharhinus leucas voucher USNM:FISH:451200 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+655 bp linear DNA 
+MT456249.1 GI:1842679385
+
