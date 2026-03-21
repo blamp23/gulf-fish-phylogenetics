@@ -24,13 +24,47 @@
 
   <main>
 
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 1 — ECOLOGICAL SIGNIFICANCE
+    ══════════════════════════════════════════════════════ -->
     <h2>Ecological Significance</h2>
 
-    <figure>
-      <img src="images/redfish_swimming.jpeg"
-           alt="Red Drum swimming in Gulf waters">
-      <figcaption>Red Drum (<em>Sciaenops ocellatus</em>) — a keystone species of Gulf estuaries.</figcaption>
-    </figure>
+    <!-- Misc slideshow: Gulf species diversity -->
+    <div class="slideshow" id="ss-misc" aria-label="Gulf fish species slideshow">
+      <div class="slide active">
+        <img src="images/redfish_swimming.jpeg" alt="Red Drum swimming in Gulf waters">
+        <div class="slide-caption">Red Drum (<em>Sciaenops ocellatus</em>) — a keystone predator of Gulf estuaries and one of four Sciaenidae species in this study.</div>
+      </div>
+      <div class="slide">
+        <img src="images/bull_shark.jpg" alt="Bull Shark">
+        <div class="slide-caption">Bull Shark (<em>Carcharhinus leucas</em>) — a cartilaginous fish (Chondrichthyes) included as the evolutionary outgroup; its deep divergence from all bony fish anchors the root of the tree.</div>
+      </div>
+      <div class="slide">
+        <img src="images/Mullet.jpg" alt="Flathead Mullet">
+        <div class="slide-caption">Flathead Mullet (<em>Mugil cephalus</em>, family Mugilidae) — a schooling herbivore and important prey species, representing a separate order from the drums and croakers.</div>
+      </div>
+      <div class="slideshow-controls">
+        <button class="ss-btn prev-btn">&#8592;</button>
+        <div class="ss-dots">
+          <button class="ss-dot active"></button>
+          <button class="ss-dot"></button>
+          <button class="ss-dot"></button>
+        </div>
+        <button class="ss-btn next-btn">&#8594;</button>
+      </div>
+    </div>
+
+    <p>
+      The three species above — Red Drum, Bull Shark, and Flathead Mullet — illustrate
+      the ecological and phylogenetic range of this study. Red Drum is the centerpiece
+      of Gulf estuarine fisheries: a top predator, a recreational target, and a canary
+      in the coal mine for habitat health. Bull Shark shares these waters but belongs to
+      an entirely different evolutionary lineage; cartilaginous fishes diverged from
+      bony fishes over 420 million years ago, making Bull Shark the ideal anchor for the
+      root of our tree. Flathead Mullet occupies a different ecological niche — feeding
+      on algae and detritus rather than hunting fish — and belongs to an order separate
+      from the drums and croakers.
+    </p>
 
     <p>
       Gulf fisheries support billions of dollars in recreational and commercial activity
@@ -42,7 +76,7 @@
       requirements, spawn at similar times, and respond similarly to environmental
       stressors. A management decision that helps one Sciaenidae species is likely to
       benefit its relatives; one that harms the shared estuary habitat affects the whole
-      clade at once.
+      <a class="term" href="references.html#clade">clade</a> at once.
     </p>
 
     <details>
@@ -79,25 +113,56 @@
       </div>
     </details>
 
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 2 — CONSERVATION APPLICATIONS
+    ══════════════════════════════════════════════════════ -->
     <h2>Conservation Applications</h2>
 
-    <figure>
-      <img src="images/Sheepshead_swimming.jpg"
-           alt="Sheepshead fish at a jetty structure">
-      <figcaption>Sheepshead (<em>Archosargus probatocephalus</em>) — superficially similar to juvenile Black Drum, but a different family entirely.</figcaption>
-    </figure>
+    <h3>Look-alikes from different families: Black Drum and Sheepshead</h3>
+
+    <!-- Drum / Sheepshead slideshow: look-alike problem -->
+    <div class="slideshow" id="ss-drum" aria-label="Black Drum and Sheepshead comparison slideshow">
+      <div class="slide active">
+        <img src="images/black_drum_young.jpg" alt="Juvenile Black Drum with vertical bars">
+        <div class="slide-caption">Juvenile Black Drum (<em>Pogonias cromis</em>, family Sciaenidae) — bold vertical bars that fade with age. This fish is a drum; the COI tree places it firmly alongside Red Drum, Speckled Trout, and Atlantic Croaker.</div>
+      </div>
+      <div class="slide">
+        <img src="images/Sheepshead_swimming.jpg" alt="Sheepshead at a jetty structure">
+        <div class="slide-caption">Sheepshead (<em>Archosargus probatocephalus</em>, family Sparidae) — nearly identical banding pattern, completely different family. Look for the distinct human-like incisor teeth to tell them apart in the field.</div>
+      </div>
+      <div class="slideshow-controls">
+        <button class="ss-btn prev-btn">&#8592;</button>
+        <div class="ss-dots">
+          <button class="ss-dot active"></button>
+          <button class="ss-dot"></button>
+        </div>
+        <button class="ss-btn next-btn">&#8594;</button>
+      </div>
+    </div>
 
     <p>
-      Misidentifying species leads to misallocated conservation effort. Juvenile Black
-      Drum and Sheepshead look strikingly similar — both are silvery fish with bold
-      vertical black bars that fade with age — yet they belong to completely different
-      families: Sciaenidae and Sparidae, respectively. In the field, even experienced
-      anglers sometimes confuse the two. <a class="term" href="references.html#dna-barcoding">DNA barcoding</a><sup><a class="ref" href="references.html#ref-hebert2003">1</a></sup> using the <a class="term" href="references.html#coi">COI gene</a> can distinguish
+      The two fish above are a textbook example of why appearance alone cannot be trusted
+      for species identification. Juvenile Black Drum and Sheepshead both display bold
+      vertical black bars on a silvery body — a convergent pattern that appears in many
+      unrelated reef and estuary fish worldwide, likely because the barred pattern provides
+      camouflage near structure like jetties and pilings. Despite looking nearly identical,
+      Black Drum belong to Sciaenidae (the drums and croakers) and Sheepshead belong to
+      Sparidae (the porgies) — families that share no more recent common ancestor than
+      any other two perciform families. The COI tree separates them unambiguously at 100%
+      support by all three methods.
+    </p>
+
+    <p>
+      Misidentifying species leads to misallocated conservation effort. In the field,
+      even experienced anglers sometimes confuse juvenile Black Drum with Sheepshead.
+      <a class="term" href="references.html#dna-barcoding">DNA barcoding</a><sup><a class="ref" href="references.html#ref-hebert2003">1</a></sup>
+      using the <a class="term" href="references.html#coi">COI gene</a> can distinguish
       them instantly, even from a small tissue sample taken without a whole fish present.
       This matters when assessing bycatch, monitoring spawning populations, or enforcing
       size and bag limits, because regulations that apply to one species do not apply to
-      the other. Phylogenetic data gives managers the tools to identify what they are
-      actually counting.
+      the other. <a class="term" href="references.html#phylogeny">Phylogenetic</a> data gives managers the tools to identify what they
+      are actually counting.
     </p>
 
     <details>
@@ -118,30 +183,91 @@
       </div>
     </details>
 
+    <h3>A name is not a family tree: the trout problem</h3>
+
+    <!-- Trout comparison slideshow: shared name, different phylogeny -->
+    <div class="slideshow" id="ss-trout" aria-label="Trout comparison slideshow">
+      <div class="slide active">
+        <img src="images/Speckled%20Trout.jpg" alt="Speckled Trout (Cynoscion nebulosus)">
+        <div class="slide-caption">Speckled Trout (<em>Cynoscion nebulosus</em>, family Sciaenidae) — a drum, not a trout. Named for its spotted pattern, it is more closely related to Red Drum and Black Drum than to any Salmonid species.</div>
+      </div>
+      <div class="slide">
+        <img src="images/RainbowTrout.jpg" alt="Rainbow Trout (Oncorhynchus mykiss)">
+        <div class="slide-caption">Rainbow Trout (<em>Oncorhynchus mykiss</em>, family Salmonidae) — a true trout. The COI tree places it in a completely separate clade from Speckled Trout, with one of the longest separating branches in the entire ingroup.</div>
+      </div>
+      <div class="slide">
+        <img src="images/BrownTrout.jpg" alt="Brown Trout (Salmo trutta)">
+        <div class="slide-caption">Brown Trout (<em>Salmo trutta</em>, family Salmonidae) — also a true trout, confirming Salmonidae as a real, well-supported clade. Both Rainbow and Brown Trout cluster together at 100% bootstrap support, unambiguously separate from Speckled Trout.</div>
+      </div>
+      <div class="slideshow-controls">
+        <button class="ss-btn prev-btn">&#8592;</button>
+        <div class="ss-dots">
+          <button class="ss-dot active"></button>
+          <button class="ss-dot"></button>
+          <button class="ss-dot"></button>
+        </div>
+        <button class="ss-btn next-btn">&#8594;</button>
+      </div>
+    </div>
+
+    <p>
+      The three fish above share the word "trout" in their names, but the phylogenetic
+      tree tells an entirely different story. Speckled Trout is a drum — its evolutionary
+      neighbors on the tree are Red Drum, Black Drum, and Atlantic Croaker, not any
+      Salmonid. Rainbow Trout and Brown Trout are genuine trout: both belong to Salmonidae
+      and cluster together at 100% bootstrap support and posterior probability across all
+      three tree-building methods. The branch separating Salmonidae from Sciaenidae is one
+      of the longest in the ingroup, comparable in scale to the separation between bony
+      fish and Bull Shark. Speckled Trout received its common name because early Gulf
+      Coast anglers noticed its spotted pattern and excellent table quality — both
+      reminiscent of the freshwater trout they were familiar with. DNA makes no such
+      association. This is one of the clearest demonstrations in the dataset of why
+      <a class="term" href="references.html#dna-barcoding">DNA barcoding</a> is
+      indispensable: it bypasses cultural naming conventions entirely and goes straight
+      to evolutionary history.
+    </p>
+
     <details>
-      <summary>The passage describes Sheepshead and juvenile Black Drum as "superficially similar." Name two morphological traits they genuinely share and one that reliably distinguishes them, even in the field.</summary>
+      <summary>The two images of Rainbow Trout and Brown Trout look quite different from each other. If common names mislead us about Speckled Trout, how can we be confident that Rainbow and Brown Trout genuinely belong together in Salmonidae?</summary>
       <div class="details-body">
         <p>
-          Both species are deep-bodied silvery fish with bold vertical black bars that
-          are most prominent in juveniles and fade with age — the convergent feature that
-          misleads observers. Both are also found around structure (jetties, pilings, reef)
-          in Gulf Coast estuaries. A reliable distinguishing character in the field is
-          dentition: Sheepshead have prominent, human-like incisors and molar-like crushing
-          teeth designed for barnacles and crustaceans, while Black Drum have no visible
-          incisors and have pharyngeal teeth (in the throat) designed for crushing oysters
-          and crabs. Chin barbels (whiskers) are also diagnostic — Black Drum have them,
-          Sheepshead do not.
+          Common names are unreliable precisely because they are assigned by humans based
+          on superficial features — but the COI tree doesn't care about appearances. Rainbow
+          Trout and Brown Trout cluster together at 100% bootstrap support across all three
+          methods (NJ, ML, and Bayesian) because their COI sequences are genuinely similar
+          in ways that reflect shared ancestry. Their within-group COI divergence is small
+          (consistent with two species in the same family), while both are separated from
+          every Gulf fish by a large evolutionary gap. Morphology may diverge between
+          species within a family — evolution acts on body shape and coloration in response
+          to local environments — but mitochondrial DNA carries a more direct record of
+          shared ancestry that common names cannot overwrite.
         </p>
       </div>
     </details>
 
-    <h2>Fisheries Management</h2>
+    <details>
+      <summary>Name two morphological traits that reliably distinguish Black Drum from Sheepshead in the field, even in juveniles.</summary>
+      <div class="details-body">
+        <p>
+          <strong>Dentition</strong> is the most reliable character: Sheepshead have
+          prominent, human-like incisors at the front of the mouth and molar-like crushing
+          teeth designed for barnacles and crustaceans — visible with the fish in hand even
+          without dissection. Black Drum have no visible incisors and instead have
+          pharyngeal (throat) teeth for crushing oysters and crabs.
+          <strong>Chin barbels</strong> are the second diagnostic feature: Black Drum
+          have small fleshy barbels (whisker-like projections) on the underside of the
+          lower jaw, while Sheepshead do not. Both traits are present from juvenile
+          stages onward. Body depth relative to length and head profile also differ
+          subtly, but dentition and barbels are reliable even with a quick inspection.
+        </p>
+      </div>
+    </details>
 
-    <figure>
-      <img src="images/Mullet.jpg"
-           alt="Flathead Mullet, a Gulf Coast species">
-      <figcaption>Flathead Mullet (<em>Mugil cephalus</em>) — used as an alternative outgroup in this phylogenetic analysis.</figcaption>
-    </figure>
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 3 — FISHERIES MANAGEMENT
+    ══════════════════════════════════════════════════════ -->
+    <h2>Fisheries Management</h2>
 
     <p>
       Fisheries managers set catch limits, size limits, and seasonal closures at the
@@ -158,7 +284,7 @@
     </p>
 
     <details>
-      <summary>A fisheries manager sets a harvest quota for Atlantic Croaker in Galveston Bay. Later, COI barcoding of sampled fish reveals that the bay population and the offshore Gulf population are genetically distinct — two cryptic species. What specific problem does this create for the existing quota?</summary>
+      <summary>A fisheries manager sets a harvest quota for Atlantic Croaker in Galveston Bay. Later, COI barcoding reveals that the bay population and the offshore Gulf population are genetically distinct — two cryptic species. What specific problem does this create for the existing quota?</summary>
       <div class="details-body">
         <p>
           The original quota was calculated assuming the bay and offshore fish were a single
@@ -176,7 +302,7 @@
     </details>
 
     <details>
-      <summary>Phylogenetic data shows that Southern Flounder in the Gulf of Mexico and on the Atlantic coast are deeply divergent — potentially distinct management units. How would this change decisions about habitat restoration funding?</summary>
+      <summary>Phylogenetic data shows that Southern Flounder populations in the Gulf of Mexico and on the Atlantic coast are deeply divergent — potentially distinct management units. How would this change decisions about habitat restoration funding?</summary>
       <div class="details-body">
         <p>
           If the two populations are genetically isolated, gene flow from one region cannot
@@ -204,6 +330,36 @@
        <a href="https://github.com/blamp23/gulf-fish-phylogenetics" target="_blank" rel="noopener">GitHub</a> &nbsp;|&nbsp;
        <a href="references.html">References &amp; Glossary</a></p>
   </footer>
+
+  <script>
+  (function () {
+    document.querySelectorAll('.slideshow').forEach(function (ss) {
+      var slides = ss.querySelectorAll('.slide');
+      var dots   = ss.querySelectorAll('.ss-dot');
+      var cur    = 0;
+      var timer;
+
+      function show(n) {
+        slides[cur].classList.remove('active');
+        dots[cur].classList.remove('active');
+        cur = (n + slides.length) % slides.length;
+        slides[cur].classList.add('active');
+        dots[cur].classList.add('active');
+      }
+
+      function startAuto() { timer = setInterval(function () { show(cur + 1); }, 4500); }
+      function stopAuto()  { clearInterval(timer); }
+
+      ss.querySelector('.prev-btn').addEventListener('click', function () { stopAuto(); show(cur - 1); startAuto(); });
+      ss.querySelector('.next-btn').addEventListener('click', function () { stopAuto(); show(cur + 1); startAuto(); });
+      dots.forEach(function (d, i) { d.addEventListener('click', function () { stopAuto(); show(i); startAuto(); }); });
+      ss.addEventListener('mouseenter', stopAuto);
+      ss.addEventListener('mouseleave', startAuto);
+
+      startAuto();
+    });
+  }());
+  </script>
 
 </body>
 </html>
