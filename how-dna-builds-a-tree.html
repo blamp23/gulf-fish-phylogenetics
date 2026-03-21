@@ -272,7 +272,103 @@
       the particular sequences sampled.
     </p>
 
+    <h3>What is an outgroup and why does it matter?</h3>
+    <p>
+      An outgroup is a taxon known to have diverged from all members of the study group
+      before any of them diverged from each other. Including an outgroup allows the tree
+      to be <em>rooted</em> — given a direction in time. Without an outgroup, the tree is
+      unrooted: it shows topology (who is related to whom) but not polarity (which lineage
+      is ancestral). A good outgroup should be clearly outside the ingroup but not so
+      distantly related that sequence similarity breaks down and alignment becomes
+      unreliable. In this study, Bull Shark (<em>Carcharhinus leucas</em>) is the primary
+      outgroup: as an elasmobranch, it diverged from all bony ray-finned fishes roughly
+      420 million years ago, unambiguously placing it at the base of the tree. Flathead
+      Mullet is used as an alternative outgroup in sensitivity analyses, and the
+      interactive outgroup explorer on the Explore page lets you re-root the NJ tree on
+      any of the ten sequenced species to see how outgroup choice affects the display of
+      internal relationships.
+    </p>
+
+    <h3>How Neighbor-Joining works</h3>
+    <p>
+      Neighbor-Joining (NJ) is a distance-based method. It first compresses the full
+      sequence alignment into a single pairwise distance matrix — in this project using
+      the Kimura 2-parameter (K80) model, which corrects for the different rates of
+      transitions (A↔G, C↔T) and transversions (A↔C, A↔T, G↔C, G↔T) that are typical
+      of mitochondrial DNA. The algorithm then iteratively picks the pair of taxa with the
+      shortest corrected distance and joins them at a new internal node, updating all
+      remaining distances to that node. This continues until only two lineages remain and
+      the tree is complete. NJ is extremely fast — it runs in seconds on a laptop for
+      datasets of hundreds of taxa — and almost always recovers the correct major groupings
+      when sequences diverge by less than about 20%. Its weakness is that it discards all
+      column-by-column information once the distance matrix is computed, so it cannot
+      take advantage of which specific positions changed. Confidence is assessed by
+      bootstrap resampling: columns of the alignment are sampled with replacement 1,000
+      times and a fresh NJ tree is built each time; the bootstrap percentage on each node
+      is the fraction of replicates in which that clade appears.
+    </p>
+
+    <h3>How Maximum Likelihood works</h3>
+    <p>
+      Maximum Likelihood (ML) treats tree-building as a statistical estimation problem.
+      It defines an explicit probabilistic model of DNA evolution — here GTR+Γ+I, which
+      allows all six substitution rates to differ, models rate variation across sites with
+      a gamma distribution, and allows a fraction of sites to be invariant — and then
+      asks: given this model, what tree topology and branch lengths make the observed
+      alignment most probable? The likelihood of each column is computed independently
+      and multiplied together across the alignment (or summed in log space), so every
+      variable position contributes. The optimization searches tree space by rearranging
+      branches with nearest-neighbor interchange and subtree pruning/regrafting moves,
+      accepting changes that raise the likelihood. ML is far more computationally
+      intensive than NJ but generally more accurate because it uses the full alignment
+      rather than a distance summary. Bootstrap support is calculated by running the full
+      ML search on each of 1,000 resampled alignments.
+    </p>
+
+    <h3>How Bayesian Inference works</h3>
+    <p>
+      Bayesian inference (BI) uses the same likelihood model as ML but frames the problem
+      differently: instead of finding the single best tree, it estimates the probability
+      distribution over all possible trees given the data. In practice, this is done
+      with Markov chain Monte Carlo (MCMC): a chain of random tree proposals is run for
+      millions of steps, with each proposal accepted or rejected according to how much it
+      raises or lowers the posterior probability. After a "burn-in" period during which
+      the chain converges, the sampled trees are summarized into a majority-rule consensus
+      tree, and the proportion of samples containing each clade becomes that clade's
+      posterior probability. A posterior probability of 0.95 means that 95% of sampled
+      trees contained that grouping — a direct probabilistic statement about the clade's
+      support. This is conceptually different from a bootstrap percentage (which measures
+      how often a grouping reappears under resampling of the data) but in practice
+      similarly high values (&gt;0.95 PP or &gt;95% bootstrap) both indicate strong,
+      reliable support. MrBayes was used for the Bayesian analysis in this study, running
+      two independent chains for 2 million generations.
+    </p>
+
+    <h3>Comparing the three methods</h3>
+    <p>
+      The three methods make different assumptions and use the sequence data in different
+      ways, so their agreement provides independent lines of evidence. NJ is the fastest
+      and most transparent: you can inspect the distance matrix and understand exactly
+      why two taxa are joined. ML and Bayesian inference both use the full alignment and
+      an explicit substitution model, making them more sensitive to subtle signal in the
+      data but also more sensitive to model misspecification. In practice, all three
+      methods agree on the major groupings in this dataset — the family-level clades
+      (Sciaenidae, Sparidae, Paralichthyidae, Mugilidae, Carcharhinidae, Salmonidae) are
+      recovered at 100% bootstrap support or posterior probability ≥ 0.99 by every method
+      — which is strong evidence that these groupings reflect real evolutionary history
+      rather than analytical artifact. Where the methods give different answers (typically
+      in weakly supported internal nodes), that disagreement is informative: it flags
+      regions of the tree where the COI barcode alone does not contain enough signal to
+      resolve the relationship, and where additional loci or longer sequences would be
+      needed.
+    </p>
+
   </main>
+
+  <nav class="bottom-nav">
+    <a href="why-fish-matter.html">&larr; Why Fish Relationships Matter</a>
+    <a href="explore-phylogeny.html">Explore Gulf Fish Phylogeny &rarr;</a>
+  </nav>
 
   <footer>
     <p>Your Name &nbsp;|&nbsp; Texas A&amp;M University</p>
