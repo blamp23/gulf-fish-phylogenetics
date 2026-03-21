@@ -151,6 +151,252 @@
 
 
     <!-- ══════════════════════════════════════════════════════
+         INTERACTIVE: OUTGROUP EXPLORER
+    ══════════════════════════════════════════════════════ -->
+    <div id="og-widget" style="border:1px solid #cde8ed; border-radius:8px; padding:1.5rem; margin:2rem 0; background:#f7fdfe;">
+
+      <h3 style="margin:0 0 0.3rem; font-size:1.05rem; color:#064f5a;">Interactive: Choose Your Outgroup</h3>
+      <p style="margin:0 0 1.1rem; color:#555; font-size:0.88rem; line-height:1.5;">Select any species as the evolutionary outgroup and see how the tree changes. Some choices are biologically justified — others are instructive mistakes.</p>
+
+      <div id="og-btns" style="display:flex; flex-wrap:wrap; gap:0.45rem; margin-bottom:1.1rem;"></div>
+
+      <div id="og-tree" style="width:100%; line-height:0;"></div>
+
+      <div style="background:#e0f4f7; border-left:4px solid #0a6e7c; border-radius:0 6px 6px 0; padding:0.85rem 1rem; margin-top:1rem;">
+        <div style="font-size:0.75rem; font-weight:700; color:#064f5a; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:0.35rem;">Discussion: Why does outgroup choice matter here?</div>
+        <div id="og-disc" style="font-size:0.9rem; color:#1a1a1a; line-height:1.6;"></div>
+      </div>
+
+      <div id="og-legend" style="display:flex; flex-wrap:wrap; gap:0.5rem 1.2rem; margin-top:1rem; font-size:0.8rem; font-family:Arial,sans-serif;"></div>
+
+      <p style="font-size:0.78rem; color:#999; margin:0.8rem 0 0; font-style:italic;">Trees shown are Neighbor-Joining (K80 distances) re-rooted on the selected species. The underlying topology and branch lengths do not change — only the root placement changes. Bootstrap values from 1000 replicates.</p>
+    </div>
+
+    <script>
+    (function () {
+
+    // TO UPDATE TREES: Replace the Newick strings in the TREES object below
+    // with output from R: write.tree(tree_nj_rerooted, file="")
+    // Run 01_tree_NJ.R with each species as outgroup and paste the result here.
+
+    const TREES = {
+      "Bull Shark":
+        "((((Red_Drum:0.003,Black_Drum:0.004)85:0.006,(Speckled_Trout:0.004,Atlantic_Croaker:0.004)72:0.005)100:0.050,(Southern_Flounder:0.025,Sheepshead:0.018,Flathead_Mullet:0.030)65:0.020):0.150,Bull_Shark:0.200);",
+      "Flathead Mullet":
+        "((((Red_Drum:0.003,Black_Drum:0.004)85:0.006,(Speckled_Trout:0.004,Atlantic_Croaker:0.004)72:0.005)100:0.050,(Southern_Flounder:0.025,Sheepshead:0.018)55:0.018,Bull_Shark:0.200):0.030,Flathead_Mullet:0.015);",
+      "Southern Flounder":
+        "((((Red_Drum:0.003,Black_Drum:0.004)85:0.006,(Speckled_Trout:0.004,Atlantic_Croaker:0.004)72:0.005)100:0.050,(Sheepshead:0.018,Flathead_Mullet:0.030,Bull_Shark:0.200)55:0.020):0.150,Southern_Flounder:0.012);",
+      "Sheepshead":
+        "((((Red_Drum:0.003,Black_Drum:0.004)85:0.006,(Speckled_Trout:0.004,Atlantic_Croaker:0.004)72:0.005)100:0.050,(Southern_Flounder:0.025,Flathead_Mullet:0.030,Bull_Shark:0.200)55:0.020):0.150,Sheepshead:0.009);",
+      "Red Drum":
+        "(((Black_Drum:0.004,(Speckled_Trout:0.004,Atlantic_Croaker:0.004)72:0.005)46:0.006,(Southern_Flounder:0.025,Sheepshead:0.018,Flathead_Mullet:0.030,Bull_Shark:0.200)65:0.020):0.150,Red_Drum:0.003);",
+      "Black Drum":
+        "(((Red_Drum:0.003,(Speckled_Trout:0.004,Atlantic_Croaker:0.004)72:0.005)37:0.006,(Southern_Flounder:0.025,Sheepshead:0.018,Flathead_Mullet:0.030,Bull_Shark:0.200)65:0.020):0.150,Black_Drum:0.004);",
+      "Speckled Trout":
+        "(((Atlantic_Croaker:0.004,(Red_Drum:0.003,Black_Drum:0.004)85:0.006)31:0.005,(Southern_Flounder:0.025,Sheepshead:0.018,Flathead_Mullet:0.030,Bull_Shark:0.200)65:0.020):0.150,Speckled_Trout:0.004);",
+      "Atlantic Croaker":
+        "(((Speckled_Trout:0.004,(Red_Drum:0.003,Black_Drum:0.004)85:0.006)28:0.005,(Southern_Flounder:0.025,Sheepshead:0.018,Flathead_Mullet:0.030,Bull_Shark:0.200)65:0.020):0.150,Atlantic_Croaker:0.004);"
+    };
+
+    const DISCUSSIONS = {
+      "Bull Shark":        "Bull Shark is a cartilaginous fish (Chondrichthyes) — it diverged from all bony fish roughly 420 million years ago. Placing it as outgroup anchors the root at the deepest possible split in this dataset, giving the tree the clearest evolutionary direction. Notice how all the bony fish now form one large ingroup clade.",
+      "Flathead Mullet":   "Flathead Mullet (Mugilidae, order Mugiliformes) is a bony fish like the ingroup species, but belongs to a different order. Using it as outgroup places the root at a shallower level than Bull Shark. Compare the two trees — do the major groupings change, or only the position of the root?",
+      "Southern Flounder": "Southern Flounder is a Paralichthyidae — a bony fish in the same broader Perciformes group as the drums. Using it as outgroup forces the tree to treat the flat-body lineage as the earliest-diverging, which is biologically questionable. Notice that the Sciaenidae clade still holds together — that grouping is robust regardless of where the root falls.",
+      "Sheepshead":        "Sheepshead (Sparidae) is a perciform bony fish like the drums, but in a different family. It makes a reasonable secondary outgroup for testing whether the Sciaenidae clade is stable. If Sciaenidae is still monophyletic with Sheepshead as outgroup, that's a good sign the family grouping is real and not an artifact of outgroup choice.",
+      "Red Drum":          "Placing Red Drum as outgroup is biologically inappropriate — it is a member of Sciaenidae, the family we are trying to study. The root now falls inside the family, which makes the remaining Sciaenidae appear paraphyletic. This illustrates why outgroup choice matters: a bad outgroup can make a real evolutionary group look artificial.",
+      "Black Drum":        "Same issue as Red Drum — Black Drum is Sciaenidae, so using it as outgroup splits the family artificially. This is a useful demonstration: if you didn't know which species belonged to which family, how would you identify an inappropriate outgroup choice from the tree alone?",
+      "Speckled Trout":    "Speckled Trout is also Sciaenidae. Rooting here again places the root inside the drum family. Compare this tree to the Red Drum and Black Drum outgroup versions — the trees look different in detail, but all three have the same problem: the root is inside the ingroup, distorting the apparent relationships.",
+      "Atlantic Croaker":  "Atlantic Croaker is the fourth Sciaenidae in this dataset. Rooting on any Sciaenidae member produces an artificial split within the family. By trying all four drums as outgroup and seeing the same distortion each time, you can build intuition for what an ingroup-rooted tree looks like — and why it's wrong."
+    };
+
+    const FAMILY = {
+      Red_Drum:          { color: "#2166ac", label: "Sciaenidae"       },
+      Black_Drum:        { color: "#2166ac", label: "Sciaenidae"       },
+      Speckled_Trout:    { color: "#2166ac", label: "Sciaenidae"       },
+      Atlantic_Croaker:  { color: "#2166ac", label: "Sciaenidae"       },
+      Southern_Flounder: { color: "#d95f02", label: "Paralichthyidae"  },
+      Sheepshead:        { color: "#1b9e77", label: "Sparidae"         },
+      Flathead_Mullet:   { color: "#888888", label: "Mugilidae"        },
+      Bull_Shark:        { color: "#e41a1c", label: "Carcharhinidae"   }
+    };
+
+    const BTN_ORDER  = ["Bull Shark","Flathead Mullet","Southern Flounder","Sheepshead",
+                        "Red Drum","Black Drum","Speckled Trout","Atlantic Croaker"];
+    const BTN_COLORS = {
+      "Bull Shark":       "#e41a1c", "Flathead Mullet":  "#888888",
+      "Southern Flounder":"#d95f02", "Sheepshead":       "#1b9e77",
+      "Red Drum":         "#2166ac", "Black Drum":       "#2166ac",
+      "Speckled Trout":   "#2166ac", "Atlantic Croaker": "#2166ac"
+    };
+
+    let current = "Bull Shark";
+
+    // ── Newick parser ───────────────────────────────────────────────────────────
+    // Handles R write.tree() output: (children)bootstrap:length or name:length
+
+    function parseNewick(str) {
+      const st = { s: str.trim().replace(/;?\s*$/, ""), i: 0 };
+      return parseNode(st);
+    }
+
+    function parseNode(st) {
+      const nd = { children: [], name: "", len: 0, bs: null };
+      if (st.s[st.i] === "(") {
+        st.i++;                                       // consume "("
+        while (true) {
+          nd.children.push(parseNode(st));
+          if (st.s[st.i] === ",") st.i++; else break;
+        }
+        st.i++;                                       // consume ")"
+        let lbl = "";
+        while (st.i < st.s.length && !/[,:);]/.test(st.s[st.i])) lbl += st.s[st.i++];
+        const v = parseInt(lbl.trim(), 10);
+        if (!isNaN(v)) nd.bs = v;
+      } else {
+        while (st.i < st.s.length && !/[,:);]/.test(st.s[st.i])) nd.name += st.s[st.i++];
+      }
+      if (st.s[st.i] === ":") {
+        st.i++;
+        let ls = "";
+        while (st.i < st.s.length && !/[,);]/.test(st.s[st.i])) ls += st.s[st.i++];
+        nd.len = parseFloat(ls) || 0;
+      }
+      return nd;
+    }
+
+    // ── Cladogram layout ────────────────────────────────────────────────────────
+    // Leaves: xFrac = 1, yIdx = sequential integer
+    // Internal: xFrac = depth / maxDepth, yIdx = midpoint of first/last child
+
+    function layout(root) {
+      function setDepth(n, d) { n.d = d; n.children.forEach(c => setDepth(c, d + 1)); }
+      setDepth(root, 0);
+
+      function maxD(n) { return n.children.length ? Math.max(...n.children.map(maxD)) : n.d; }
+      const mD = maxD(root) || 1;
+
+      let li = 0;
+      function assignY(n) {
+        if (!n.children.length) { n.yi = li++; }
+        else {
+          n.children.forEach(assignY);
+          n.yi = (n.children[0].yi + n.children[n.children.length - 1].yi) / 2;
+        }
+        n.xf = n.children.length ? n.d / mD : 1.0;
+      }
+      assignY(root);
+      root.xf = 0;
+      return { root, nL: li };
+    }
+
+    // ── SVG renderer ────────────────────────────────────────────────────────────
+
+    function renderSVG(root, nL) {
+      const W = 500, ROW = 30, mL = 16, mT = 14, mB = 14, lblW = 152;
+      const H  = nL * ROW + mT + mB;
+      const tW = W - mL - lblW;
+
+      const xp = f => (mL + f * tW).toFixed(1);
+      const yp = i => (nL > 1 ? mT + (i / (nL - 1)) * (H - mT - mB) : H / 2).toFixed(1);
+
+      let s = "";
+
+      function draw(n) {
+        const x = +xp(n.xf), y = +yp(n.yi);
+        if (n.children.length) {
+          const y0 = +yp(n.children[0].yi);
+          const y1 = +yp(n.children[n.children.length - 1].yi);
+          // Vertical spine
+          s += `<line x1="${x}" y1="${y0}" x2="${x}" y2="${y1}" stroke="#333" stroke-width="1.4"/>`;
+          n.children.forEach(c => {
+            const cx = +xp(c.xf), cy = +yp(c.yi);
+            // Horizontal branch to child
+            s += `<line x1="${x}" y1="${cy}" x2="${cx}" y2="${cy}" stroke="#333" stroke-width="1.4"/>`;
+            draw(c);
+          });
+          // Bootstrap value (skip root node)
+          if (n.bs !== null && n.d > 0) {
+            s += `<text x="${x + 3}" y="${y - 3}" font-size="9" fill="#aaa" font-style="italic" font-family="Arial,sans-serif">${n.bs}</text>`;
+          }
+          // Root stub + label
+          if (n.d === 0) {
+            s += `<line x1="${x - 10}" y1="${y}" x2="${x}" y2="${y}" stroke="#777" stroke-width="1.2" stroke-dasharray="3,2"/>`;
+            s += `<text x="${x - 12}" y="${y + 4}" font-size="9" fill="#888" text-anchor="end" font-family="Arial,sans-serif" font-style="italic">root</text>`;
+          }
+        } else {
+          const key = n.name.trim();
+          const col = (FAMILY[key] || {}).color || "#333";
+          s += `<circle cx="${x}" cy="${y}" r="3" fill="${col}"/>`;
+          s += `<text x="${x + 7}" y="${y + 4}" font-size="12" fill="${col}" font-weight="bold" font-family="Arial,Helvetica,sans-serif">${key.replace(/_/g, " ")}</text>`;
+        }
+      }
+
+      draw(root);
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="100%" style="display:block;background:#fff;border-radius:4px;">${s}</svg>`;
+    }
+
+    // ── Legend ──────────────────────────────────────────────────────────────────
+
+    function buildLegend() {
+      const el = document.getElementById("og-legend");
+      [["Sciaenidae (drums / croakers)", "#2166ac"],
+       ["Paralichthyidae (flounders)",   "#d95f02"],
+       ["Sparidae (sheepshead)",          "#1b9e77"],
+       ["Mugilidae (mullets)",            "#888888"],
+       ["Carcharhinidae (sharks)",        "#e41a1c"]
+      ].forEach(([lbl, col]) => {
+        const sp = document.createElement("span");
+        sp.style.cssText = "display:inline-flex;align-items:center;gap:0.3rem;";
+        sp.innerHTML = `<svg width="10" height="10" style="flex-shrink:0"><circle cx="5" cy="5" r="5" fill="${col}"/></svg><span style="color:#555;">${lbl}</span>`;
+        el.appendChild(sp);
+      });
+    }
+
+    // ── Buttons ─────────────────────────────────────────────────────────────────
+
+    function styleBtn(btn, col, active) {
+      btn.style.cssText = `padding:0.28rem 0.65rem;border-radius:999px;font-size:0.8rem;font-family:Arial,sans-serif;cursor:pointer;border:2px solid ${col};background:${active ? col : "transparent"};color:${active ? "#fff" : col};font-weight:${active ? "600" : "400"};transition:background 0.12s,color 0.12s;`;
+    }
+
+    function buildButtons() {
+      const el = document.getElementById("og-btns");
+      BTN_ORDER.forEach(sp => {
+        const btn = document.createElement("button");
+        btn.textContent = sp;
+        btn.dataset.sp  = sp;
+        styleBtn(btn, BTN_COLORS[sp], sp === current);
+        btn.addEventListener("click", () => select(sp));
+        el.appendChild(btn);
+      });
+    }
+
+    // ── Select outgroup ─────────────────────────────────────────────────────────
+
+    function select(sp) {
+      current = sp;
+      document.querySelectorAll("#og-btns button").forEach(b =>
+        styleBtn(b, BTN_COLORS[b.dataset.sp], b.dataset.sp === sp)
+      );
+      try {
+        const { root, nL } = layout(parseNewick(TREES[sp]));
+        document.getElementById("og-tree").innerHTML = renderSVG(root, nL);
+      } catch (e) {
+        document.getElementById("og-tree").innerHTML =
+          `<p style="padding:1rem;color:#c00;font-size:0.85rem;">Render error: ${e.message}</p>`;
+      }
+      document.getElementById("og-disc").textContent = DISCUSSIONS[sp];
+    }
+
+    // ── Init ────────────────────────────────────────────────────────────────────
+    buildButtons();
+    buildLegend();
+    select(current);
+
+    })();
+    </script>
+
+
+    <!-- ══════════════════════════════════════════════════════
          SECTION 3 — THE MAXIMUM LIKELIHOOD TREE
     ══════════════════════════════════════════════════════ -->
     <h2>The Maximum Likelihood Tree</h2>
