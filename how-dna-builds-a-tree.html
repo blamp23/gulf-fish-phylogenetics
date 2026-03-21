@@ -57,9 +57,102 @@
       same ancestral site. The result is a rectangular matrix where rows are taxa and
       columns are aligned nucleotide positions. This matrix is the direct input to all
       three tree-building methods used in this study. In this project, MUSCLE was used
-      for alignment, producing a matrix of approximately 660 columns across 24 sequences
-      representing 8 Gulf species.
+      for alignment, producing a matrix of approximately 660 columns across 30 sequences
+      representing 10 species.
     </p>
+
+    <h3>Your Actual Alignment</h3>
+    <p>The viewer below shows the real COI alignment used in this study — 30 sequences, approximately 660 base pairs each. Scroll left and right to explore the full alignment. Conserved columns (identical across all species) appear as solid blocks of one color; variable columns (where species differ) show mixed colors. Those variable columns are what the tree-building algorithms use to infer evolutionary relationships.</p>
+
+    <div id="alignment-container" style="width:100%; border:1px solid #ccc; border-radius:6px; overflow:hidden; margin:1.5rem 0;">
+      <div id="msaDiv" style="width:100%; height:420px;"></div>
+    </div>
+    <p style="font-size:0.85rem; color:#666; font-style:italic;">Scroll horizontally to explore all 660 alignment columns. Colors represent nucleotides: green=A, blue=C, yellow=G, red=T. Gaps (–) appear as white. The conserved block at the start is a hallmark of COI — it's why universal primers can amplify this gene from almost any fish.</p>
+
+    <script>
+    // Fetch the FASTA file and initialize MSA viewer
+    fetch('alignment.fasta')
+      .then(response => response.text())
+      .then(fastaText => {
+        // Parse FASTA into array of {name, seq} objects
+        const seqs = [];
+        const lines = fastaText.split('\n');
+        let current = null;
+        for (const line of lines) {
+          if (line.startsWith('>')) {
+            if (current) seqs.push(current);
+            current = { name: line.slice(1).trim(), seq: '' };
+          } else if (current) {
+            current.seq += line.trim().toUpperCase();
+          }
+        }
+        if (current) seqs.push(current);
+
+        // Color map for nucleotides
+        const colors = { A:'#5cb85c', C:'#5bc0de', G:'#f0ad4e', T:'#d9534f', '-':'#ffffff' };
+
+        const container = document.getElementById('msaDiv');
+        const cellW = 12, cellH = 18, labelW = 160;
+        const nSeqs = seqs.length;
+        const nCols = seqs[0].seq.length;
+
+        // Build canvas-based alignment display
+        const wrapper = document.createElement('div');
+        wrapper.style.cssText = 'display:flex; height:420px; font-family:monospace; font-size:11px;';
+
+        // Left panel — sequence names (fixed)
+        const namePanel = document.createElement('div');
+        namePanel.style.cssText = `width:${labelW}px; min-width:${labelW}px; overflow:hidden; background:#f8f9fa; border-right:2px solid #ddd; padding-top:2px;`;
+        seqs.forEach(s => {
+          const d = document.createElement('div');
+          d.style.cssText = `height:${cellH}px; line-height:${cellH}px; padding:0 6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:#333;`;
+          d.textContent = s.name.replace(/_/g,' ');
+          namePanel.appendChild(d);
+        });
+
+        // Right panel — scrollable alignment
+        const seqPanel = document.createElement('div');
+        seqPanel.style.cssText = 'overflow-x:auto; overflow-y:hidden; flex:1;';
+
+        const canvas = document.createElement('canvas');
+        canvas.width  = nCols * cellW;
+        canvas.height = nSeqs * cellH;
+        canvas.style.display = 'block';
+        const ctx = canvas.getContext('2d');
+        ctx.font = `${cellH - 4}px monospace`;
+
+        seqs.forEach((s, row) => {
+          for (let col = 0; col < nCols; col++) {
+            const base = s.seq[col] || '-';
+            const x = col * cellW, y = row * cellH;
+            ctx.fillStyle = colors[base] || '#dddddd';
+            ctx.fillRect(x, y, cellW - 1, cellH - 1);
+            if (cellW >= 10) {
+              ctx.fillStyle = '#000';
+              ctx.fillText(base, x + 2, y + cellH - 4);
+            }
+          }
+        });
+
+        seqPanel.appendChild(canvas);
+        wrapper.appendChild(namePanel);
+        wrapper.appendChild(seqPanel);
+        container.appendChild(wrapper);
+
+        // Add position indicator on hover
+        canvas.addEventListener('mousemove', e => {
+          const rect = canvas.getBoundingClientRect();
+          const col = Math.floor((e.clientX - rect.left) / cellW);
+          container.title = `Position ${col + 1} of ${nCols}`;
+        });
+      })
+      .catch(err => {
+        document.getElementById('msaDiv').innerHTML =
+          '<p style="padding:1rem;color:#666;">Alignment viewer requires a local server or GitHub Pages. <a href="alignment.fasta">Download the alignment file</a> to view in AliView or MEGA.</p>';
+      });
+    </script>
+
+    <p>Want to inspect the alignment in detail? <a href="alignment.fasta" download>Download the alignment FASTA</a> and open it in <a href="https://ormbunkar.se/aliview/" target="_blank">AliView</a> (free, recommended) or MEGA.</p>
 
     <h2>Inferring the Tree</h2>
 
