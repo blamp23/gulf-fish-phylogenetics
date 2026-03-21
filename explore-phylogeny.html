@@ -48,8 +48,8 @@
     </p>
 
     <p>
-      For each species, two or three COI (cytochrome oxidase I) sequences were downloaded
-      from GenBank, giving us 24 sequences total. Using multiple sequences per species
+      For each species, two or three <a class="term" href="references.html#coi">COI (cytochrome oxidase I)</a><sup><a class="ref" href="references.html#ref-hebert2003">1</a></sup> sequences were downloaded
+      from <a class="term" href="references.html#genbank">GenBank</a>, giving us 24 sequences total. Using multiple sequences per species
       serves as a built-in quality check: if three independent submissions for the same
       species always cluster tightly together on the tree, we know the sequences are
       consistently labeled and the gene is behaving as a reliable marker. If one sequence
@@ -60,11 +60,11 @@
     </p>
 
     <p>
-      All sequences were aligned using MUSCLE, a fast multiple sequence alignment
+      All sequences were aligned using <a class="term" href="references.html#muscle">MUSCLE</a><sup><a class="ref" href="references.html#ref-edgar2004">8</a></sup>, a fast multiple sequence alignment
       algorithm well-suited to mitochondrial protein-coding genes. The final aligned
       matrix was approximately 660 base pairs long. Three independent methods were then
-      used to infer the tree: Neighbor-Joining (NJ), Maximum Likelihood (ML), and
-      Bayesian inference. Running all three is standard practice — when independent
+      used to infer the tree: <a class="term" href="references.html#neighbor-joining">Neighbor-Joining (NJ)</a><sup><a class="ref" href="references.html#ref-saitou1987">4</a></sup>, <a class="term" href="references.html#maximum-likelihood">Maximum Likelihood (ML)</a><sup><a class="ref" href="references.html#ref-felsenstein1981">5</a></sup>, and
+      <a class="term" href="references.html#bayesian">Bayesian inference</a><sup><a class="ref" href="references.html#ref-ronquist2003">7</a></sup>. Running all three is standard practice — when independent
       methods built on different mathematical frameworks agree, confidence in the result
       goes up considerably.
     </p>
@@ -87,7 +87,7 @@
     <h2>The Neighbor-Joining Tree</h2>
 
     <p>
-      The Neighbor-Joining tree, built from pairwise K80 distances, gives us our first
+      The <a class="term" href="references.html#neighbor-joining">Neighbor-Joining</a> tree, built from pairwise <a class="term" href="references.html#k80">K80</a><sup><a class="ref" href="references.html#ref-kimura1980">3</a></sup> distances, gives us our first
       look at the data and sets the stage for the more sophisticated analyses that follow.
       The most immediately striking new feature in the expanded dataset is the Salmonidae
       clade: Rainbow Trout and Brown Trout cluster together at 100% bootstrap support,
@@ -269,7 +269,7 @@
     <h2>The Maximum Likelihood Tree</h2>
 
     <p>
-      The Maximum Likelihood tree was built using the GTR+Gamma+I substitution model
+      The <a class="term" href="references.html#maximum-likelihood">Maximum Likelihood</a> tree was built using the <a class="term" href="references.html#gtr">GTR+Gamma+I</a><sup><a class="ref" href="references.html#ref-tavare1986">6</a></sup> substitution model
       fitted to the aligned COI matrix. GTR stands for General Time Reversible — it
       allows all six possible types of DNA substitution (A↔G, C↔T, A↔C, A↔T, G↔C,
       G↔T) to occur at their own estimated rates, rather than assuming they're all
@@ -322,7 +322,7 @@
     <h2>The Bayesian Tree</h2>
 
     <p>
-      The Bayesian analysis, run in MrBayes with the GTR+Gamma model over 500,000 MCMC
+      The <a class="term" href="references.html#bayesian">Bayesian</a> analysis, run in MrBayes with the GTR+Gamma model over 500,000 <a class="term" href="references.html#mcmc">MCMC</a>
       generations, produces the cleanest-looking result of the three methods. Nearly
       every node carries a posterior probability of 1.00, including the node uniting all
       Sciaenidae, the node uniting Rainbow Trout and Brown Trout as Salmonidae, and —
@@ -346,7 +346,7 @@
     </p>
 
     <p>
-      Posterior probability is often misunderstood, so it's worth being precise. A PP of
+      <a class="term" href="references.html#posterior-probability">Posterior probability</a> is often misunderstood, so it's worth being precise. A PP of
       0.58 at a node does not mean the node is wrong — it means that given the data and
       the model, there is a 58% probability that those taxa form the grouping shown, and
       a 42% probability that the true branching order is slightly different. Bayesian
@@ -412,7 +412,7 @@
       <summary>Southern Flounder is consistently placed far from the drums despite living in the same estuary and sharing a similar bottom-dwelling lifestyle. What evolutionary concept explains this pattern?</summary>
       <div class="details-body">
         <p>
-          This is a textbook example of convergent evolution — unrelated lineages
+          This is a textbook example of <a class="term" href="references.html#convergent-evolution">convergent evolution</a> — unrelated lineages
           independently evolving similar traits in response to similar ecological pressures.
           Southern Flounder and drums both occupy Galveston Bay's shallow estuarine habitat,
           and both are ambush predators that benefit from camouflage against a sandy bottom.
@@ -465,20 +465,17 @@
     <!-- ══════════════════════════════════════════════════════
          PAGE NAVIGATION
     ══════════════════════════════════════════════════════ -->
-    <div class="page-nav">
-      <a href="how-dna-builds-a-tree.html">&larr; Back: How DNA Builds a Tree</a>
-      <a href="build-your-own-tree.html">Next: Build Your Own Tree &rarr;</a>
-    </div>
-
   </main>
 
   <nav class="bottom-nav">
     <a href="how-dna-builds-a-tree.html">&larr; How DNA Builds a Tree</a>
+    <a class="refs-btn" href="references.html">References &amp; Glossary</a>
     <a href="build-your-own-tree.html">Build Your Own Tree &rarr;</a>
   </nav>
 
   <footer>
-    <p>Your Name &nbsp;|&nbsp; Texas A&amp;M University</p>
+    <p>Benji Lamp &nbsp;|&nbsp; Texas A&amp;M University &nbsp;|&nbsp;
+       <a href="https://github.com/blamp23" target="_blank" rel="noopener">GitHub: blamp23</a></p>
   </footer>
 
 </body>

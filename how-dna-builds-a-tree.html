@@ -31,8 +31,8 @@
       typically a small fin clip taken from a live or freshly preserved specimen. The
       tissue is homogenized and processed through a standard extraction protocol that
       lyses cells, removes proteins and lipids, and precipitates pure genomic DNA. From
-      that extract, a pair of universal PCR primers flanking the COI barcode region
-      amplifies the target segment. The PCR product is then sent for Sanger sequencing —
+      that extract, a pair of universal <a class="term" href="references.html#pcr">PCR</a> primers flanking the <a class="term" href="references.html#coi">COI barcode region</a><sup><a class="ref" href="references.html#ref-hebert2003">1</a></sup>
+      amplifies the target segment. The PCR product is then sent for <a class="term" href="references.html#sanger">Sanger sequencing</a> —
       the gold standard method for generating individual sequences. Sanger sequencing
       works by incorporating fluorescently labeled chain-terminating nucleotides during
       DNA synthesis, producing fragments of every possible length. When separated by
@@ -40,7 +40,7 @@
       chromatogram: a colored peak trace where each color represents one of the four
       bases. Software reads the peaks and outputs a string of A, C, G, and T characters
       approximately 650 base pairs long. That string — one sequence per specimen — is
-      deposited in GenBank and becomes the permanent public record of that individual's
+      deposited in <a class="term" href="references.html#genbank">GenBank</a> and becomes the permanent public record of that individual's
       COI barcode. All sequences in this study were downloaded from GenBank rather than
       generated in the lab; the accession numbers are listed on the Build Your Own Tree
       page.
@@ -56,8 +56,8 @@
       position across all sequences — meaning every base in a column evolved from the
       same ancestral site. The result is a rectangular matrix where rows are taxa and
       columns are aligned nucleotide positions. This matrix is the direct input to all
-      three tree-building methods used in this study. In this project, MUSCLE was used
-      for alignment, producing a matrix of approximately 660 columns across 24 sequences
+      three tree-building methods used in this study. In this project, <a class="term" href="references.html#muscle">MUSCLE</a><sup><a class="ref" href="references.html#ref-edgar2004">8</a></sup> was used
+      for <a class="term" href="references.html#alignment">alignment</a>, producing a matrix of approximately 660 columns across 24 sequences
       representing 8 species.
     </p>
 
@@ -159,14 +159,14 @@
     <p>
       Three complementary methods were used to infer the evolutionary tree from the
       aligned matrix, and their agreement provides confidence in the result.
-      Neighbor-Joining (NJ) compresses the alignment into a matrix of pairwise distances
+      <a class="term" href="references.html#neighbor-joining">Neighbor-Joining (NJ)</a><sup><a class="ref" href="references.html#ref-saitou1987">4</a></sup> compresses the alignment into a matrix of pairwise distances
       and finds the tree that minimizes total distance — it is extremely fast and gives
-      a reliable first approximation. Maximum Likelihood (ML) instead evaluates the full
+      a reliable first approximation. <a class="term" href="references.html#maximum-likelihood">Maximum Likelihood (ML)</a><sup><a class="ref" href="references.html#ref-felsenstein1981">5</a></sup> instead evaluates the full
       alignment under an explicit probabilistic model of DNA evolution, finding the tree
       that makes the observed sequence data most probable under that model; it is more
-      computationally intensive but generally more accurate. Bayesian inference uses
-      Markov chain Monte Carlo sampling to estimate a probability distribution over all
-      possible trees, returning posterior probabilities rather than point estimates. When
+      computationally intensive but generally more accurate. <a class="term" href="references.html#bayesian">Bayesian inference</a><sup><a class="ref" href="references.html#ref-ronquist2003">7</a></sup> uses
+      <a class="term" href="references.html#mcmc">Markov chain Monte Carlo</a> sampling to estimate a probability distribution over all
+      possible trees, returning <a class="term" href="references.html#posterior-probability">posterior probabilities</a> rather than point estimates. When
       all three methods agree on a grouping, confidence in that grouping is high; when
       they disagree, it signals a region of tree space that the data cannot resolve with
       a single barcode gene.
@@ -181,7 +181,7 @@
       lengths represent evolutionary distance, measured in substitutions per site under
       the model used, so longer branches mean more DNA change accumulated along that
       lineage. The root is the oldest node in the tree and gives it direction — without
-      an outgroup to place the root, a tree is unrooted and does not imply ancestor-
+      an <a class="term" href="references.html#outgroup">outgroup</a> to place the root, a tree is unrooted and does not imply ancestor-
       descendant relationships.
     </p>
 
@@ -267,7 +267,7 @@
       In this study, Bull Shark serves as the outgroup: it diverged from all bony fish
       roughly 420 million years ago, far deeper than any split within the ingroup, which
       places the root unambiguously at the base of the tree. A node labeled with 100%
-      bootstrap support means that identical grouping appeared in all 1,000 bootstrap
+      <a class="term" href="references.html#bootstrap">bootstrap</a><sup><a class="ref" href="references.html#ref-felsenstein1985">10</a></sup> support means that identical grouping appeared in all 1,000 bootstrap
       replicates — very strong evidence that the clade is real and not an artifact of
       the particular sequences sampled.
     </p>
@@ -291,9 +291,9 @@
 
     <h3>How Neighbor-Joining works</h3>
     <p>
-      Neighbor-Joining (NJ) is a distance-based method. It first compresses the full
+      <a class="term" href="references.html#neighbor-joining">Neighbor-Joining (NJ)</a> is a distance-based method. It first compresses the full
       sequence alignment into a single pairwise distance matrix — in this project using
-      the Kimura 2-parameter (K80) model, which corrects for the different rates of
+      the <a class="term" href="references.html#k80">Kimura 2-parameter (K80) model</a><sup><a class="ref" href="references.html#ref-kimura1980">3</a></sup>, which corrects for the different rates of
       transitions (A↔G, C↔T) and transversions (A↔C, A↔T, G↔C, G↔T) that are typical
       of mitochondrial DNA. The algorithm then iteratively picks the pair of taxa with the
       shortest corrected distance and joins them at a new internal node, updating all
@@ -310,8 +310,8 @@
 
     <h3>How Maximum Likelihood works</h3>
     <p>
-      Maximum Likelihood (ML) treats tree-building as a statistical estimation problem.
-      It defines an explicit probabilistic model of DNA evolution — here GTR+Γ+I, which
+      <a class="term" href="references.html#maximum-likelihood">Maximum Likelihood (ML)</a> treats tree-building as a statistical estimation problem.
+      It defines an explicit probabilistic model of DNA evolution — here <a class="term" href="references.html#gtr">GTR+Γ+I</a><sup><a class="ref" href="references.html#ref-tavare1986">6</a></sup>, which
       allows all six substitution rates to differ, models rate variation across sites with
       a gamma distribution, and allows a fraction of sites to be invariant — and then
       asks: given this model, what tree topology and branch lengths make the observed
@@ -327,10 +327,10 @@
 
     <h3>How Bayesian Inference works</h3>
     <p>
-      Bayesian inference (BI) uses the same likelihood model as ML but frames the problem
+      <a class="term" href="references.html#bayesian">Bayesian inference (BI)</a><sup><a class="ref" href="references.html#ref-ronquist2003">7</a></sup> uses the same likelihood model as ML but frames the problem
       differently: instead of finding the single best tree, it estimates the probability
       distribution over all possible trees given the data. In practice, this is done
-      with Markov chain Monte Carlo (MCMC): a chain of random tree proposals is run for
+      with <a class="term" href="references.html#mcmc">Markov chain Monte Carlo (MCMC)</a>: a chain of random tree proposals is run for
       millions of steps, with each proposal accepted or rejected according to how much it
       raises or lowers the posterior probability. After a "burn-in" period during which
       the chain converges, the sampled trees are summarized into a majority-rule consensus
@@ -367,11 +367,13 @@
 
   <nav class="bottom-nav">
     <a href="why-fish-matter.html">&larr; Why Fish Relationships Matter</a>
+    <a class="refs-btn" href="references.html">References &amp; Glossary</a>
     <a href="explore-phylogeny.html">Explore Gulf Fish Phylogeny &rarr;</a>
   </nav>
 
   <footer>
-    <p>Your Name &nbsp;|&nbsp; Texas A&amp;M University</p>
+    <p>Benji Lamp &nbsp;|&nbsp; Texas A&amp;M University &nbsp;|&nbsp;
+       <a href="https://github.com/blamp23" target="_blank" rel="noopener">GitHub: blamp23</a></p>
   </footer>
 
 </body>

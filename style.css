@@ -288,60 +288,137 @@ details[open] summary {
   margin-bottom: 0;
 }
 
-/* ── Page navigation (prev / next) ── */
-.page-nav {
+/* ── Bottom navigation (unified prev/next/refs bar) ── */
+nav.bottom-nav {
+  max-width: var(--max-width);
+  margin: 3rem auto 1rem auto;
+  padding: 0.75rem 1.5rem;
   display: flex;
   justify-content: space-between;
-  margin-top: 3rem;
-  padding-top: 1.5rem;
+  align-items: center;
+  gap: 0.75rem;
   border-top: 1px solid var(--border);
-  gap: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.88rem;
 }
 
-.page-nav a {
+nav.bottom-nav a {
   display: inline-block;
   background: var(--accent);
   color: #fff;
   text-decoration: none;
-  padding: 0.65rem 1.2rem;
-  border-radius: 4px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 0.9rem;
-  transition: background 0.15s;
-}
-
-.page-nav a:hover {
-  background: var(--accent-dark);
-}
-
-/* ── Bottom navigation ── */
-nav.bottom-nav {
-  max-width: var(--max-width);
-  margin: 3rem auto 1rem auto;
-  padding: 0 1.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 0.9rem;
-}
-
-nav.bottom-nav a {
-  color: var(--accent);
-  text-decoration: none;
   font-weight: 600;
-  border: 1px solid var(--border);
-  padding: 0.45rem 0.9rem;
+  padding: 0.55rem 1.1rem;
   border-radius: 4px;
   transition: background 0.15s;
+  white-space: nowrap;
 }
 
 nav.bottom-nav a:hover {
+  background: var(--accent-dark);
+}
+
+nav.bottom-nav a.refs-btn {
+  background: #fff;
+  color: var(--accent);
+  border: 1px solid var(--border);
+  font-weight: 400;
+  font-size: 0.82rem;
+  padding: 0.45rem 0.85rem;
+}
+
+nav.bottom-nav a.refs-btn:hover {
   background: var(--accent-light);
 }
 
 nav.bottom-nav span {
+  flex: 1;
+}
+
+/* ── Inline term & reference links ── */
+a.term {
+  color: var(--accent-dark);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+  font-style: inherit;
+}
+
+a.term:hover {
+  background: var(--accent-light);
+  border-radius: 2px;
+}
+
+sup a.ref {
+  color: var(--accent-dark);
+  text-decoration: none;
+  font-size: 0.72em;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+sup a.ref:hover {
+  text-decoration: underline;
+}
+
+/* ── Glossary definition list ── */
+dl.glossary {
+  margin: 1.5rem 0;
+}
+
+dl.glossary dt {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--accent-dark);
+  margin-top: 1.75rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--border);
+}
+
+dl.glossary dd {
+  margin: 0.4rem 0 0 0;
+  padding-left: 1rem;
+  border-left: 3px solid var(--accent-light);
+  color: var(--text);
+  font-size: 0.97rem;
+  line-height: 1.7;
+}
+
+.gloss-ref {
   display: block;
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* ── Literature cited list ── */
+ol.literature {
+  margin: 1.5rem 0 1.5rem 1.5rem;
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+ol.literature li {
+  margin-bottom: 1.1rem;
+  padding-left: 0.25rem;
+}
+
+ol.literature li a {
+  color: var(--accent);
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.88rem;
+}
+
+ol.literature li a:hover {
+  text-decoration: underline;
+}
+
+main h3 {
+  font-size: 1.1rem;
+  color: var(--accent-dark);
+  margin: 2rem 0 0.6rem;
 }
 
 /* ── Footer ── */

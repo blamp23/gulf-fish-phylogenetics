@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>References &amp; Glossary — Gulf Fish Phylogenetics</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="why-fish-matter.html">Why Fish Relationships Matter</a></li>
+      <li><a href="how-dna-builds-a-tree.html">How DNA Builds a Tree</a></li>
+      <li><a href="explore-phylogeny.html">Explore Gulf Fish Phylogeny</a></li>
+      <li><a href="build-your-own-tree.html">Build Your Own Tree</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-header">
+    <h1>References &amp; Glossary</h1>
+  </header>
+
+  <main>
+
+    <p>
+      This page defines key technical terms used throughout the site and cites the primary
+      literature supporting the methods and findings.
+      <strong>Highlighted terms</strong> in the main text link to definitions below.
+      Superscript numbers link to the corresponding journal reference in the
+      <a href="#literature">Literature Cited</a> section.
+    </p>
+
+    <!-- ══════════════════════════════════════════════════════
+         GLOSSARY
+    ══════════════════════════════════════════════════════ -->
+    <h2 id="glossary">Glossary</h2>
+
+    <dl class="glossary">
+
+      <dt id="alignment">Alignment (multiple sequence alignment)</dt>
+      <dd>
+        The process of inserting gap characters into DNA sequences so that homologous
+        positions — sites descended from the same ancestral nucleotide — line up in the
+        same column across all sequences. The resulting matrix (rows = taxa, columns =
+        aligned positions) is the direct input to all tree-building methods.
+        See also: <a href="#muscle">MUSCLE</a>.
+        <span class="gloss-ref"><a href="#ref-edgar2004">Edgar, 2004</a></span>
+      </dd>
+
+      <dt id="bayesian">Bayesian inference</dt>
+      <dd>
+        A phylogenetic method that estimates the probability distribution over all possible
+        trees given the sequence data and a substitution model, using
+        <a href="#mcmc">Markov chain Monte Carlo (MCMC)</a> sampling. Returns
+        <a href="#posterior-probability">posterior probabilities</a> for each clade rather
+        than point estimates. Implemented in the program MrBayes.
+        <span class="gloss-ref"><a href="#ref-ronquist2003">Ronquist &amp; Huelsenbeck, 2003</a></span>
+      </dd>
+
+      <dt id="bootstrap">Bootstrap support</dt>
+      <dd>
+        A resampling measure of confidence in a tree node. Alignment columns are sampled
+        with replacement hundreds of times to create pseudo-replicates; a fresh tree is
+        built for each. The bootstrap percentage on a node is the fraction of replicate
+        trees containing that clade. Values ≥ 95% are generally considered strong support;
+        values below 50% indicate genuine ambiguity in the data.
+        <span class="gloss-ref"><a href="#ref-felsenstein1985">Felsenstein, 1985</a></span>
+      </dd>
+
+      <dt id="clade">Clade</dt>
+      <dd>
+        A group consisting of an ancestor and <em>all</em> of its descendants — a
+        complete branch of the tree of life. Clades are identified by shared derived
+        characters (synapomorphies). Example: all four Sciaenidae in this study
+        (Red Drum, Black Drum, Speckled Trout, Atlantic Croaker) form a clade, supported
+        at 100% by all three methods.
+      </dd>
+
+      <dt id="coi">COI (cytochrome oxidase I)</dt>
+      <dd>
+        A mitochondrial protein-coding gene encoding subunit I of cytochrome c oxidase, the
+        terminal enzyme in the electron transport chain. Its moderate evolutionary rate,
+        universal PCR primers (LCO1490/HCO2198), and ~650 bp usable length make it the
+        standard <a href="#dna-barcoding">DNA barcode</a> marker for animal species
+        identification, catalogued in the Barcode of Life Data System (BOLD).
+        <span class="gloss-ref"><a href="#ref-hebert2003">Hebert et al., 2003</a>;
+        <a href="#ref-ward2005">Ward et al., 2005</a></span>
+      </dd>
+
+      <dt id="convergent-evolution">Convergent evolution</dt>
+      <dd>
+        The independent evolution of similar traits in distantly related lineages in
+        response to similar ecological pressures. Example in this study: Southern Flounder
+        and drum-family species share a shallow estuarine habitat, but their body plans
+        evolved independently — a molecular phylogeny sees through the ecological
+        similarity and recovers the true history.
+      </dd>
+
+      <dt id="cryptic-species">Cryptic species</dt>
+      <dd>
+        Genetically distinct populations that are morphologically indistinguishable. A
+        single nominal species may actually comprise multiple reproductively isolated units
+        with different responses to fishing pressure — a harvest quota calculated for one
+        "species" that is really two could inadvertently collapse one population while
+        leaving the other intact.
+      </dd>
+
+      <dt id="dna-barcoding">DNA barcoding</dt>
+      <dd>
+        The use of a short, standardized DNA region — typically <a href="#coi">COI</a>
+        for animals — to identify species, screen for mislabeled specimens, and detect
+        <a href="#cryptic-species">cryptic diversity</a>. Sequences are compared against
+        reference databases such as <a href="#genbank">GenBank</a> or BOLD.
+        <span class="gloss-ref"><a href="#ref-hebert2003">Hebert et al., 2003</a></span>
+      </dd>
+
+      <dt id="genbank">GenBank</dt>
+      <dd>
+        The NIH genetic sequence database maintained by the National Center for
+        Biotechnology Information (NCBI), archiving all publicly submitted nucleotide
+        sequences with associated metadata (taxonomy, collection locality, publication).
+        Every COI sequence used in this study was downloaded from GenBank; accession
+        numbers are listed on the Build Your Own Tree page.
+      </dd>
+
+      <dt id="gtr">GTR model (General Time Reversible)</dt>
+      <dd>
+        A DNA substitution model that allows all six possible nucleotide substitution rates
+        (A↔G, C↔T, A↔C, A↔T, G↔C, G↔T) to take independent values, along with unequal
+        base frequencies. The most general time-reversible model; commonly extended with
+        +Γ (gamma distribution of rate variation across sites) and +I (proportion of
+        invariant sites). Used for Maximum Likelihood and Bayesian analyses in this study.
+        <span class="gloss-ref"><a href="#ref-tavare1986">Tavaré, 1986</a></span>
+      </dd>
+
+      <dt id="k80">K80 model (Kimura 2-parameter)</dt>
+      <dd>
+        A DNA substitution model that distinguishes between transitions (purine↔purine:
+        A↔G; pyrimidine↔pyrimidine: C↔T) and transversions (purine↔pyrimidine), reflecting
+        the biological observation that transitions occur roughly twice as often. The ratio
+        of transition to transversion rates is the κ (kappa) parameter. Used in this
+        study for Neighbor-Joining pairwise distance calculation.
+        <span class="gloss-ref"><a href="#ref-kimura1980">Kimura, 1980</a></span>
+      </dd>
+
+      <dt id="maximum-likelihood">Maximum Likelihood (ML)</dt>
+      <dd>
+        A phylogenetic method that finds the tree topology and branch lengths maximizing
+        the probability of observing the sequence data under an explicit substitution
+        model. Uses the full alignment column-by-column rather than a pairwise distance
+        summary, making it generally more accurate than
+        <a href="#neighbor-joining">Neighbor-Joining</a> but more computationally
+        intensive.
+        <span class="gloss-ref"><a href="#ref-felsenstein1981">Felsenstein, 1981</a></span>
+      </dd>
+
+      <dt id="mcmc">MCMC (Markov chain Monte Carlo)</dt>
+      <dd>
+        A computational technique used in <a href="#bayesian">Bayesian inference</a> to
+        sample from the posterior probability distribution of trees. A chain of proposed
+        tree modifications is run for millions of steps; each proposal is accepted or
+        rejected according to its effect on the posterior probability. After a "burn-in"
+        period, the sampled trees are summarized into a majority-rule consensus tree.
+      </dd>
+
+      <dt id="muscle">MUSCLE</dt>
+      <dd>
+        A fast multiple sequence alignment algorithm optimized for protein-coding
+        sequences. Uses progressive alignment with profile–profile comparison to produce
+        accurate alignments in seconds even for hundreds of sequences. Used in this study
+        via the R <code>msa</code> package.
+        <span class="gloss-ref"><a href="#ref-edgar2004">Edgar, 2004</a></span>
+      </dd>
+
+      <dt id="neighbor-joining">Neighbor-Joining (NJ)</dt>
+      <dd>
+        A distance-based phylogenetic method that first computes a pairwise distance matrix
+        (using a model such as <a href="#k80">K80</a>), then iteratively joins the pair of
+        taxa with the smallest corrected distance, building a tree in O(n³) time. Extremely
+        fast and reliable for divergences below ~20%; widely used as a quick first
+        approximation.
+        <span class="gloss-ref"><a href="#ref-saitou1987">Saitou &amp; Nei, 1987</a></span>
+      </dd>
+
+      <dt id="outgroup">Outgroup</dt>
+      <dd>
+        A taxon known to have diverged from all members of the study group (the ingroup)
+        before any ingroup members diverged from each other. Placing the root of the tree
+        between the outgroup and the ingroup gives the tree a direction in time. A good
+        outgroup is closely enough related for alignment to be reliable, but clearly
+        outside the group of interest. In this study, Bull Shark (<em>Carcharhinus
+        leucas</em>) is the primary outgroup.
+      </dd>
+
+      <dt id="pcr">PCR (polymerase chain reaction)</dt>
+      <dd>
+        A laboratory technique for exponentially amplifying a specific DNA region from a
+        complex template. Short oligonucleotide primers flanking the target anneal to
+        complementary strands; repeated cycles of denaturation, annealing, and extension
+        by a heat-stable polymerase produce millions of copies of the target segment,
+        enough for downstream sequencing.
+      </dd>
+
+      <dt id="phylogeny">Phylogeny / phylogenetic tree</dt>
+      <dd>
+        A branching diagram representing the inferred evolutionary history of a group of
+        taxa. Tips (leaves) are the sampled taxa; internal nodes represent hypothetical
+        common ancestors; branch lengths represent evolutionary distance in substitutions
+        per site. The placement of the root (usually by an <a href="#outgroup">outgroup</a>)
+        gives the tree a direction in time.
+        <span class="gloss-ref"><a href="#ref-near2012">Near et al., 2012</a></span>
+      </dd>
+
+      <dt id="posterior-probability">Posterior probability (PP)</dt>
+      <dd>
+        In <a href="#bayesian">Bayesian phylogenetics</a>, the probability that a given
+        clade is correct given the data and the model. Ranges from 0 to 1; values ≥ 0.95
+        are generally considered strong support. PP values tend to be numerically higher
+        than <a href="#bootstrap">bootstrap percentages</a> for the same node and the two
+        are not directly comparable.
+      </dd>
+
+      <dt id="sanger">Sanger sequencing</dt>
+      <dd>
+        The gold-standard method for generating individual DNA sequences. Fluorescently
+        labeled dideoxynucleotides (chain terminators) are incorporated at random during
+        synthesis, producing a ladder of fragments of every possible length. Capillary
+        electrophoresis separates them by size; a laser detector reads the fluorescent
+        color at each position, producing a chromatogram from which a ~650 bp sequence is
+        called automatically.
+      </dd>
+
+      <dt id="sister-taxa">Sister taxa</dt>
+      <dd>
+        Two taxa (or <a href="#clade">clades</a>) that share the most recent common
+        ancestor in a given tree — they are each other's closest relative in the dataset.
+        Example in this study: Red Drum and Black Drum are sister taxa in every tree,
+        consistent with the documented occurrence of natural hybrids between them in Gulf
+        waters.
+      </dd>
+
+    </dl>
+
+
+    <!-- ══════════════════════════════════════════════════════
+         LITERATURE CITED
+    ══════════════════════════════════════════════════════ -->
+    <h2 id="literature">Literature Cited</h2>
+
+    <ol class="literature">
+
+      <li id="ref-hebert2003">
+        Hebert, P. D. N., Cywinska, A., Ball, S. L., &amp; deWaard, J. R. (2003).
+        Biological identifications through DNA barcodes.
+        <em>Proceedings of the Royal Society of London B: Biological Sciences</em>,
+        270(1512), 313–321.
+        <a href="https://doi.org/10.1098/rspb.2002.2218" target="_blank" rel="noopener">doi:10.1098/rspb.2002.2218</a>
+      </li>
+
+      <li id="ref-ward2005">
+        Ward, R. D., Zemlak, T. S., Innes, B. H., Last, P. R., &amp; Hebert, P. D. N.
+        (2005). DNA barcoding Australia's fish species.
+        <em>Philosophical Transactions of the Royal Society B: Biological Sciences</em>,
+        360(1462), 1847–1857.
+        <a href="https://doi.org/10.1098/rstb.2005.1716" target="_blank" rel="noopener">doi:10.1098/rstb.2005.1716</a>
+      </li>
+
+      <li id="ref-kimura1980">
+        Kimura, M. (1980). A simple method for estimating evolutionary rates of base
+        substitutions through comparative studies of nucleotide sequences.
+        <em>Journal of Molecular Evolution</em>, 16(2), 111–120.
+        <a href="https://doi.org/10.1007/BF01731581" target="_blank" rel="noopener">doi:10.1007/BF01731581</a>
+      </li>
+
+      <li id="ref-saitou1987">
+        Saitou, N., &amp; Nei, M. (1987). The neighbor-joining method: a new method for
+        reconstructing phylogenetic trees.
+        <em>Molecular Biology and Evolution</em>, 4(4), 406–425.
+        <a href="https://doi.org/10.1093/oxfordjournals.molbev.a040454" target="_blank" rel="noopener">doi:10.1093/oxfordjournals.molbev.a040454</a>
+      </li>
+
+      <li id="ref-felsenstein1981">
+        Felsenstein, J. (1981). Evolutionary trees from DNA sequences: a maximum likelihood
+        approach.
+        <em>Journal of Molecular Evolution</em>, 17(6), 368–376.
+        <a href="https://doi.org/10.1007/BF01734359" target="_blank" rel="noopener">doi:10.1007/BF01734359</a>
+      </li>
+
+      <li id="ref-tavare1986">
+        Tavaré, S. (1986). Some probabilistic and statistical problems in the analysis of
+        DNA sequences.
+        <em>Lectures on Mathematics in the Life Sciences</em>, 17, 57–86.
+      </li>
+
+      <li id="ref-ronquist2003">
+        Ronquist, F., &amp; Huelsenbeck, J. P. (2003). MrBayes 3: Bayesian phylogenetic
+        inference under mixed models.
+        <em>Bioinformatics</em>, 19(12), 1572–1574.
+        <a href="https://doi.org/10.1093/bioinformatics/btg180" target="_blank" rel="noopener">doi:10.1093/bioinformatics/btg180</a>
+      </li>
+
+      <li id="ref-edgar2004">
+        Edgar, R. C. (2004). MUSCLE: multiple sequence alignment with high accuracy and
+        high throughput.
+        <em>Nucleic Acids Research</em>, 32(5), 1792–1797.
+        <a href="https://doi.org/10.1093/nar/gkh340" target="_blank" rel="noopener">doi:10.1093/nar/gkh340</a>
+      </li>
+
+      <li id="ref-near2012">
+        Near, T. J., Eytan, R. I., Dornburg, A., Kuhn, K. L., Moore, J. A., Davis, M. P.,
+        … &amp; Smith, W. L. (2012). Resolution of ray-finned fish phylogeny and timing
+        of diversification.
+        <em>Proceedings of the National Academy of Sciences</em>, 109(34), 13698–13703.
+        <a href="https://doi.org/10.1073/pnas.1206625109" target="_blank" rel="noopener">doi:10.1073/pnas.1206625109</a>
+      </li>
+
+      <li id="ref-felsenstein1985">
+        Felsenstein, J. (1985). Confidence limits on phylogenies: an approach using the
+        bootstrap.
+        <em>Evolution</em>, 39(4), 783–791.
+        <a href="https://doi.org/10.2307/2408678" target="_blank" rel="noopener">doi:10.2307/2408678</a>
+      </li>
+
+    </ol>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="index.html">&larr; Home</a>
+    <span></span>
+  </nav>
+
+  <footer>
+    <p>Benji Lamp &nbsp;|&nbsp; Texas A&amp;M University &nbsp;|&nbsp;
+       <a href="https://github.com/blamp23" target="_blank" rel="noopener">GitHub: blamp23</a></p>
+  </footer>
+
+</body>
+</html>
