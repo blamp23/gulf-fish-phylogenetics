@@ -65,7 +65,7 @@
     <p>The viewer below shows the real COI alignment used in this study — 30 sequences, approximately 660 base pairs each. Scroll left and right to explore the full alignment. Conserved columns (identical across all species) appear as solid blocks of one color; variable columns (where species differ) show mixed colors. Those variable columns are what the tree-building algorithms use to infer evolutionary relationships.</p>
 
     <div id="alignment-container" style="width:100%; border:1px solid #ccc; border-radius:6px; overflow:hidden; margin:1.5rem 0;">
-      <div id="msaDiv" style="width:100%; height:620px;"></div>
+      <div id="msaDiv" style="width:100%; height:590px;"></div>
     </div>
     <p style="font-size:0.85rem; color:#666; font-style:italic;">Scroll horizontally to explore all 660 alignment columns. Colors represent nucleotides: green=A, blue=C, yellow=G, red=T. Gaps (–) appear as white. The conserved block at the start is a hallmark of COI — it's why universal primers can amplify this gene from almost any fish.</p>
 
@@ -98,7 +98,7 @@
 
         // Build canvas-based alignment display
         const wrapper = document.createElement('div');
-        wrapper.style.cssText = 'display:flex; height:620px; font-family:monospace; font-size:11px;';
+        wrapper.style.cssText = 'display:flex; height:590px; font-family:monospace; font-size:11px;';
 
         // Left panel — sequence names (fixed)
         const namePanel = document.createElement('div');
