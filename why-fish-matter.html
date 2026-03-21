@@ -32,6 +32,10 @@
     <!-- Misc slideshow: Gulf species diversity -->
     <div class="slideshow" data-slides='[
       {"src":"images/redfish_swimming.jpeg","alt":"Red Drum swimming in Gulf waters","caption":"Red Drum (<em>Sciaenops ocellatus</em>) — a keystone predator of Gulf estuaries and one of four Sciaenidae species in this study."},
+      {"src":"images/redfish_benji_caught.jpg","alt":"Caught Red Drum","caption":"A caught Red Drum — the species is one of the most sought-after recreational fish in the Gulf, valued both for sport and as an ecological indicator of estuary health."},
+      {"src":"images/atlantic_croaker.jpg","alt":"Atlantic Croaker","caption":"Atlantic Croaker (<em>Micropogonias undulatus</em>) — named for the croaking sound produced by vibrating the swim bladder; a close Sciaenidae relative of Red Drum and Black Drum."},
+      {"src":"images/flounder_Scientific.jpg","alt":"Southern Flounder specimen","caption":"Southern Flounder (<em>Paralichthys lethostigma</em>) — a flatfish that lies camouflaged on the seafloor; both eyes migrate to one side of the head during juvenile development."},
+      {"src":"images/folunder_in_water.jpg","alt":"Flounder on the seafloor","caption":"A flounder blending into a sandy substrate — its cryptic coloration makes it nearly invisible to prey, an extreme morphological adaptation that diverges sharply from its body plan at larval stage."},
       {"src":"images/bull_shark.jpg","alt":"Bull Shark","caption":"Bull Shark (<em>Carcharhinus leucas</em>) — a cartilaginous fish (Chondrichthyes) included as the evolutionary outgroup; its deep divergence from all bony fish anchors the root of the tree."},
       {"src":"images/Mullet.jpg","alt":"Flathead Mullet","caption":"Flathead Mullet (<em>Mugil cephalus</em>, family Mugilidae) — a schooling herbivore representing a separate order from the drums and croakers, used as an alternative outgroup in sensitivity analyses."}
     ]'>
@@ -47,14 +51,18 @@
     </div>
 
     <p>
-      The three species above — Red Drum, Bull Shark, and Flathead Mullet — span the
-      ecological and phylogenetic range of this study. Red Drum is the centerpiece of
-      Gulf estuarine fisheries: a top predator, a recreational target, and a canary in
-      the coal mine for habitat health. Bull Shark shares these waters but belongs to an
-      entirely different evolutionary lineage; cartilaginous fishes diverged from bony
-      fishes over 420 million years ago, making it the ideal anchor for the root of our
-      tree. Flathead Mullet occupies a different ecological niche — feeding on algae and
-      detritus — and belongs to an order separate from the drums and croakers.
+      The species above represent the ecological and phylogenetic breadth of this study.
+      Red Drum is the centerpiece of Gulf estuarine fisheries: a top predator, a
+      recreational target, and a canary in the coal mine for habitat health. Atlantic
+      Croaker shares its family (Sciaenidae) and its dependence on estuarine habitat —
+      its abundance makes it one of the most commercially harvested fish in the Gulf.
+      Southern Flounder sits in a completely different order but occupies the same
+      shallow-water system; its bizarre flatfish body plan is a reminder that ecology
+      and phylogeny do not always align. Bull Shark belongs to an entirely different
+      evolutionary lineage; cartilaginous fishes diverged from bony fishes over 420
+      million years ago, making it the ideal anchor for the root of our tree. Flathead
+      Mullet occupies a different ecological niche — feeding on algae and detritus —
+      and belongs to an order separate from the drums and croakers.
     </p>
 
     <p>
@@ -302,15 +310,14 @@
       var imgEl   = ss.querySelector('.ss-img');
       var capEl   = ss.querySelector('.ss-caption');
       var dotsEl  = ss.querySelector('.ss-dots');
-      var cur     = 0;
-      var timer;
+      var cur = 0;
 
       /* build dots */
       slides.forEach(function (_, i) {
         var d = document.createElement('button');
         d.className = 'ss-dot' + (i === 0 ? ' active' : '');
         d.setAttribute('aria-label', 'Slide ' + (i + 1));
-        d.addEventListener('click', function () { stopAuto(); go(i); startAuto(); });
+        d.addEventListener('click', function () { go(i); });
         dotsEl.appendChild(d);
       });
       var dots = dotsEl.querySelectorAll('.ss-dot');
@@ -319,9 +326,9 @@
         cur = (n + slides.length) % slides.length;
         imgEl.classList.add('fading');
         setTimeout(function () {
-          imgEl.src         = slides[cur].src;
-          imgEl.alt         = slides[cur].alt;
-          capEl.innerHTML   = slides[cur].caption;
+          imgEl.src       = slides[cur].src;
+          imgEl.alt       = slides[cur].alt;
+          capEl.innerHTML = slides[cur].caption;
           imgEl.classList.remove('fading');
           dots.forEach(function (d, i) {
             d.classList.toggle('active', i === cur);
@@ -329,15 +336,8 @@
         }, 200);
       }
 
-      function startAuto() { timer = setInterval(function () { go(cur + 1); }, 4500); }
-      function stopAuto()  { clearInterval(timer); }
-
-      ss.querySelector('.ss-prev').addEventListener('click', function () { stopAuto(); go(cur - 1); startAuto(); });
-      ss.querySelector('.ss-next').addEventListener('click', function () { stopAuto(); go(cur + 1); startAuto(); });
-      ss.addEventListener('mouseenter', stopAuto);
-      ss.addEventListener('mouseleave', startAuto);
-
-      startAuto();
+      ss.querySelector('.ss-prev').addEventListener('click', function () { go(cur - 1); });
+      ss.querySelector('.ss-next').addEventListener('click', function () { go(cur + 1); });
     });
   }());
   </script>
