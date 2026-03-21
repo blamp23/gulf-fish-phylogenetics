@@ -421,6 +421,25 @@ main h3 {
   margin: 2rem 0 0.6rem;
 }
 
+/* ── Troubleshooting details (build-your-own-tree) ── */
+details.troubleshoot {
+  border-color: #e6a817;
+  background: #fffdf5;
+}
+
+details.troubleshoot summary {
+  color: #7a4f00;
+}
+
+details.troubleshoot summary::before {
+  content: "🔧";
+  font-size: 0.85rem;
+}
+
+details.troubleshoot[open] summary {
+  border-bottom-color: #e6a817;
+}
+
 /* ── Footer ── */
 footer {
   border-top: 2px solid var(--border);

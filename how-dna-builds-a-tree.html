@@ -46,6 +46,43 @@
       page.
     </p>
 
+    <details>
+      <summary>Sanger sequencing produces ~650 bp of COI. A fish genome is roughly 800 million bp. How can 0.00007% of the genome reliably distinguish species?</summary>
+      <div class="details-body">
+        <p>
+          Two factors make a small gene fragment sufficient. First, the COI region has
+          evolved at a rate that creates consistent, measurable differences between species
+          (typically 2–15% divergence) while staying nearly identical within species
+          (usually &lt;1%). This rate — not too fast, not too slow — is what makes it
+          a reliable marker. Second, species boundaries are real biological entities:
+          once two populations stop interbreeding, their genomes begin accumulating
+          mutations independently. After millions of generations of separation, even a
+          small window into one gene captures that accumulated divergence. The key
+          insight is that you're not trying to describe the whole genome — you're
+          exploiting the predictable rate of one mitochondrial gene as a clock that
+          ticks differently within and between species.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>All sequences in this study were downloaded from GenBank rather than generated in the lab. What quality concerns does this introduce, and how does using two or three sequences per species help address them?</summary>
+      <div class="details-body">
+        <p>
+          GenBank is publicly submitted, meaning sequences can be mislabeled, contaminated,
+          or derived from misidentified voucher specimens. A single downloaded sequence
+          has no internal check on these potential errors. Using two or three sequences per
+          species provides a built-in consistency check: if all replicates for a species
+          cluster tightly together on the tree (within-species distances &lt;1%), the
+          sequences are almost certainly from the same organism and correctly labeled. If
+          one sequence sits far from its stated siblings, that is a red flag — either the
+          sequence was mislabeled in GenBank, the voucher specimen was misidentified, or
+          there was contamination during the original study. In our dataset, every within-
+          species triplet clustered perfectly, giving confidence in the data quality.
+        </p>
+      </div>
+    </details>
+
     <h2>Alignment and Matrix Construction</h2>
 
     <p>
@@ -154,6 +191,42 @@
 
     <p>Want to inspect the alignment in detail? <a href="alignment.fasta" download>Download the alignment FASTA</a> and open it in <a href="https://ormbunkar.se/aliview/" target="_blank">AliView</a> (free, recommended) or MEGA.</p>
 
+    <details>
+      <summary>The alignment viewer shows a nearly solid block of conserved color in the first ~50 columns, then more variation. What does that conserved block tell you about that region of COI, and why would primers be designed to flank it?</summary>
+      <div class="details-body">
+        <p>
+          A conserved block means every sequence in the dataset shares nearly the same
+          nucleotide at those positions — the site has been under strong purifying selection
+          across all these lineages for hundreds of millions of years. PCR primers anneal
+          most reliably where sequence is conserved, because a primer designed against a
+          conserved region will bind to Bull Shark, Red Drum, and Rainbow Trout alike using
+          the same primer pair. If the primer target region were variable, the primer would
+          fail to bind in some species. The standard COI barcode primers (LCO1490 and
+          HCO2198) were designed to flank the conserved flanks of the variable barcode
+          window — a setup that lets a single universal primer pair amplify the barcode
+          from essentially any animal species.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>A classmate argues that aligning sequences before building the tree is an arbitrary step that could introduce error. How would you respond?</summary>
+      <div class="details-body">
+        <p>
+          Alignment is not arbitrary — it is mandatory. Distance calculations and likelihood
+          functions both assume that column <em>n</em> in the matrix represents the same
+          homologous position in every sequence (i.e., descended from the same ancestral
+          nucleotide). Without alignment, you would be comparing random positions, and the
+          resulting distances would measure nothing biologically meaningful. The potential
+          for alignment error is real — if two sequences are very divergent, automated
+          aligners can occasionally misplace gaps — but the solution is to inspect the
+          alignment (as you can do with the viewer above) and manually correct obvious
+          errors, not to skip alignment entirely. For COI barcodes from reasonably related
+          species, MUSCLE alignment is highly reliable and rarely introduces errors.
+        </p>
+      </div>
+    </details>
+
     <h2>Inferring the Tree</h2>
 
     <p>
@@ -171,6 +244,42 @@
       they disagree, it signals a region of tree space that the data cannot resolve with
       a single barcode gene.
     </p>
+
+    <details>
+      <summary>You run all three methods and get trees that agree on family-level groupings but disagree on two internal nodes within Sciaenidae — NJ shows 38% bootstrap, ML shows 29%, Bayesian shows PP = 0.54 at those nodes. What should you conclude?</summary>
+      <div class="details-body">
+        <p>
+          Consistent low support across three independent methods is actually informative
+          and reassuring: the data are simply insufficient to resolve those two specific
+          branching events, and all three methods are honestly reporting that uncertainty.
+          This is a biological result, not a methodological failure. A single 650 bp gene
+          contains limited phylogenetic signal for distinguishing very recent divergences
+          among closely related species. The correct interpretation is that the family
+          grouping is strongly supported (100% / PP = 1.00 at the node uniting all
+          Sciaenidae), but the exact order in which the four family members diverged from
+          each other cannot be determined from COI alone. The appropriate next step is
+          to add more data — either additional loci or a whole-genome approach — not to
+          choose whichever tree topology looks most convenient.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>If NJ and ML give identical topologies but Bayesian inference places one species in a different position with PP = 0.62, which tree should you report and why?</summary>
+      <div class="details-body">
+        <p>
+          Report all three trees and describe the disagreement explicitly. The Bayesian
+          placement at PP = 0.62 means there is meaningful probability mass on an
+          alternative arrangement — the data support both placements to some degree.
+          Hiding the disagreement by reporting only the NJ/ML consensus would misrepresent
+          the certainty of the result. In practice, a figure can show the majority-rule
+          topology with a note that one node differs in the Bayesian analysis, or all
+          three trees can be shown side by side. The disagreement itself is a finding:
+          it identifies a node in the tree where COI alone cannot resolve relationships,
+          and where additional data would be most valuable.
+        </p>
+      </div>
+    </details>
 
     <h2>Reading a Phylogeny</h2>
 
@@ -289,6 +398,24 @@
       internal relationships.
     </p>
 
+    <details>
+      <summary>If you rooted this study's tree on Speckled Trout instead of Bull Shark, what would change about the tree — and what would stay the same?</summary>
+      <div class="details-body">
+        <p>
+          The topology (the branching pattern — who is related to whom) is an intrinsic
+          property of the data and does not change when you move the root. What changes is
+          the <em>direction</em> of the tree: the root determines which side of each split
+          is "older." Placing the root on Speckled Trout would force the Sciaenidae family
+          to appear paraphyletic — split by the root — even though the actual evolutionary
+          relationships among the drums haven't changed at all. This is why outgroup choice
+          matters: a poorly chosen outgroup doesn't alter the relationships in the ingroup,
+          but it can produce a tree display that looks dramatically different and is much
+          harder to interpret correctly. The interactive outgroup explorer on the Explore
+          page lets you see exactly this effect firsthand.
+        </p>
+      </div>
+    </details>
+
     <h3>How Neighbor-Joining works</h3>
     <p>
       <a class="term" href="references.html#neighbor-joining">Neighbor-Joining (NJ)</a> is a distance-based method. It first compresses the full
@@ -308,6 +435,25 @@
       is the fraction of replicates in which that clade appears.
     </p>
 
+    <details>
+      <summary>NJ compresses the alignment into a distance matrix before building the tree, discarding all column-by-column information. Give a concrete example of a scenario where this data compression could lead NJ to an incorrect grouping that ML would get right.</summary>
+      <div class="details-body">
+        <p>
+          Consider two distantly related species that happen to have converged on the same
+          nucleotide at many variable positions — not because they share a common ancestor
+          that had that base, but because the same mutation arose independently in both
+          lineages. In the distance matrix, their pairwise distance will be artificially
+          small (they look similar overall), and NJ may incorrectly group them together.
+          ML, by contrast, evaluates each column individually under a model that accounts
+          for the probability of independent convergence — it can detect that the pattern
+          of similarities doesn't fit a shared-ancestry explanation as well as it fits
+          a convergence explanation, and place the taxa correctly. This is called
+          long-branch attraction when it involves rapidly evolving lineages, and it is
+          one of NJ's known failure modes that model-based methods like ML handle better.
+        </p>
+      </div>
+    </details>
+
     <h3>How Maximum Likelihood works</h3>
     <p>
       <a class="term" href="references.html#maximum-likelihood">Maximum Likelihood (ML)</a> treats tree-building as a statistical estimation problem.
@@ -324,6 +470,27 @@
       rather than a distance summary. Bootstrap support is calculated by running the full
       ML search on each of 1,000 resampled alignments.
     </p>
+
+    <details>
+      <summary>GTR+Γ+I is the most parameter-rich of the standard substitution models. Why not always use the simplest model (e.g., JC, which assumes all substitution rates are equal), and why not always use the most complex model available?</summary>
+      <div class="details-body">
+        <p>
+          The simplest model (Jukes-Cantor, JC) assumes all four bases are equally frequent
+          and all substitution rates are equal — neither of which is true for COI, where
+          transitions are far more common than transversions and base composition is skewed.
+          Using an underparameterized model produces biased distance estimates and can
+          distort topology. But adding parameters beyond what the data can support introduces
+          a different problem: overfitting. A highly complex model with more parameters than
+          the data can constrain produces unstable estimates with large uncertainty, and can
+          actually decrease phylogenetic accuracy. The solution is model selection — tools
+          like AIC or BIC penalize models for the number of parameters they use, rewarding
+          better fit only if the improvement outweighs the added complexity. In practice
+          for mitochondrial barcodes, GTR+Γ+I is almost always the justified choice:
+          complex enough to capture COI's real evolutionary dynamics, standard enough to
+          be reproducible and comparable across studies.
+        </p>
+      </div>
+    </details>
 
     <h3>How Bayesian Inference works</h3>
     <p>
@@ -344,6 +511,25 @@
       two independent chains for 2 million generations.
     </p>
 
+    <details>
+      <summary>A Bayesian run returns PP = 1.00 at a node. A critic argues this means the method is overconfident and the result can't be trusted. How would you respond?</summary>
+      <div class="details-body">
+        <p>
+          PP = 1.00 (often displayed as 1.00 rounded from, say, 0.9998) means that
+          every sampled post-burn-in tree in the MCMC run contained that clade — not
+          a single sampled alternative was found. For a well-mixed, converged chain
+          with high ESS values, this is a legitimate result: the data so strongly favor
+          that grouping that the chain never wandered to an alternative. The critic's
+          concern would be valid if the MCMC hadn't converged — if the chain was stuck
+          in one region of tree space and hadn't explored alternatives. That's why
+          convergence diagnostics (Tracer, checking ESS, running multiple independent
+          chains) are essential before trusting high PP values. Assuming convergence is
+          confirmed, PP = 1.00 is not overconfidence — it is the correct summary of
+          what the posterior distribution actually looks like for strong phylogenetic signal.
+        </p>
+      </div>
+    </details>
+
     <h3>Comparing the three methods</h3>
     <p>
       The three methods make different assumptions and use the sequence data in different
@@ -362,6 +548,26 @@
       resolve the relationship, and where additional loci or longer sequences would be
       needed.
     </p>
+
+    <details>
+      <summary>A reviewer asks you to justify why you ran all three methods instead of just reporting the ML tree, which is generally considered the most accurate. What is your response?</summary>
+      <div class="details-body">
+        <p>
+          Each method provides an independent line of evidence from different mathematical
+          frameworks, and their agreement or disagreement is itself informative. NJ gives
+          a transparent, distance-based view that is easy to explain and replicate; if
+          NJ and ML agree, the result is unlikely to be a model artifact. Bayesian
+          inference provides posterior probabilities — a fundamentally different kind
+          of support measure that answers a different question than bootstrap resampling.
+          When all three methods agree on a grouping at high support, confidence in that
+          grouping is higher than any single method alone can provide, because you have
+          ruled out artifacts specific to any one approach. Disagreements are equally
+          valuable: a node where NJ and ML agree but Bayesian PP is moderate identifies
+          a region of uncertainty that the data genuinely cannot resolve, and that signal
+          would be invisible if only one method were reported.
+        </p>
+      </div>
+    </details>
 
   </main>
 

@@ -74,6 +74,41 @@ BiocManager::install(c("msa", "Biostrings"))</code></pre>
     </p>
 
 
+    <details class="troubleshoot">
+      <summary>BiocManager::install() fails with a repository error or "cannot open URL." What should I try?</summary>
+      <div class="details-body">
+        <p>
+          First confirm your internet connection is active and that R can reach CRAN
+          (try <code>install.packages("ape")</code> as a test). If CRAN installs work
+          but Bioconductor fails, try updating BiocManager itself:
+          <code>install.packages("BiocManager")</code>. If you get an SSL certificate
+          error, try <code>options(repos = c(CRAN = "http://cran.r-project.org"))</code>
+          (note <code>http</code>, not <code>https</code>) as a temporary workaround.
+          On a university network, a firewall or proxy may block Bioconductor's servers —
+          try from a personal network or VPN. Finally, check that your R version is
+          compatible with the current Bioconductor release:
+          <code>BiocManager::version()</code> prints the expected pairing.
+        </p>
+      </div>
+    </details>
+
+    <details class="troubleshoot">
+      <summary>I installed msa and Biostrings but R says "there is no package called 'msa'" when I try to load them. What went wrong?</summary>
+      <div class="details-body">
+        <p>
+          Bioconductor packages install into a separate library path from CRAN packages.
+          Run <code>.libPaths()</code> to see which directories R is searching. If the
+          Bioconductor library is missing, run
+          <code>BiocManager::install(c("msa","Biostrings"))</code> again in a fresh R
+          session (restart R first — sometimes a prior failed install leaves a partial
+          file that blocks retry). If you have multiple R versions installed, make sure
+          you ran BiocManager from the <em>same</em> R version you are now running the
+          scripts in. On Windows, run R or RStudio as Administrator if you see permission
+          errors during the install.
+        </p>
+      </div>
+    </details>
+
     <!-- ══════════════════════════════════════════════════════
          SECTION 2 — GETTING SEQUENCES FROM GENBANK
     ══════════════════════════════════════════════════════ -->
@@ -171,6 +206,40 @@ BiocManager::install(c("msa", "Biostrings"))</code></pre>
     </table>
 
 
+    <details class="troubleshoot">
+      <summary>My NCBI search returns thousands of results but none are the right length, or the length filter doesn't seem to be working. What should I check?</summary>
+      <div class="details-body">
+        <p>
+          The <code>600:700[SLEN]</code> filter must appear in the search bar as part of
+          the query string, not entered into a separate field. Verify the query looks
+          exactly like: <code>Sciaenops ocellatus[ORGN] AND COI[GENE] AND 600:700[SLEN]</code>.
+          If you still get unexpected results, note that NCBI sometimes annotates the gene
+          as "cox1" rather than "COI" — try both: <code>COI[GENE] OR cox1[GENE]</code>.
+          Also try the title field: <code>cytochrome oxidase subunit I[TITL]</code>.
+          If no sequences exist for a species, GenBank may not have COI data for it —
+          check the BOLD Systems database (<code>boldsystems.org</code>) as an alternative
+          source.
+        </p>
+      </div>
+    </details>
+
+    <details class="troubleshoot">
+      <summary>I combined my FASTA files with <code>cat *.fasta > combined.fasta</code> but some sequences are missing or headers look garbled. What happened?</summary>
+      <div class="details-body">
+        <p>
+          The most common cause is that individual FASTA files downloaded from NCBI do
+          not end with a newline character. When <code>cat</code> concatenates them, the
+          last line of one sequence runs directly into the header of the next, producing
+          a garbled header and a sequence that reads as one continuous block. Fix: open
+          the combined file in a plain text editor and manually insert a blank line
+          between sequences, or use <code>awk 'FNR==1 && NR!=1{print ""}1'</code> to
+          insert newlines when combining. After combining, always open the file and
+          visually verify that each sequence begins with <code>&gt;</code> on its own
+          line and is followed by a clean sequence block before the next header.
+        </p>
+      </div>
+    </details>
+
     <!-- ══════════════════════════════════════════════════════
          SECTION 3 — SCRIPT 00: ALIGNMENT
     ══════════════════════════════════════════════════════ -->
@@ -229,6 +298,41 @@ save(aln_dnabin, aln_phydat, family_colors, tip_color,
       color palette used by all figures.
     </p>
 
+
+    <details class="troubleshoot">
+      <summary><code>readDNAStringSet()</code> throws "cannot open file — no such file or directory." How do I fix this?</summary>
+      <div class="details-body">
+        <p>
+          Run <code>getwd()</code> in R to confirm your working directory. The scripts
+          expect to be run from the <code>R/</code> folder of the project repository,
+          and the FASTA path in the script is relative to that folder
+          (<code>FASTA/gulf_fish_COI_combined.fasta</code>). If you're running from
+          the project root instead, either change directory with
+          <code>setwd("R")</code> before running, or update the path in the script to
+          <code>R/FASTA/gulf_fish_COI_combined.fasta</code>. On Windows, check that
+          the path uses forward slashes or doubled backslashes —
+          <code>"R\\FASTA\\..."</code> or <code>"R/FASTA/..."</code> both work;
+          a single backslash will cause an error.
+        </p>
+      </div>
+    </details>
+
+    <details class="troubleshoot">
+      <summary><code>msaConvert()</code> throws an error about "key 52" or an unexpected character. What is this?</summary>
+      <div class="details-body">
+        <p>
+          This is the Biostrings encoding artifact bug described in the script comments.
+          It happens when sequences go through ape's <code>read.dna()</code> first,
+          which uses an internal byte encoding for ambiguous bases that Biostrings
+          does not recognize. The fix is already in the script: always start with
+          <code>Biostrings::readDNAStringSet()</code>, pass that directly to
+          <code>msa()</code>, and only convert to DNAbin/phyDat formats
+          <em>after</em> alignment using <code>msaConvert()</code>. If you see this
+          error, check that you haven't accidentally swapped the read step for
+          <code>ape::read.dna()</code>.
+        </p>
+      </div>
+    </details>
 
     <!-- ══════════════════════════════════════════════════════
          SECTION 4 — SCRIPT 01: NEIGHBOR-JOINING
@@ -295,6 +399,41 @@ boot_nj_shark &lt;- boot.phylo(
     </p>
 
 
+    <details class="troubleshoot">
+      <summary><code>boot.phylo()</code> has been running for over 10 minutes on a 24-taxon dataset. Is something wrong?</summary>
+      <div class="details-body">
+        <p>
+          For 24 sequences and 1,000 bootstrap replicates, <code>boot.phylo()</code>
+          should complete in 1–3 minutes. If it's taking much longer, first check that
+          <code>quiet = TRUE</code> is set — printing progress for 1,000 replicates adds
+          significant overhead. Also check that the distance function inside the bootstrap
+          call doesn't have extra arguments that force slower computation. If it's still
+          slow, try reducing to <code>B = 100</code> as a test run first. On Windows,
+          setting <code>mc.cores = 1</code> explicitly avoids parallel fork issues that
+          can cause hangs. If R appears completely frozen (no response to Escape), restart
+          the session and try again with a smaller <code>B</code>.
+        </p>
+      </div>
+    </details>
+
+    <details class="troubleshoot">
+      <summary>My NJ tree has all sequences in one giant unresolved polytomy — every tip branches from a single node. What went wrong?</summary>
+      <div class="details-body">
+        <p>
+          A star-shaped polytomy almost always means the distance matrix contains
+          <code>NA</code> or <code>Inf</code> values. Run
+          <code>sum(is.na(dist_k80))</code> and <code>sum(is.infinite(dist_k80))</code>
+          to check. <code>NA</code>s arise when two sequences have no overlapping
+          non-gap positions — typically because the alignment has a very large gap or
+          one sequence is much shorter than the others. <code>Inf</code> values arise
+          when K80 distance correction overflows (divergence too high for the model —
+          check whether non-fish sequences accidentally ended up in the alignment).
+          Fix the underlying sequence or alignment issue and rerun; the polytomy will
+          resolve once the matrix is clean.
+        </p>
+      </div>
+    </details>
+
     <!-- ══════════════════════════════════════════════════════
          SECTION 5 — SCRIPT 02: MAXIMUM LIKELIHOOD
     ══════════════════════════════════════════════════════ -->
@@ -357,6 +496,42 @@ tree_ml_bs &lt;- plotBS(fit_ml$tree, bs_ml, type = "n")</code></pre>
       Sciaenidae.
     </p>
 
+
+    <details class="troubleshoot">
+      <summary><code>optim.pml()</code> is running but the log-likelihood isn't improving after many iterations. Should I stop it?</summary>
+      <div class="details-body">
+        <p>
+          A plateau in log-likelihood usually means the optimizer has converged to a
+          local or global maximum — this is expected behavior, not a problem. Let it
+          finish. The <code>rearrangement = "stochastic"</code> setting already applies
+          random perturbations to escape local optima, so premature stopping risks
+          missing the true maximum. If the likelihood is genuinely stuck (the same
+          value for hundreds of iterations with stochastic moves), try restarting from
+          a different starting topology: replace <code>tree_nj_start</code> with
+          a random tree from <code>rtree(n)</code> to see if a different starting point
+          finds a higher likelihood. Compare the two final log-likelihoods; the higher
+          one is the better result.
+        </p>
+      </div>
+    </details>
+
+    <details class="troubleshoot">
+      <summary>My ML tree topology is substantially different from my NJ tree — several species moved to completely different positions. Is one of them wrong?</summary>
+      <div class="details-body">
+        <p>
+          Not necessarily. NJ and ML can genuinely disagree, particularly at weakly
+          supported nodes where the data contain little signal. First check the bootstrap
+          values at the differing nodes: if both trees show low support (&lt;70%) at
+          those positions, neither is "right" — both are equally uncertain, and the
+          difference reflects noise rather than error. If the ML tree shows high bootstrap
+          at a node where NJ disagrees, the ML placement is better supported. Inspect
+          also whether the disagreement is at family-level groupings (which would be
+          concerning) or at internal nodes within a family (normal and expected for a
+          single barcode gene). Comparing the two trees in a figure side-by-side is
+          the clearest way to communicate the difference to a reader.
+        </p>
+      </div>
+    </details>
 
     <!-- ══════════════════════════════════════════════════════
          SECTION 6 — SCRIPT 03: BAYESIAN INFERENCE
@@ -450,6 +625,41 @@ mb gulf_fish_COI_aligned.nex</code></pre>
     </p>
 
 
+    <details class="troubleshoot">
+      <summary>MrBayes finished but the consensus tree file (<code>.con.tre</code>) is empty or the second R run can't find it. What happened?</summary>
+      <div class="details-body">
+        <p>
+          Check that you ran MrBayes from the <code>R/MrBayes/</code> directory and that
+          the NEXUS file name matches exactly what the script wrote. The consensus tree
+          is written to the same directory as the NEXUS file, so if you ran
+          <code>mb</code> from a different directory, look there for the output. If the
+          <code>.con.tre</code> exists but is empty, MrBayes likely crashed early —
+          scroll back through the terminal output to find the error. Common causes:
+          the MrBayes block wasn't appended (the NEXUS file ends before <code>begin mrbayes;</code>),
+          or the outgroup name in the block doesn't exactly match a tip label in the
+          alignment (check for extra spaces or underscores vs. spaces).
+        </p>
+      </div>
+    </details>
+
+    <details class="troubleshoot">
+      <summary>Tracer shows ESS values below 200 for log-likelihood or key parameters. The chain looks like it hasn't converged. What should I do?</summary>
+      <div class="details-body">
+        <p>
+          Low ESS means the MCMC chain hasn't explored enough of parameter space to give
+          reliable estimates. The fix is to run longer: increase <code>ngen</code> in the
+          MrBayes block — try 2,000,000 as a first step, with <code>burnin</code> scaled
+          proportionally (e.g., 500 samples discarded out of 4,000 total). Also check the
+          trace plot for a "trend" — a gradual drift upward or downward in log-likelihood
+          after burn-in indicates the chain is still climbing and hasn't reached
+          stationarity. If re-running with more generations still produces low ESS,
+          consider increasing the number of MCMC chains (<code>nchains=4</code>) or
+          adjusting the temperature parameter to improve mixing. On TAMU HPRC, a parallel
+          MrBayes run with <code>ngen=5,000,000</code> takes a few hours rather than days.
+        </p>
+      </div>
+    </details>
+
     <!-- ══════════════════════════════════════════════════════
          SECTION 7 — EXTENDING THE ANALYSIS
     ══════════════════════════════════════════════════════ -->
@@ -506,6 +716,44 @@ mb gulf_fish_COI_aligned.nex</code></pre>
     <!-- ══════════════════════════════════════════════════════
          PAGE NAVIGATION
     ══════════════════════════════════════════════════════ -->
+    <details class="troubleshoot">
+      <summary>I added a new species and it clusters in a completely unexpected position — far from where I expected based on its taxonomy. Is my sequence wrong?</summary>
+      <div class="details-body">
+        <p>
+          Not necessarily, but check these things in order. First, verify the sequence
+          header in your FASTA file matches the label you expect (a copy-paste error
+          is the most common culprit). Second, BLAST the sequence at
+          <code>blast.ncbi.nlm.nih.gov</code> against the NCBI nucleotide database —
+          if the top hit is a different species, the GenBank entry you downloaded was
+          mislabeled or the wrong accession. Third, check the alignment: open the FASTA
+          in AliView after re-running Script 00 and confirm the new sequence aligns
+          cleanly with the others, with no large gaps or mismatches that look structural
+          rather than evolutionary. If the sequence is correct and aligned correctly, an
+          unexpected placement is a real result — some species genuinely don't cluster
+          where common names or morphology predict, and COI may be revealing that.
+        </p>
+      </div>
+    </details>
+
+    <details class="troubleshoot">
+      <summary>I want to use a different gene (e.g., 16S or cytb) instead of COI. What do I need to change in the scripts?</summary>
+      <div class="details-body">
+        <p>
+          The scripts are written around a single alignment file — swap the FASTA file
+          and the rest follows automatically. In <code>00_prepare_alignment.R</code>,
+          update the file path in <code>readDNAStringSet()</code> to point to your new
+          combined FASTA. Update any comments that reference COI. The alignment length
+          will differ (16S barcodes are typically ~500 bp, cytb ~1,100 bp) but
+          <code>msa()</code> handles any length automatically. One practical note: if
+          you're mixing data from GenBank where some sequences have ambiguous positions
+          or the length varies widely, you may need to trim sequences manually in AliView
+          before running the pipeline. The bootstrap and MCMC settings don't need to
+          change for a different gene, but if sequences are shorter you may need to
+          increase <code>ngen</code> to compensate for reduced signal.
+        </p>
+      </div>
+    </details>
+
   </main>
 
   <nav class="bottom-nav">

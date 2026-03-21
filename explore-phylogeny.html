@@ -81,6 +81,42 @@
     </p>
 
 
+    <details>
+      <summary>Before looking at any tree, what would you predict about where Speckled Trout clusters, based purely on its common name? After examining the trees, was your prediction correct — and what does the result tell us about using common names as evolutionary guides?</summary>
+      <div class="details-body">
+        <p>
+          Based on the name "Speckled Trout," most people would predict it clusters with
+          Rainbow Trout and Brown Trout. The trees show the opposite: Speckled Trout
+          (<em>Cynoscion nebulosus</em>) clusters firmly inside Sciaenidae — the drum and
+          croaker family — alongside Red Drum, Black Drum, and Atlantic Croaker, supported
+          at 100% by all three methods. Rainbow Trout and Brown Trout sit in an entirely
+          separate clade, Salmonidae, separated from Speckled Trout by one of the longest
+          branches in the tree. Common names evolved to reflect appearance, behavior, or
+          taste — "Speckled Trout" was named for its spotted pattern and table quality,
+          not ancestry. Latin binomial names carry no assumption about relatedness;
+          common names routinely do, and they are often wrong.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Why include Rainbow Trout and Brown Trout in a study of Gulf of Mexico fish? What biological question does their presence directly answer?</summary>
+      <div class="details-body">
+        <p>
+          Including the Salmonidae reference taxa lets us answer a specific, testable
+          question: does the fish Gulf Coast anglers call "Speckled Trout" have any
+          meaningful evolutionary relationship to true trout? Without Rainbow Trout and
+          Brown Trout on the tree, the data can show that Speckled Trout groups with
+          drums — but cannot show how far it is from actual trout. Adding the Salmonidae
+          gives a concrete reference point: the branch separating Salmonidae from
+          Sciaenidae is comparable in length to the branch separating both families from
+          Bull Shark. The evolutionary distance between Speckled Trout and Rainbow Trout
+          is not slightly large — it is enormous, on the same scale as the separation
+          between bony fish and sharks.
+        </p>
+      </div>
+    </details>
+
     <!-- ══════════════════════════════════════════════════════
          SECTION 2 — THE NEIGHBOR-JOINING TREE
     ══════════════════════════════════════════════════════ -->
@@ -132,6 +168,40 @@
     </p>
 
 
+
+    <details>
+      <summary>Some internal nodes within Sciaenidae show NJ bootstrap values of 30–47%. Does this cast doubt on the finding that all four Sciaenidae species form one family? Why or why not?</summary>
+      <div class="details-body">
+        <p>
+          No — bootstrap support at internal nodes and bootstrap support at the family node
+          answer different questions. A value of 30–47% at an internal node means we cannot
+          determine with confidence whether, say, Atlantic Croaker diverged before or after
+          Speckled Trout within the family. The node that unites <em>all four</em> Sciaenidae
+          together is at 100%: that grouping appeared in all 1,000 bootstrap replicates.
+          These two results are completely consistent. The family exists and is well-supported;
+          the fine internal branching order within the family is unresolved from 650 bp
+          of COI. Resolving it would require more data — additional genes or whole genomes.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Using the interactive outgroup explorer, toggle between Bull Shark and Speckled Trout as the outgroup. Describe what changes between the two trees and explain why.</summary>
+      <div class="details-body">
+        <p>
+          With Bull Shark as outgroup, the root falls between all bony fish and the shark
+          — the expected and biologically correct position. All family clades (Sciaenidae,
+          Salmonidae, etc.) appear intact and monophyletic. When you switch to Speckled
+          Trout as outgroup, the root is forced inside Sciaenidae, making the drum family
+          appear paraphyletic — split by the root — even though the underlying sequence
+          data hasn't changed at all. Rainbow Trout and Brown Trout still cluster together
+          far from the root in both trees, because that grouping reflects real sequence
+          similarity that no rooting choice can alter. The take-away: outgroup choice
+          determines the tree's direction in time but cannot change which sequences are
+          most similar to each other.
+        </p>
+      </div>
+    </details>
 
     <!-- ══════════════════════════════════════════════════════
          INTERACTIVE: OUTGROUP EXPLORER
@@ -316,6 +386,45 @@
     </figure>
 
 
+    <details>
+      <summary>The ML tree uses GTR+Gamma+I, which estimates a gamma shape parameter α for rate variation. What does a very small α (e.g., α = 0.1) versus a large α (e.g., α = 2.0) tell you about how COI is evolving across your alignment?</summary>
+      <div class="details-body">
+        <p>
+          The gamma shape parameter controls the spread of substitution rates across sites.
+          A small α (close to zero) describes a highly skewed distribution: most sites
+          evolve very slowly or not at all, while a small fraction of "hot" positions
+          accumulate substitutions rapidly. This is typical of protein-coding genes like
+          COI, where third codon positions are nearly free to change (synonymous
+          substitutions don't alter the protein) while first and second positions are
+          constrained by protein function. A large α (close to 5 or above) approaches
+          a uniform rate distribution — all sites evolving at similar speeds. For COI
+          barcodes, α values in the 0.2–1.0 range are common, reflecting the mix of
+          conserved functional sites and more variable positions. The +I component handles
+          sites that are completely invariant — a category that α alone can't model well
+          at the extreme end.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Three sequences in the ML tree — Bull Shark 3, Southern Flounder 3, and Flathead Mullet 2 — show slightly scattered placement relative to their siblings. The text says their pairwise distances are ≤ 0.0016. Why would near-identical sequences produce unstable placement?</summary>
+      <div class="details-body">
+        <p>
+          When two sequences are nearly identical, the likelihood surface is nearly flat
+          in the region of tree space where they could be placed — there is essentially
+          no signal distinguishing "Flathead Mullet 2 is sister to Flathead Mullet 1"
+          from "Flathead Mullet 2 is slightly displaced." Small random differences in
+          the optimization path — which branch gets tried first, random rearrangement
+          order — push the sequence to whichever position happens to have the tiny
+          numerical advantage in that run. This is a known artifact with near-duplicate
+          sequences and is completely harmless for the family-level topology: no matter
+          where those three scattered sequences land, every method still places all four
+          Sciaenidae together, Salmonidae together, and so on. The instability is
+          within-species noise, not an error in the family structure.
+        </p>
+      </div>
+    </details>
+
     <!-- ══════════════════════════════════════════════════════
          SECTION 4 — THE BAYESIAN TREE
     ══════════════════════════════════════════════════════ -->
@@ -366,6 +475,41 @@
       </figcaption>
     </figure>
 
+
+    <details>
+      <summary>The Bayesian tree shows PP = 0.58 at one internal Sciaenidae node. A student says this means the tree is probably wrong at that point. Correct their reasoning.</summary>
+      <div class="details-body">
+        <p>
+          PP = 0.58 does not mean the tree is wrong — it means the data assign a 58%
+          probability to the branching order shown, and a 42% probability to alternative
+          arrangements among those same taxa. The family grouping itself (all four
+          Sciaenidae together) is at PP = 1.00 and is not in doubt. What is uncertain
+          is the exact order in which those four species diverged from each other — a
+          much narrower question. This is meaningful information: it tells you precisely
+          where the 650 bp COI barcode runs out of resolution, and where investing in
+          additional loci would be most rewarding. A tree that honestly reports
+          uncertainty is scientifically more useful than one that hides it.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>All three methods — NJ, ML, and Bayesian — place Salmonidae and Sciaenidae in completely separate clades with maximum support. Why does this convergence across methods give stronger confidence than any single method could?</summary>
+      <div class="details-body">
+        <p>
+          Each method carries its own assumptions and potential failure modes: NJ can
+          be misled by rate heterogeneity, ML by local optima in the likelihood landscape,
+          Bayesian inference by poor MCMC mixing or prior misspecification. When three
+          methods built on fundamentally different mathematical frameworks all recover
+          the same grouping at maximum support, it becomes extremely unlikely that any
+          one method's specific artifact is driving the result — because such an artifact
+          would have to affect all three methods simultaneously in the same direction.
+          The agreement is therefore not just additive evidence; it is qualitatively
+          stronger, ruling out method-specific explanations. This is why multi-method
+          phylogenetic studies are the norm in published literature.
+        </p>
+      </div>
+    </details>
 
     <!-- ══════════════════════════════════════════════════════
          SECTION 5 — DISCUSSION QUESTIONS
