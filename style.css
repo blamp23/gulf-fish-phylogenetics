@@ -423,96 +423,87 @@ main h3 {
 
 /* ── Slideshows ── */
 .slideshow {
-  position: relative;
   margin: 1.5rem 0;
   border-radius: 6px;
   overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.ss-frame {
+  position: relative;
+  height: 360px;
+  overflow: hidden;
   background: #111;
-  line-height: 0;          /* collapse whitespace between inline-block children */
 }
 
-.slideshow .slide {
-  display: none;
-}
-
-.slideshow .slide.active {
-  display: block;
-  animation: ssfade 0.45s ease;
-}
-
-@keyframes ssfade {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-.slideshow .slide img {
+.ss-frame img.ss-img {
   width: 100%;
-  max-height: 400px;
+  height: 100%;
   object-fit: cover;
   display: block;
-  border-radius: 0;
+  transition: opacity 0.3s ease;
 }
 
-.slideshow .slide-caption {
+.ss-frame img.ss-img.fading {
+  opacity: 0;
+}
+
+.ss-nav {
   position: absolute;
-  bottom: 40px;             /* sit above the controls bar */
-  left: 0; right: 0;
-  background: rgba(0,0,0,0.58);
-  color: #f0f0f0;
-  font-family: Georgia, serif;
-  font-style: italic;
-  font-size: 0.85rem;
-  line-height: 1.45;
-  padding: 0.45rem 0.85rem;
-  pointer-events: none;
-}
-
-.slideshow-controls {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.3rem 0.7rem;
-  background: rgba(0,0,0,0.45);
-  line-height: 1;
-}
-
-.ss-btn {
-  background: none;
-  border: 1px solid rgba(255,255,255,0.55);
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.42);
+  border: none;
   color: #fff;
-  padding: 0.2rem 0.7rem;
-  border-radius: 3px;
+  font-size: 1.2rem;
+  padding: 0.5rem 0.8rem;
   cursor: pointer;
-  font-size: 0.85rem;
-  font-family: Arial, sans-serif;
+  border-radius: 3px;
+  line-height: 1;
   transition: background 0.15s;
 }
 
-.ss-btn:hover {
-  background: rgba(255,255,255,0.2);
+.ss-nav:hover { background: rgba(0,0,0,0.72); }
+.ss-prev { left: 0.6rem; }
+.ss-next { right: 0.6rem; }
+
+.ss-footer {
+  background: var(--accent-light);
+  padding: 0.5rem 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.ss-caption {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.45;
+  flex: 1;
 }
 
 .ss-dots {
   display: flex;
-  gap: 6px;
-  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
 }
 
 .ss-dot {
-  width: 8px; height: 8px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.4);
-  border: none;
+  background: #ccc;
+  border: 1px solid var(--accent);
   cursor: pointer;
   padding: 0;
   transition: background 0.15s;
 }
 
-.ss-dot.active {
-  background: #fff;
-}
+.ss-dot.active { background: var(--accent); }
 
 /* ── Troubleshooting details (build-your-own-tree) ── */
 details.troubleshoot {
