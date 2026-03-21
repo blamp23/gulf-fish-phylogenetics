@@ -301,9 +301,9 @@ cat("============================================================\n")
 # as static images. This keeps the website fast and dependency-free
 # while still delivering a dynamic, educational experience.
 #
-# Each PNG uses cladogram style (use.edge.length=FALSE) so branch
-# lengths don't dominate — the goal is topology comparison, not
-# measuring divergence. No bootstrap labels are added so the images
+# Branch lengths are shown proportionally (phylogram style) so the
+# long Bull Shark branch and tight within-species clusters are
+# visually informative. No bootstrap labels are added so the images
 # stay clean; bootstrap information is discussed in the page text.
 # ============================================================
 cat("\n--- STEP 8: Exporting per-outgroup PNGs for website widget ---\n")
@@ -356,32 +356,38 @@ for (og in outgrp_map) {
   # WHY _1 only: one representative tip gives a clean, unambiguous root
   # placement. Using all three replicates can create a trifurcation at
   # the root that obscures the topology the widget is meant to illustrate.
-  tree_og <- root(tree_nj_unrooted, outgroup = og$tip, resolve.root = TRUE)
+  rerooted <- root(tree_nj_unrooted, outgroup = og$tip, resolve.root = TRUE)
 
-  out_path <- paste0("out/trees/", og$file)
-  png(out_path, width = 900, height = 900, res = 120)
+  # Drop _2 and _3 replicates of the outgroup species only.
+  # WHY: keeping just _1 as the sole outgroup representative avoids a
+  # distracting polytomy at the base of the tree. All ingroup replicates
+  # are retained so within-species clustering is still visible.
+  og_stem          <- sub("_1$", "", og$tip)
+  rerooted_display <- drop.tip(
+    rerooted,
+    grep(paste0(og_stem, "_[23]"), rerooted$tip.label, value = TRUE)
+  )
+
+  out_path <- paste0("../images/", og$file)
+  png(out_path, width = 900, height = 1050, res = 120)
   layout(matrix(c(1, 2), nrow = 2), heights = c(8.5, 1.5))
 
-  # WHY use.edge.length=FALSE: cladogram style makes topology comparison
-  # easier — students focus on which species cluster together rather than
-  # on branch lengths, which vary across outgroup choices in ways that
-  # distract from the topological lesson. No title: the website widget
-  # provides the label dynamically.
+  # Branch lengths drawn proportionally. No title: the website widget
+  # provides the species label dynamically above the image.
   par(mar = c(1, 1, 1, 1))
   plot.phylo(
-    tree_og,
-    use.edge.length = FALSE,
-    tip.color       = tip_color(tree_og$tip.label),
-    cex             = 0.72,
-    edge.width      = 1.4,
-    no.margin       = FALSE
+    rerooted_display,
+    tip.color  = tip_color(rerooted_display$tip.label),
+    cex        = 0.72,
+    edge.width = 1.4,
+    no.margin  = FALSE
   )
+  add.scale.bar(cex = 0.65, col = "gray30")
 
   .legend_strip_png()
   dev.off()
 
-  cat("  Saved: out/trees/", og$file, "\n", sep = "")
+  cat("  Saved: ../images/", og$file, "\n", sep = "")
 }
 
-cat("\nSTEP 8 complete — 8 PNGs written to out/trees/\n")
-cat("Copy to images/ folder to activate the interactive widget.\n")
+cat("\nSTEP 8 complete — 10 PNGs written to images/\n")
