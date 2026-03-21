@@ -27,26 +27,26 @@
     <h2>From Specimen to Sequence</h2>
 
     <p>
-      The raw material for this analysis is DNA extracted from fish tissue — typically a
-      small fin clip taken from a live or freshly preserved specimen. The tissue is
-      homogenized and processed through a standard extraction protocol that lyses cells,
-      removes proteins and lipids, and precipitates pure DNA. From that extract, a
-      universal primer pair designed to flank the COI barcode region amplifies the target
-      stretch using the polymerase chain reaction (PCR). The PCR product — a segment
-      roughly 650 base pairs long — is then sequenced using Sanger sequencing, which
-      generates a chromatogram: a colored peak trace where each color represents one of
-      the four nucleotide bases. Software reads the peaks and outputs a string of A, C,
-      G, and T characters. That string is the raw sequence and the starting point for
-      everything that follows.
+      The raw material for phylogenetic analysis is DNA extracted from fish tissue —
+      typically a small fin clip taken from a live or freshly preserved specimen. The
+      tissue is homogenized and processed through a standard extraction protocol that
+      lyses cells, removes proteins and lipids, and precipitates pure genomic DNA. From
+      that extract, a pair of universal PCR primers flanking the COI barcode region
+      amplifies the target segment. The PCR product is then sent for Sanger sequencing —
+      the gold standard method for generating individual sequences. Sanger sequencing
+      works by incorporating fluorescently labeled chain-terminating nucleotides during
+      DNA synthesis, producing fragments of every possible length. When separated by
+      capillary electrophoresis and read by a laser detector, these fragments produce a
+      chromatogram: a colored peak trace where each color represents one of the four
+      bases. Software reads the peaks and outputs a string of A, C, G, and T characters
+      approximately 650 base pairs long. That string — one sequence per specimen — is
+      deposited in GenBank and becomes the permanent public record of that individual's
+      COI barcode. All sequences in this study were downloaded from GenBank rather than
+      generated in the lab; the accession numbers are listed on the Build Your Own Tree
+      page.
     </p>
 
     <h2>Alignment and Matrix Construction</h2>
-
-    <figure>
-      <img src="images/Speckled%20Trout.jpg"
-           alt="Spotted Seatrout, a Sciaenidae species">
-      <figcaption>Speckled Trout (<em>Cynoscion nebulosus</em>) — DNA places this species firmly within the drum family, not with freshwater trout.</figcaption>
-    </figure>
 
     <p>
       Before sequences can be compared, they must be aligned. Raw COI sequences from
@@ -57,12 +57,12 @@
       same ancestral site. The result is a rectangular matrix where rows are taxa and
       columns are aligned nucleotide positions. This matrix is the direct input to all
       three tree-building methods used in this study. In this project, MUSCLE was used
-      for alignment, producing a matrix of approximately 660 columns across 30 sequences
-      representing 10 species.
+      for alignment, producing a matrix of approximately 660 columns across 24 sequences
+      representing 8 species.
     </p>
 
     <h3>Your Actual Alignment</h3>
-    <p>The viewer below shows the real COI alignment used in this study — 30 sequences, approximately 660 base pairs each. Scroll left and right to explore the full alignment. Conserved columns (identical across all species) appear as solid blocks of one color; variable columns (where species differ) show mixed colors. Those variable columns are what the tree-building algorithms use to infer evolutionary relationships.</p>
+    <p>The viewer below shows the real COI alignment used in this study — 24 sequences, approximately 660 base pairs each. Scroll left and right to explore the full alignment. Conserved columns (identical across all species) appear as solid blocks of one color; variable columns (where species differ) show mixed colors. Those variable columns are what the tree-building algorithms use to infer evolutionary relationships.</p>
 
     <div id="alignment-container" style="width:100%; border:1px solid #ccc; border-radius:6px; overflow:hidden; margin:1.5rem 0;">
       <div id="msaDiv" style="width:100%; height:590px;"></div>
@@ -174,27 +174,102 @@
 
     <h2>Reading a Phylogeny</h2>
 
-    <figure>
-      <img src="images/bull_shark.jpg"
-           alt="Bull Shark, the evolutionary outgroup in this study">
-      <figcaption>Bull Shark (<em>Carcharhinus leucas</em>) — as a cartilaginous fish, its deep divergence from all bony fish makes it an ideal outgroup for rooting the tree.</figcaption>
-    </figure>
-
     <p>
       A phylogenetic tree has three types of elements. Tips (also called leaves or
-      terminal nodes) are the taxa in the study — in this case individual COI sequences
-      labeled by species. Internal nodes represent hypothetical common ancestors: the
-      point in the past where two lineages diverged from a shared ancestor. Branch
+      terminal nodes) are the taxa in the study. Internal nodes represent hypothetical
+      common ancestors: the point in the past where two lineages diverged. Branch
       lengths represent evolutionary distance, measured in substitutions per site under
       the model used, so longer branches mean more DNA change accumulated along that
       lineage. The root is the oldest node in the tree and gives it direction — without
       an outgroup to place the root, a tree is unrooted and does not imply ancestor-
-      descendant relationships. In this study, Bull Shark serves as the outgroup: it
-      diverged from all bony fish roughly 420 million years ago, far deeper than any
-      split within the ingroup, which places the root unambiguously at the base of the
-      tree. A node labeled with 100% bootstrap support means that identical grouping
-      appeared in all 1,000 bootstrap replicates — very strong evidence that the clade
-      is real and not an artifact of the particular sequences sampled.
+      descendant relationships.
+    </p>
+
+    <figure>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320" width="100%"
+           style="display:block; background:#fff; font-family:Arial, Helvetica, sans-serif;">
+
+        <!-- ── Tree branches ── -->
+        <!-- Root vertical -->
+        <line x1="60" y1="100" x2="60" y2="240" stroke="#222" stroke-width="1.5"/>
+        <!-- Root to A+B+C node -->
+        <line x1="60" y1="100" x2="180" y2="100" stroke="#222" stroke-width="1.5"/>
+        <!-- Root to D+E node -->
+        <line x1="60" y1="240" x2="180" y2="240" stroke="#222" stroke-width="1.5"/>
+
+        <!-- A+B+C vertical -->
+        <line x1="180" y1="100" x2="180" y2="170" stroke="#222" stroke-width="1.5"/>
+        <!-- A+B+C to C -->
+        <line x1="180" y1="100" x2="320" y2="60" stroke="#222" stroke-width="1.5"/>
+        <!-- A+B+C to A+B node -->
+        <line x1="180" y1="170" x2="260" y2="170" stroke="#222" stroke-width="1.5"/>
+
+        <!-- A+B vertical -->
+        <line x1="260" y1="140" x2="260" y2="200" stroke="#222" stroke-width="1.5"/>
+        <!-- A+B to A -->
+        <line x1="260" y1="140" x2="320" y2="120" stroke="#222" stroke-width="1.5"/>
+        <!-- A+B to B -->
+        <line x1="260" y1="200" x2="320" y2="200" stroke="#222" stroke-width="1.5"/>
+
+        <!-- D+E vertical -->
+        <line x1="180" y1="220" x2="180" y2="260" stroke="#222" stroke-width="1.5"/>
+        <!-- D+E to D -->
+        <line x1="180" y1="220" x2="320" y2="220" stroke="#222" stroke-width="1.5"/>
+        <!-- D+E to E — longer branch -->
+        <line x1="180" y1="260" x2="380" y2="260" stroke="#222" stroke-width="1.5"/>
+
+        <!-- ── Tip labels ── -->
+        <text x="326" y="64"  font-size="13" fill="#0a6e7c" font-weight="bold">Species C</text>
+        <text x="326" y="124" font-size="13" fill="#0a6e7c" font-weight="bold">Species A</text>
+        <text x="326" y="204" font-size="13" fill="#0a6e7c" font-weight="bold">Species B</text>
+        <text x="326" y="224" font-size="13" fill="#c0522a" font-weight="bold">Species D</text>
+        <text x="386" y="264" font-size="13" fill="#c0522a" font-weight="bold">Species E</text>
+
+        <!-- ── Annotation: root ── -->
+        <line x1="60" y1="170" x2="20" y2="170" stroke="#aaa" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="4"  y="156" font-size="10" fill="#777" font-style="italic">root</text>
+        <text x="2"  y="168" font-size="10" fill="#777" font-style="italic">(outgroup</text>
+        <text x="4"  y="180" font-size="10" fill="#777" font-style="italic">placed here)</text>
+
+        <!-- ── Annotation: tips callout ── -->
+        <line x1="320" y1="60" x2="490" y2="30" stroke="#aaa" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="492" y="25" font-size="10" fill="#777" font-style="italic">tips = taxa</text>
+        <text x="492" y="37" font-size="10" fill="#777" font-style="italic">in the study</text>
+
+        <!-- ── Annotation: internal node (A+B common ancestor) ── -->
+        <circle cx="260" cy="170" r="4" fill="#555"/>
+        <line x1="260" y1="170" x2="420" y2="150" stroke="#aaa" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="422" y="146" font-size="10" fill="#777" font-style="italic">internal node</text>
+        <text x="422" y="158" font-size="10" fill="#777" font-style="italic">(common ancestor</text>
+        <text x="422" y="170" font-size="10" fill="#777" font-style="italic">of A &amp; B)</text>
+
+        <!-- ── Annotation: bootstrap node (A+B+C) ── -->
+        <circle cx="180" cy="100" r="4" fill="#555"/>
+        <line x1="180" y1="100" x2="420" y2="90" stroke="#aaa" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="422" y="86" font-size="10" fill="#777" font-style="italic">node: 95% bootstrap</text>
+        <text x="422" y="98" font-size="10" fill="#777" font-style="italic">(strong support)</text>
+
+        <!-- ── Annotation: long branch (E) ── -->
+        <line x1="280" y1="260" x2="280" y2="295" stroke="#aaa" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="210" y="308" font-size="10" fill="#777" font-style="italic">longer branch = more DNA change</text>
+
+        <!-- ── Scale bar ── -->
+        <line x1="60" y1="295" x2="110" y2="295" stroke="#333" stroke-width="1.5"/>
+        <line x1="60" y1="291" x2="60"  y2="299" stroke="#333" stroke-width="1.5"/>
+        <line x1="110" y1="291" x2="110" y2="299" stroke="#333" stroke-width="1.5"/>
+        <text x="62" y="312" font-size="10" fill="#444">0.05 substitutions/site</text>
+
+      </svg>
+      <figcaption>Figure: anatomy of a phylogenetic tree. This diagram uses invented taxa — see the Explore page for trees built from real Gulf fish COI sequences.</figcaption>
+    </figure>
+
+    <p>
+      In this study, Bull Shark serves as the outgroup: it diverged from all bony fish
+      roughly 420 million years ago, far deeper than any split within the ingroup, which
+      places the root unambiguously at the base of the tree. A node labeled with 100%
+      bootstrap support means that identical grouping appeared in all 1,000 bootstrap
+      replicates — very strong evidence that the clade is real and not an artifact of
+      the particular sequences sampled.
     </p>
 
   </main>
