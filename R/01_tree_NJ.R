@@ -7,9 +7,10 @@
 # Requires: out/rdata/alignment_objects.RData (run 00_prepare_alignment.R first)
 #
 # Outputs:
-#   out/rdata/trees_NJ.RData          — tree + bootstrap objects
-#   out/trees/tree_NJ_bullshark.pdf   — NJ tree, Bull Shark outgroup
-#   out/trees/tree_NJ_mullet.pdf      — NJ tree, Flathead Mullet outgroup
+#   out/rdata/trees_NJ.RData                   — tree + bootstrap objects
+#   out/trees/tree_NJ_bullshark.pdf            — NJ tree, Bull Shark outgroup
+#   out/trees/tree_NJ_mullet.pdf               — NJ tree, Flathead Mullet outgroup
+#   out/trees/tree_nj_outgroup_*.png (x8)      — per-outgroup PNGs for website widget
 # ============================================================
 
 
@@ -80,10 +81,11 @@ cat("  Mean pairwise distance:",
 # ============================================================
 cat("\n--- STEP 3: NJ tree (Bull Shark outgroup) ---\n")
 
-tree_nj_raw   <- nj(dist_k80)
-outgrp_shark  <- grep("Bull_Shark", tree_nj_raw$tip.label, value = TRUE)
-tree_nj_shark <- root(tree_nj_raw, outgroup = outgrp_shark,
-                       resolve.root = TRUE)
+tree_nj_raw      <- nj(dist_k80)
+tree_nj_unrooted <- tree_nj_raw   # unrooted copy — used in STEP 8 widget export
+outgrp_shark     <- grep("Bull_Shark", tree_nj_raw$tip.label, value = TRUE)
+tree_nj_shark    <- root(tree_nj_raw, outgroup = outgrp_shark,
+                          resolve.root = TRUE)
 
 cat("  Tips:", length(tree_nj_shark$tip.label), "\n")
 cat("  Done.\n")
@@ -152,6 +154,7 @@ boot_nj_mullet <- boot.phylo(
 cat("\n--- STEP 5: Saving out/rdata/trees_NJ.RData ---\n")
 
 save(tree_nj_shark, tree_nj_mullet_rooted, boot_nj_shark, boot_nj_mullet, dist_k80,
+     tree_nj_unrooted,
      file = "out/rdata/trees_NJ.RData")
 
 cat("  Saved: out/rdata/trees_NJ.RData\n")
@@ -286,3 +289,99 @@ cat("  (Chondrichthyes vs. Actinopterygii) and is biologically\n")
 cat("  expected, not an error.\n")
 
 cat("============================================================\n")
+
+
+# ============================================================
+# STEP 8: Export per-outgroup trees for interactive website widget
+#
+# WHY: The explore-phylogeny.html page includes an interactive
+# widget that lets students pick any species as outgroup and see
+# how the tree changes. Rather than running R in the browser,
+# we pre-render one PNG per outgroup choice here and serve them
+# as static images. This keeps the website fast and dependency-free
+# while still delivering a dynamic, educational experience.
+#
+# Each PNG uses cladogram style (use.edge.length=FALSE) so branch
+# lengths don't dominate — the goal is topology comparison, not
+# measuring divergence. No bootstrap labels are added so the images
+# stay clean; bootstrap information is discussed in the page text.
+# ============================================================
+cat("\n--- STEP 8: Exporting per-outgroup PNGs for website widget ---\n")
+
+# Legend strip sized for square PNGs: ncol=2 to fit entries compactly
+.legend_strip_png <- function() {
+  par(mar = c(0, 1, 0, 1))
+  plot.new()
+  legend(
+    "center",
+    legend  = c("Sciaenidae (drums / croakers / trout)",
+                "Paralichthyidae (flounders)",
+                "Sparidae (sheepshead / porgies)",
+                "Mugilidae (mullets)",
+                "Carcharhinidae (sharks — outgroup)",
+                "Salmonidae (trout — outgroup)"),
+    col     = c("#2166ac", "#d95f02", "#1b9e77", "#888888", "#e41a1c", "#FA8072"),
+    pch     = 15,
+    cex     = 0.7,
+    horiz   = FALSE,
+    ncol    = 2,
+    bty     = "n",
+    pt.cex  = 1.2
+  )
+}
+
+# Map: outgroup tip label -> output filename
+outgrp_map <- list(
+  list(tip = "Bull_Shark_1",        file = "tree_nj_outgroup_bullshark.png"),
+  list(tip = "Flathead_Mullet_1",   file = "tree_nj_outgroup_mullet.png"),
+  list(tip = "Southern_Flounder_1", file = "tree_nj_outgroup_flounder.png"),
+  list(tip = "Sheepshead_1",        file = "tree_nj_outgroup_sheepshead.png"),
+  list(tip = "Red_Drum_1",          file = "tree_nj_outgroup_reddrum.png"),
+  list(tip = "Black_Drum_1",        file = "tree_nj_outgroup_blackdrum.png"),
+  list(tip = "Spec_Trout_1",        file = "tree_nj_outgroup_trout.png"),
+  list(tip = "Atlantic_Croaker_1",  file = "tree_nj_outgroup_croaker.png"),
+  list(tip = "Brown_Trout_1",        file = "tree_nj_outgroup_browntrout.png"),
+  list(tip = "Rainbow_Trout_1",        file = "tree_nj_outgroup_rainbowtrout.png")
+)
+
+for (og in outgrp_map) {
+
+  # Guard: skip gracefully if the tip label doesn't exist in this dataset
+  if (!og$tip %in% tree_nj_unrooted$tip.label) {
+    cat("  WARNING: tip '", og$tip, "' not in tree — skipping.\n", sep = "")
+    next
+  }
+
+  # Re-root the unrooted NJ tree on the single _1 replicate of this species.
+  # WHY _1 only: one representative tip gives a clean, unambiguous root
+  # placement. Using all three replicates can create a trifurcation at
+  # the root that obscures the topology the widget is meant to illustrate.
+  tree_og <- root(tree_nj_unrooted, outgroup = og$tip, resolve.root = TRUE)
+
+  out_path <- paste0("out/trees/", og$file)
+  png(out_path, width = 900, height = 900, res = 120)
+  layout(matrix(c(1, 2), nrow = 2), heights = c(8.5, 1.5))
+
+  # WHY use.edge.length=FALSE: cladogram style makes topology comparison
+  # easier — students focus on which species cluster together rather than
+  # on branch lengths, which vary across outgroup choices in ways that
+  # distract from the topological lesson. No title: the website widget
+  # provides the label dynamically.
+  par(mar = c(1, 1, 1, 1))
+  plot.phylo(
+    tree_og,
+    use.edge.length = FALSE,
+    tip.color       = tip_color(tree_og$tip.label),
+    cex             = 0.72,
+    edge.width      = 1.4,
+    no.margin       = FALSE
+  )
+
+  .legend_strip_png()
+  dev.off()
+
+  cat("  Saved: out/trees/", og$file, "\n", sep = "")
+}
+
+cat("\nSTEP 8 complete — 8 PNGs written to out/trees/\n")
+cat("Copy to images/ folder to activate the interactive widget.\n")
