@@ -119,3 +119,41 @@ MT456152.1 GI:1842679158
 655 bp linear DNA 
 MT456249.1 GI:1842679385
 
+
+Fish: Rainbow_Trout
+
+
+1. Oncorhynchus mykiss voucher Fish584 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+646 bp linear DNA 
+ON097815.1 GI:2253755753
+
+2. Oncorhynchus mykiss voucher Fish546 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+674 bp linear DNA 
+ON097695.1 GI:2253755216
+
+3. Oncorhynchus mykiss voucher Fish547 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+671 bp linear DNA 
+ON097678.1 GI:2253755143
+
+
+
+Fish: Brown_Trout
+
+
+1. Salmo trutta voucher HPM9 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+657 bp linear DNA 
+OR148179.1 GI:2668855112
+
+2. Salmo trutta voucher HPM7 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+660 bp linear DNA 
+OR148177.1 GI:2668855108
+
+3. Salmo trutta fario voucher Fish754 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+654 bp linear DNA 
+ON097318.1 GI:2253753575
+
+
+
+
+
+

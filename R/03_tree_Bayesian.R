@@ -242,6 +242,8 @@ plot.phylo(
 # embeds in the Newick string. We extract the prob(percent) values
 # directly from the raw file using regex, then match them to nodes
 # in the order they appear in the tree string.
+# Read raw file for PP extraction — must happen before STEP 8
+raw_lines <- readLines(con_path)
 
 tree_line <- raw_lines[grep("tree con_50_majrule", raw_lines)]
 
@@ -298,8 +300,9 @@ legend(
                "Paralichthyidae (flounders)",
                "Sparidae (sheepshead / porgies)",
                "Mugilidae (mullets)",
-               "Carcharhinidae (sharks — outgroup)"),
-  col     = c("#2166ac", "#d95f02", "#1b9e77", "#888888", "#e41a1c"),
+               "Carcharhinidae (sharks — outgroup)",
+               "Salmonidae (Rainbow, Brown Trout)"),
+  col     = c("#2166ac", "#d95f02", "#1b9e77", "#888888", "#e41a1c",  "#FA8072"),
   pch     = 15,
   cex     = 0.75,
   horiz   = FALSE,

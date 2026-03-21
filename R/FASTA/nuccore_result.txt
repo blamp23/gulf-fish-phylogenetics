@@ -1,0 +1,12 @@
+
+1. Salmo trutta voucher HPM9 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+657 bp linear DNA 
+OR148179.1 GI:2668855112
+
+2. Salmo trutta voucher HPM7 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+660 bp linear DNA 
+OR148177.1 GI:2668855108
+
+3. Salmo trutta fario voucher Fish754 cytochrome oxidase subunit 1 (COI) gene, partial cds; mitochondrial
+654 bp linear DNA 
+ON097318.1 GI:2253753575

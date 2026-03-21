@@ -24,41 +24,85 @@
 
   <main>
 
-    <!-- PLACEHOLDER
-         Section 1: From specimen to sequence
-           - Tissue collection, DNA extraction, sequencing workflow
-           - Common markers used (COI, 16S, UCEs, RADseq, etc.)
-         Section 2: Alignment and matrix construction
-           - What a sequence alignment looks like
-           - Choosing appropriate markers for the question
-         Section 3: Inferring the tree
-           - Brief overview of methods: distance, parsimony, ML, Bayesian
-           - Software commonly used (IQ-TREE, MrBayes, RAxML)
-         Section 4: Reading a phylogeny
-           - Nodes, branches, clades, bootstrap / posterior support
-           - Common misinterpretations
-         Add annotated figures of an alignment and a tree.
-    -->
+    <h2>From Specimen to Sequence</h2>
 
-    <div class="placeholder">
-      <p><strong>[PLACEHOLDER]</strong> Section 1 — From specimen to sequence</p>
-      <p>Replace with a workflow diagram or step-by-step description of the wet-lab process.</p>
-    </div>
+    <p>
+      The raw material for this analysis is DNA extracted from fish tissue — typically a
+      small fin clip taken from a live or freshly preserved specimen. The tissue is
+      homogenized and processed through a standard extraction protocol that lyses cells,
+      removes proteins and lipids, and precipitates pure DNA. From that extract, a
+      universal primer pair designed to flank the COI barcode region amplifies the target
+      stretch using the polymerase chain reaction (PCR). The PCR product — a segment
+      roughly 650 base pairs long — is then sequenced using Sanger sequencing, which
+      generates a chromatogram: a colored peak trace where each color represents one of
+      the four nucleotide bases. Software reads the peaks and outputs a string of A, C,
+      G, and T characters. That string is the raw sequence and the starting point for
+      everything that follows.
+    </p>
 
-    <div class="placeholder">
-      <p><strong>[PLACEHOLDER]</strong> Section 2 — Alignment and matrix construction</p>
-      <p>Replace with an example alignment figure and explanatory text.</p>
-    </div>
+    <h2>Alignment and Matrix Construction</h2>
 
-    <div class="placeholder">
-      <p><strong>[PLACEHOLDER]</strong> Section 3 — Inferring the tree</p>
-      <p>Replace with an overview of phylogenetic methods and the software used in your study.</p>
-    </div>
+    <figure>
+      <img src="images/Speckled%20Trout.jpg"
+           alt="Spotted Seatrout, a Sciaenidae species">
+      <figcaption>Speckled Trout (<em>Cynoscion nebulosus</em>) — DNA places this species firmly within the drum family, not with freshwater trout.</figcaption>
+    </figure>
 
-    <div class="placeholder">
-      <p><strong>[PLACEHOLDER]</strong> Section 4 — Reading a phylogeny</p>
-      <p>Replace with an annotated example tree and a guide to interpreting it.</p>
-    </div>
+    <p>
+      Before sequences can be compared, they must be aligned. Raw COI sequences from
+      different individuals are slightly different lengths and may have small insertions
+      or deletions relative to one another. Alignment inserts gap characters so that
+      column <em>n</em> in the final matrix represents the same homologous nucleotide
+      position across all sequences — meaning every base in a column evolved from the
+      same ancestral site. The result is a rectangular matrix where rows are taxa and
+      columns are aligned nucleotide positions. This matrix is the direct input to all
+      three tree-building methods used in this study. In this project, MUSCLE was used
+      for alignment, producing a matrix of approximately 660 columns across 24 sequences
+      representing 8 Gulf species.
+    </p>
+
+    <h2>Inferring the Tree</h2>
+
+    <p>
+      Three complementary methods were used to infer the evolutionary tree from the
+      aligned matrix, and their agreement provides confidence in the result.
+      Neighbor-Joining (NJ) compresses the alignment into a matrix of pairwise distances
+      and finds the tree that minimizes total distance — it is extremely fast and gives
+      a reliable first approximation. Maximum Likelihood (ML) instead evaluates the full
+      alignment under an explicit probabilistic model of DNA evolution, finding the tree
+      that makes the observed sequence data most probable under that model; it is more
+      computationally intensive but generally more accurate. Bayesian inference uses
+      Markov chain Monte Carlo sampling to estimate a probability distribution over all
+      possible trees, returning posterior probabilities rather than point estimates. When
+      all three methods agree on a grouping, confidence in that grouping is high; when
+      they disagree, it signals a region of tree space that the data cannot resolve with
+      a single barcode gene.
+    </p>
+
+    <h2>Reading a Phylogeny</h2>
+
+    <figure>
+      <img src="images/bull_shark.jpg"
+           alt="Bull Shark, the evolutionary outgroup in this study">
+      <figcaption>Bull Shark (<em>Carcharhinus leucas</em>) — as a cartilaginous fish, its deep divergence from all bony fish makes it an ideal outgroup for rooting the tree.</figcaption>
+    </figure>
+
+    <p>
+      A phylogenetic tree has three types of elements. Tips (also called leaves or
+      terminal nodes) are the taxa in the study — in this case individual COI sequences
+      labeled by species. Internal nodes represent hypothetical common ancestors: the
+      point in the past where two lineages diverged from a shared ancestor. Branch
+      lengths represent evolutionary distance, measured in substitutions per site under
+      the model used, so longer branches mean more DNA change accumulated along that
+      lineage. The root is the oldest node in the tree and gives it direction — without
+      an outgroup to place the root, a tree is unrooted and does not imply ancestor-
+      descendant relationships. In this study, Bull Shark serves as the outgroup: it
+      diverged from all bony fish roughly 420 million years ago, far deeper than any
+      split within the ingroup, which places the root unambiguously at the base of the
+      tree. A node labeled with 100% bootstrap support means that identical grouping
+      appeared in all 1,000 bootstrap replicates — very strong evidence that the clade
+      is real and not an artifact of the particular sequences sampled.
+    </p>
 
   </main>
 

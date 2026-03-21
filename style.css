@@ -194,6 +194,37 @@ table.data-table em {
   font-style: italic;
 }
 
+/* ── Figures and images ── */
+figure {
+  margin: 1.5rem 0;
+}
+
+figure img {
+  max-width: 100%;
+  border-radius: 6px;
+  display: block;
+}
+
+figcaption {
+  font-style: italic;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+}
+
+/* Hero image on landing page */
+.hero-image {
+  margin: 1.5rem 0;
+}
+
+.hero-image img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+
 /* ── Figure placeholder ── */
 .fig-placeholder {
   background: var(--accent-light);

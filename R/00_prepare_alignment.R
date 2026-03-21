@@ -67,7 +67,7 @@ print(names(dna_strings))
 # ============================================================
 cat("\n--- STEP 3: Running MUSCLE alignment (~30 s) ---\n")
 
-msa_result <- msa(dna_strings, method = "Muscle")
+msa_result <- msa(dna_strings, method = "ClustalW", type = "dna")
 
 aln_length <- ncol(as.matrix(msa_result))
 cat("  Alignment length:", aln_length, "bp\n")
@@ -112,7 +112,9 @@ family_colors <- c(
   "Southern_Flounder" = "#d95f02",
   "Sheepshead"        = "#1b9e77",
   "Flathead_Mullet"   = "#888888",
-  "Bull_Shark"        = "#e41a1c"
+  "Bull_Shark"        = "#e41a1c", 
+  "Rainbow_Trout"     = "#FA8072", 
+  "Brown_Trout"       = "#FA8072"
 )
 
 # tip_color(): given a vector of tip labels like "Red_Drum_1",

@@ -174,8 +174,10 @@ cat("  Saved: out/rdata/trees_NJ.RData\n")
                 "Paralichthyidae (flounders)",
                 "Sparidae (sheepshead / porgies)",
                 "Mugilidae (mullets)",
-                "Carcharhinidae (sharks — outgroup)"),
-    col     = c("#2166ac", "#d95f02", "#1b9e77", "#888888", "#e41a1c"),
+                "Carcharhinidae (sharks — outgroup)", 
+                "Salmonidae (Rainbow, Brown Trout)"
+                ),
+    col     = c("#2166ac", "#d95f02", "#1b9e77", "#888888", "#e41a1c", "#FA8072" ),
     pch     = 15,
     cex     = 0.75,      # slightly smaller text
     horiz   = FALSE,     # stack vertically instead of horizontal
