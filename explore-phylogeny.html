@@ -30,89 +30,49 @@
     <h2>What You're Looking At</h2>
 
     <p>
-      This analysis examines eight species collected from Galveston Bay and the broader
-      Gulf of Mexico, chosen to represent a range of families and lifestyles you'd
-      encounter on a single fishing trip. Four species belong to the family Sciaenidae —
-      the drums and croakers: <em>Red Drum</em> (<em>Sciaenops ocellatus</em>),
-      <em>Black Drum</em> (<em>Pogonias cromis</em>),
-      <em>Speckled Trout</em> (<em>Cynoscion nebulosus</em>), and
-      <em>Atlantic Croaker</em> (<em>Micropogonias undulatus</em>).
-      The other bony fish are <em>Southern Flounder</em>
-      (<em>Paralichthys lethostigma</em>, family Paralichthyidae),
-      <em>Sheepshead</em> (<em>Archosargus probatocephalus</em>, family Sparidae), and
-      <em>Flathead Mullet</em> (<em>Mugil cephalus</em>, family Mugilidae).
-      Rounding out the dataset as our evolutionary outgroup is <em>Bull Shark</em>
-      (<em>Carcharhinus leucas</em>, family Carcharhinidae) — the only cartilaginous fish
-      in the group, included precisely because its deep divergence from all bony fish
-      gives us an unambiguous anchor for the root of the tree.
+      This analysis covers eight Gulf species plus two Salmonidae reference species.
+      Four belong to Sciaenidae (the drums and croakers): <em>Red Drum</em>, <em>Black
+      Drum</em>, <em>Speckled Trout</em>, and <em>Atlantic Croaker</em>. The remaining
+      bony fish are <em>Southern Flounder</em> (Paralichthyidae), <em>Sheepshead</em>
+      (Sparidae), and <em>Flathead Mullet</em> (Mugilidae). <em>Bull Shark</em> is the
+      outgroup — its deep divergence from all bony fish anchors the root. <em>Rainbow
+      Trout</em> and <em>Brown Trout</em> were added to directly test whether Speckled
+      Trout has any evolutionary relationship to true trout.
     </p>
 
     <p>
-      For each species, two or three <a class="term" href="references.html#coi">COI (cytochrome oxidase I)</a><sup><a class="ref" href="references.html#ref-hebert2003">1</a></sup> sequences were downloaded
-      from <a class="term" href="references.html#genbank">GenBank</a>, giving us 24 sequences total. Using multiple sequences per species
-      serves as a built-in quality check: if three independent submissions for the same
-      species always cluster tightly together on the tree, we know the sequences are
-      consistently labeled and the gene is behaving as a reliable marker. If one sequence
-      strays far from its siblings, that's a flag to investigate — a possible mislabeled
-      entry or a contamination issue in the original study. In our analysis, every
-      within-species triplet clustered perfectly, which is a satisfying confirmation that
-      the data are clean.
-    </p>
-
-    <p>
-      All sequences were aligned using <a class="term" href="references.html#muscle">MUSCLE</a><sup><a class="ref" href="references.html#ref-edgar2004">8</a></sup>, a fast multiple sequence alignment
-      algorithm well-suited to mitochondrial protein-coding genes. The final aligned
-      matrix was approximately 660 base pairs long. Three independent methods were then
-      used to infer the tree: <a class="term" href="references.html#neighbor-joining">Neighbor-Joining (NJ)</a><sup><a class="ref" href="references.html#ref-saitou1987">4</a></sup>, <a class="term" href="references.html#maximum-likelihood">Maximum Likelihood (ML)</a><sup><a class="ref" href="references.html#ref-felsenstein1981">5</a></sup>, and
-      <a class="term" href="references.html#bayesian">Bayesian inference</a><sup><a class="ref" href="references.html#ref-ronquist2003">7</a></sup>. Running all three is standard practice — when independent
-      methods built on different mathematical frameworks agree, confidence in the result
-      goes up considerably.
-    </p>
-
-    <p>
-      For this updated analysis, two Salmonidae species were added as an additional
-      reference point: <em>Rainbow Trout</em> (<em>Oncorhynchus mykiss</em>) and
-      <em>Brown Trout</em> (<em>Salmo trutta</em>). These are the fish most people think
-      of when they hear the word "trout." Their inclusion allows us to directly answer
-      the question of whether Speckled Trout — a common name applied to
-      <em>Cynoscion nebulosus</em> in Gulf Coast fishing culture — has any meaningful
-      evolutionary relationship to true trout. The answer is visible the moment you look
-      at the tree.
+      Two or three <a class="term" href="references.html#coi">COI</a><sup><a class="ref" href="references.html#ref-hebert2003">1</a></sup>
+      sequences per species were downloaded from
+      <a class="term" href="references.html#genbank">GenBank</a> (24 total), then
+      aligned with <a class="term" href="references.html#muscle">MUSCLE</a><sup><a class="ref" href="references.html#ref-edgar2004">8</a></sup>
+      to a ~660 bp matrix. Multiple sequences per species act as a quality check — if
+      all three cluster tightly together, the data are clean. Every within-species group
+      clustered perfectly here. Trees were built with
+      <a class="term" href="references.html#neighbor-joining">NJ</a><sup><a class="ref" href="references.html#ref-saitou1987">4</a></sup>,
+      <a class="term" href="references.html#maximum-likelihood">ML</a><sup><a class="ref" href="references.html#ref-felsenstein1981">5</a></sup>,
+      and <a class="term" href="references.html#bayesian">Bayesian inference</a><sup><a class="ref" href="references.html#ref-ronquist2003">7</a></sup>.
     </p>
 
 
     <details>
-      <summary>Before looking at any tree, what would you predict about where Speckled Trout clusters, based purely on its common name? After examining the trees, was your prediction correct — and what does the result tell us about using common names as evolutionary guides?</summary>
+      <summary>Before looking at the tree, where would you predict Speckled Trout clusters based on its common name? Was your prediction right?</summary>
       <div class="details-body">
         <p>
-          Based on the name "Speckled Trout," most people would predict it clusters with
-          Rainbow Trout and Brown Trout. The trees show the opposite: Speckled Trout
-          (<em>Cynoscion nebulosus</em>) clusters firmly inside Sciaenidae — the drum and
-          croaker family — alongside Red Drum, Black Drum, and Atlantic Croaker, supported
-          at 100% by all three methods. Rainbow Trout and Brown Trout sit in an entirely
-          separate clade, Salmonidae, separated from Speckled Trout by one of the longest
-          branches in the tree. Common names evolved to reflect appearance, behavior, or
-          taste — "Speckled Trout" was named for its spotted pattern and table quality,
-          not ancestry. Latin binomial names carry no assumption about relatedness;
-          common names routinely do, and they are often wrong.
+          Most people predict it clusters with Rainbow and Brown Trout. Wrong — it sits
+          firmly inside Sciaenidae alongside Red Drum and Atlantic Croaker at 100%
+          support. Common names reflect appearance and taste, not ancestry.
         </p>
       </div>
     </details>
 
     <details>
-      <summary>Why include Rainbow Trout and Brown Trout in a study of Gulf of Mexico fish? What biological question does their presence directly answer?</summary>
+      <summary>Why include Rainbow and Brown Trout in a Gulf of Mexico study?</summary>
       <div class="details-body">
         <p>
-          Including the Salmonidae reference taxa lets us answer a specific, testable
-          question: does the fish Gulf Coast anglers call "Speckled Trout" have any
-          meaningful evolutionary relationship to true trout? Without Rainbow Trout and
-          Brown Trout on the tree, the data can show that Speckled Trout groups with
-          drums — but cannot show how far it is from actual trout. Adding the Salmonidae
-          gives a concrete reference point: the branch separating Salmonidae from
-          Sciaenidae is comparable in length to the branch separating both families from
-          Bull Shark. The evolutionary distance between Speckled Trout and Rainbow Trout
-          is not slightly large — it is enormous, on the same scale as the separation
-          between bony fish and sharks.
+          Without them on the tree, you can show Speckled Trout groups with drums, but
+          not how far it sits from actual trout. Adding Salmonidae gives a concrete
+          reference: the gap between Salmonidae and Sciaenidae is comparable in scale
+          to the gap between bony fish and sharks.
         </p>
       </div>
     </details>
@@ -123,82 +83,46 @@
     <h2>The Neighbor-Joining Tree</h2>
 
     <p>
-      The <a class="term" href="references.html#neighbor-joining">Neighbor-Joining</a> tree, built from pairwise <a class="term" href="references.html#k80">K80</a><sup><a class="ref" href="references.html#ref-kimura1980">3</a></sup> distances, gives us our first
-      look at the data and sets the stage for the more sophisticated analyses that follow.
-      The most immediately striking new feature in the expanded dataset is the Salmonidae
-      clade: Rainbow Trout and Brown Trout cluster together at 100% bootstrap support,
-      forming a tight group that sits completely separate from every Gulf fish in the
-      dataset. These are the fish people think of when they say "trout" — and yet they
-      occupy an entirely different part of the tree.
+      The <a class="term" href="references.html#neighbor-joining">NJ</a> tree uses
+      pairwise <a class="term" href="references.html#k80">K80</a><sup><a class="ref" href="references.html#ref-kimura1980">3</a></sup>
+      distances. The key result: Rainbow Trout and Brown Trout cluster together at 100%
+      bootstrap, completely separate from every Gulf fish. Speckled Trout sits inside
+      Sciaenidae with Red Drum, Black Drum, and Atlantic Croaker at 100% support. The
+      branch separating Salmonidae from Sciaenidae is one of the longest in the tree.
     </p>
 
     <p>
-      Speckled Trout (<em>Cynoscion nebulosus</em>) is nested firmly inside Sciaenidae —
-      the same clade as Red Drum, Black Drum, and Atlantic Croaker — with 100% bootstrap
-      support for that family grouping. The evolutionary distance between Speckled Trout
-      and Rainbow Trout is enormous: the branch separating Salmonidae from Sciaenidae is
-      one of the longest in the tree, comparable in scale to the separation between those
-      families and Bull Shark. The common name "Speckled Trout" was given because early
-      observers noticed the spotted pattern and similar table quality — not because of any
-      evolutionary kinship with Salmonidae. The COI tree makes this unmistakably clear.
-    </p>
-
-    <p>
-      Within Sciaenidae, Red Drum and Black Drum are sister taxa — they share a more
-      recent common ancestor with each other than either does with Speckled Trout or
-      Atlantic Croaker. This is consistent with the documented occurrence of natural
-      hybrids between these two species in Gulf waters, which requires a high degree of
-      genetic similarity. Southern Flounder remains isolated from all Perciformes with
-      100% bootstrap support: its flat body plan and eye-migration development are
-      adaptations evolved independently from anything in the drum lineage. Sheepshead
-      and Flathead Mullet are consistently placed outside Sciaenidae, consistent with
-      their placement in entirely different families.
-    </p>
-
-    <p>
-      Some of the internal branching points <em>within</em> Sciaenidae show NJ bootstrap
-      values in the range of 30–47%. This means we cannot say with high confidence
-      whether, for example, Atlantic Croaker diverged before or after Speckled Trout
-      within the family. That uncertainty is real and expected — a single 650 bp gene
-      contains limited signal for resolving very recent divergences among closely related
-      species. Crucially, this does not cast doubt on the family grouping itself, which
-      is supported at 100%. The two NJ trees — one rooted on Bull Shark, one on Flathead
-      Mullet — agree on every major grouping, confirming that these results are robust
-      to outgroup choice.
+      Within Sciaenidae, Red Drum and Black Drum are sister taxa — consistent with the
+      documented occurrence of natural hybrids between them in Gulf waters. Southern
+      Flounder sits isolated from all Perciformes at 100%; its flat body evolved
+      independently from the drum lineage. Internal nodes <em>within</em> Sciaenidae
+      show bootstrap values of 30–47% — the family grouping itself is at 100%, but
+      COI alone can't resolve the exact order within the family.
     </p>
 
 
 
     <details>
-      <summary>Some internal nodes within Sciaenidae show NJ bootstrap values of 30–47%. Does this cast doubt on the finding that all four Sciaenidae species form one family? Why or why not?</summary>
+      <summary>Internal Sciaenidae nodes show 30–47% bootstrap. Does that mean the family grouping is in doubt?</summary>
       <div class="details-body">
         <p>
-          No — bootstrap support at internal nodes and bootstrap support at the family node
-          answer different questions. A value of 30–47% at an internal node means we cannot
-          determine with confidence whether, say, Atlantic Croaker diverged before or after
-          Speckled Trout within the family. The node that unites <em>all four</em> Sciaenidae
-          together is at 100%: that grouping appeared in all 1,000 bootstrap replicates.
-          These two results are completely consistent. The family exists and is well-supported;
-          the fine internal branching order within the family is unresolved from 650 bp
-          of COI. Resolving it would require more data — additional genes or whole genomes.
+          No. The node uniting all four Sciaenidae is at 100%. Low internal support
+          only means we can't resolve the exact order in which those four species
+          diverged — a narrower question. The family is well-supported; its internal
+          branching order needs more data to resolve.
         </p>
       </div>
     </details>
 
     <details>
-      <summary>Using the interactive outgroup explorer, toggle between Bull Shark and Speckled Trout as the outgroup. Describe what changes between the two trees and explain why.</summary>
+      <summary>In the outgroup explorer, switch between Bull Shark and Speckled Trout as outgroup. What changes, and what stays the same?</summary>
       <div class="details-body">
         <p>
-          With Bull Shark as outgroup, the root falls between all bony fish and the shark
-          — the expected and biologically correct position. All family clades (Sciaenidae,
-          Salmonidae, etc.) appear intact and monophyletic. When you switch to Speckled
-          Trout as outgroup, the root is forced inside Sciaenidae, making the drum family
-          appear paraphyletic — split by the root — even though the underlying sequence
-          data hasn't changed at all. Rainbow Trout and Brown Trout still cluster together
-          far from the root in both trees, because that grouping reflects real sequence
-          similarity that no rooting choice can alter. The take-away: outgroup choice
-          determines the tree's direction in time but cannot change which sequences are
-          most similar to each other.
+          With Bull Shark, the root falls between all bony fish and the shark — correct.
+          With Speckled Trout, the root is forced inside Sciaenidae, making the drum
+          family look split — but the underlying data hasn't changed. Rainbow and Brown
+          Trout still cluster together regardless of root choice. Outgroup choice changes
+          direction, not topology.
         </p>
       </div>
     </details>
@@ -339,41 +263,16 @@
     <h2>The Maximum Likelihood Tree</h2>
 
     <p>
-      The <a class="term" href="references.html#maximum-likelihood">Maximum Likelihood</a> tree was built using the <a class="term" href="references.html#gtr">GTR+Gamma+I</a><sup><a class="ref" href="references.html#ref-tavare1986">6</a></sup> substitution model
-      fitted to the aligned COI matrix. GTR stands for General Time Reversible — it
-      allows all six possible types of DNA substitution (A↔G, C↔T, A↔C, A↔T, G↔C,
-      G↔T) to occur at their own estimated rates, rather than assuming they're all
-      equally likely. Gamma adds a shape parameter that lets substitution rate vary
-      across different positions in the gene, reflecting the biological reality that some
-      sites evolve much faster than others. I accounts for invariant sites — positions
-      that appear fixed across the entire dataset and are assumed to never change.
-    </p>
-
-    <p>
-      The family-level topology matches NJ completely. The Salmonidae clade — Rainbow
-      Trout and Brown Trout — is recovered at 100% bootstrap support and sits entirely
-      separate from Sciaenidae. Speckled Trout clusters inside Sciaenidae at 100%
-      bootstrap; the node uniting all four Sciaenidae species is also at 100%. Every
-      individual species triplet is supported at 100%, confirming the NJ quality-check
-      result. Southern Flounder's separation from all Perciformes is fully consistent
-      between the two methods. When independent methods built on very different
-      mathematical approaches — pairwise distance minimization versus whole-alignment
-      likelihood maximization — agree on a result, confidence in that result is high.
-    </p>
-
-    <p>
-      Some within-Sciaenidae nodes continue to show lower ML bootstrap values in the
-      25–64% range. These are the same internal branches that showed uncertainty in the
-      NJ analysis. The Sheepshead and Mullet placements also show lower support, which
-      is consistent across methods. Three sequences — Bull Shark 3, Southern Flounder 3,
-      and Flathead Mullet 2 — show slightly scattered placement in the ML tree compared
-      to their siblings. Within each species, pairwise COI distances are extremely small
-      (0.0016 or less), meaning these sequences are nearly identical to the others from
-      the same species. When sequences are this similar, ML optimization can place them
-      in slightly different positions from replicate to replicate because the likelihood
-      surface is nearly flat in that region — there is essentially no signal
-      distinguishing one arrangement from another. This is a known artifact with
-      near-duplicate sequences and has no effect on the family-level topology.
+      The <a class="term" href="references.html#maximum-likelihood">ML</a> tree used
+      <a class="term" href="references.html#gtr">GTR+Gamma+I</a><sup><a class="ref" href="references.html#ref-tavare1986">6</a></sup>
+      — all six substitution rates estimated independently, rate variation across sites
+      modeled with a gamma distribution, and invariant sites accounted for. The
+      family-level topology matches NJ exactly. Salmonidae sits at 100% bootstrap,
+      completely separate from Sciaenidae. Speckled Trout is inside Sciaenidae at 100%.
+      Internal Sciaenidae nodes remain at 25–64% — same uncertainty, consistent across
+      methods. Three sequences (Bull Shark 3, Southern Flounder 3, Flathead Mullet 2)
+      scatter slightly, but their within-species distances are ≤0.0016 — too similar for
+      ML to confidently place them. This has no effect on family-level results.
     </p>
 
     <figure style="margin:1.5rem 0">
@@ -387,40 +286,26 @@
 
 
     <details>
-      <summary>The ML tree uses GTR+Gamma+I, which estimates a gamma shape parameter α for rate variation. What does a very small α (e.g., α = 0.1) versus a large α (e.g., α = 2.0) tell you about how COI is evolving across your alignment?</summary>
+      <summary>What does a small α (e.g., 0.1) vs. a large α (e.g., 2.0) tell you about how COI evolves across the alignment?</summary>
       <div class="details-body">
         <p>
-          The gamma shape parameter controls the spread of substitution rates across sites.
-          A small α (close to zero) describes a highly skewed distribution: most sites
-          evolve very slowly or not at all, while a small fraction of "hot" positions
-          accumulate substitutions rapidly. This is typical of protein-coding genes like
-          COI, where third codon positions are nearly free to change (synonymous
-          substitutions don't alter the protein) while first and second positions are
-          constrained by protein function. A large α (close to 5 or above) approaches
-          a uniform rate distribution — all sites evolving at similar speeds. For COI
-          barcodes, α values in the 0.2–1.0 range are common, reflecting the mix of
-          conserved functional sites and more variable positions. The +I component handles
-          sites that are completely invariant — a category that α alone can't model well
-          at the extreme end.
+          Small α: most sites barely change, but a few "hot" positions accumulate
+          substitutions rapidly — typical of protein-coding genes where third codon
+          positions are nearly free to vary. Large α: rates are relatively uniform
+          across sites. For COI, α values of 0.2–1.0 are typical.
         </p>
       </div>
     </details>
 
     <details>
-      <summary>Three sequences in the ML tree — Bull Shark 3, Southern Flounder 3, and Flathead Mullet 2 — show slightly scattered placement relative to their siblings. The text says their pairwise distances are ≤ 0.0016. Why would near-identical sequences produce unstable placement?</summary>
+      <summary>Why do near-identical sequences produce unstable placement in the ML tree?</summary>
       <div class="details-body">
         <p>
-          When two sequences are nearly identical, the likelihood surface is nearly flat
-          in the region of tree space where they could be placed — there is essentially
-          no signal distinguishing "Flathead Mullet 2 is sister to Flathead Mullet 1"
-          from "Flathead Mullet 2 is slightly displaced." Small random differences in
-          the optimization path — which branch gets tried first, random rearrangement
-          order — push the sequence to whichever position happens to have the tiny
-          numerical advantage in that run. This is a known artifact with near-duplicate
-          sequences and is completely harmless for the family-level topology: no matter
-          where those three scattered sequences land, every method still places all four
-          Sciaenidae together, Salmonidae together, and so on. The instability is
-          within-species noise, not an error in the family structure.
+          When two sequences are nearly identical, the likelihood surface is nearly flat —
+          there's almost no signal favoring one placement over another. Small random
+          differences in the optimization path push the sequence wherever has the tiny
+          numerical edge. This is harmless for family-level topology; it's within-species
+          noise.
         </p>
       </div>
     </details>
@@ -431,39 +316,23 @@
     <h2>The Bayesian Tree</h2>
 
     <p>
-      The <a class="term" href="references.html#bayesian">Bayesian</a> analysis, run in MrBayes with the GTR+Gamma model over 500,000 <a class="term" href="references.html#mcmc">MCMC</a>
-      generations, produces the cleanest-looking result of the three methods. Nearly
-      every node carries a posterior probability of 1.00, including the node uniting all
-      Sciaenidae, the node uniting Rainbow Trout and Brown Trout as Salmonidae, and —
-      most tellingly — the node that separates those two families from one another.
-      Speckled Trout sits at PP=1.00 inside Sciaenidae. Rainbow and Brown Trout sit at
-      PP=1.00 inside their own completely separate Salmonidae clade. The branch
-      separating Salmonidae from Sciaenidae is one of the longest in the ingroup,
-      representing tens of millions of years of independent evolution. The name
-      "Speckled Trout" is a relic of early observation and cultural naming conventions.
-      The DNA is unambiguous: this fish is a drum.
+      The <a class="term" href="references.html#bayesian">Bayesian</a> analysis (MrBayes,
+      GTR+Gamma, 500,000 <a class="term" href="references.html#mcmc">MCMC</a>
+      generations) gives the cleanest result. Nearly every node is PP = 1.00, including
+      the Sciaenidae node, the Salmonidae node, and the node separating the two families.
+      Speckled Trout is at PP = 1.00 inside Sciaenidae. The DNA is unambiguous: it's
+      a drum, not a trout.
     </p>
 
     <p>
-      The only nodes with lower posterior support — PP=0.70, 0.58, and 0.51 — occur at
-      deeper internal splits within Sciaenidae. These are exactly the same nodes that
-      showed lower NJ bootstrap values and lower ML bootstrap values. All three methods
-      agreeing on where uncertainty lies is a reassuring sign: the data are consistently
-      pointing to the same genuinely ambiguous branching events, and the uncertainty is
-      biological rather than methodological. The signal for resolving those particular
-      divergences is simply not contained in 650 bp of COI.
-    </p>
-
-    <p>
-      <a class="term" href="references.html#posterior-probability">Posterior probability</a> is often misunderstood, so it's worth being precise. A PP of
-      0.58 at a node does not mean the node is wrong — it means that given the data and
-      the model, there is a 58% probability that those taxa form the grouping shown, and
-      a 42% probability that the true branching order is slightly different. Bayesian
-      posterior probabilities tend to be numerically higher than ML bootstrap values for
-      the same node, and the two are not directly comparable — a node with PP=0.68 and
-      ML bootstrap=40% are both expressing genuine uncertainty about that particular
-      branching order in consistent ways. For the purposes of this analysis, the
-      fully supported nodes are more than sufficient to answer the central question.
+      The only lower-support nodes (PP = 0.70, 0.58, 0.51) are internal splits within
+      Sciaenidae — the same ones that showed weak support in NJ and ML. All three methods
+      agreeing on where uncertainty lies confirms this is a biological limitation, not a
+      methodological one. A
+      <a class="term" href="references.html#posterior-probability">posterior probability</a>
+      of 0.58 doesn't mean the node is wrong — it means there's 58% probability for that
+      branching order and 42% for alternatives. PP values tend to run numerically higher
+      than ML bootstrap and aren't directly comparable.
     </p>
 
     <figure style="margin:1.5rem 0">
@@ -477,36 +346,26 @@
 
 
     <details>
-      <summary>The Bayesian tree shows PP = 0.58 at one internal Sciaenidae node. A student says this means the tree is probably wrong at that point. Correct their reasoning.</summary>
+      <summary>PP = 0.58 at one Sciaenidae node. A student says the tree is probably wrong there. Correct them.</summary>
       <div class="details-body">
         <p>
-          PP = 0.58 does not mean the tree is wrong — it means the data assign a 58%
-          probability to the branching order shown, and a 42% probability to alternative
-          arrangements among those same taxa. The family grouping itself (all four
-          Sciaenidae together) is at PP = 1.00 and is not in doubt. What is uncertain
-          is the exact order in which those four species diverged from each other — a
-          much narrower question. This is meaningful information: it tells you precisely
-          where the 650 bp COI barcode runs out of resolution, and where investing in
-          additional loci would be most rewarding. A tree that honestly reports
-          uncertainty is scientifically more useful than one that hides it.
+          PP = 0.58 means 58% probability for that branching order, 42% for alternatives
+          among those same taxa. The family grouping is at PP = 1.00 and not in doubt.
+          The uncertainty is only about which drum diverged first — a much narrower
+          question that needs more data to resolve.
         </p>
       </div>
     </details>
 
     <details>
-      <summary>All three methods — NJ, ML, and Bayesian — place Salmonidae and Sciaenidae in completely separate clades with maximum support. Why does this convergence across methods give stronger confidence than any single method could?</summary>
+      <summary>All three methods place Salmonidae and Sciaenidae completely separate at maximum support. Why is agreement across methods stronger evidence than any one method alone?</summary>
       <div class="details-body">
         <p>
-          Each method carries its own assumptions and potential failure modes: NJ can
-          be misled by rate heterogeneity, ML by local optima in the likelihood landscape,
-          Bayesian inference by poor MCMC mixing or prior misspecification. When three
-          methods built on fundamentally different mathematical frameworks all recover
-          the same grouping at maximum support, it becomes extremely unlikely that any
-          one method's specific artifact is driving the result — because such an artifact
-          would have to affect all three methods simultaneously in the same direction.
-          The agreement is therefore not just additive evidence; it is qualitatively
-          stronger, ruling out method-specific explanations. This is why multi-method
-          phylogenetic studies are the norm in published literature.
+          Each method has its own failure modes. For all three to produce the same wrong
+          answer, the artifact would have to affect NJ, ML, and Bayesian inference
+          simultaneously in the same direction — extremely unlikely. Agreement rules out
+          method-specific explanations and is qualitatively stronger than any single
+          result.
         </p>
       </div>
     </details>
@@ -516,91 +375,60 @@
     ══════════════════════════════════════════════════════ -->
     <h2>Discussion Questions</h2>
 
-    <p>
-      Each question below is based on something the trees actually show. Read the question,
-      think through it, then click to reveal a possible answer.
-    </p>
-
     <details>
-      <summary>Speckled Trout clusters with the drums and croakers — not with freshwater trout. What does this tell us about the reliability of common names for understanding evolutionary relationships?</summary>
+      <summary>Speckled Trout clusters with drums, not freshwater trout. What does this say about common names as evolutionary guides?</summary>
       <div class="details-body">
         <p>
-          Common names reflect cultural familiarity and often describe appearance, flavor,
-          or behavior — not ancestry. Speckled Trout was named for its spotted pattern and
-          table quality, both of which reminded early settlers of true trout (Salmonidae).
-          But DNA reveals it is a drum, more closely related to Red Drum and Atlantic
-          Croaker than to any Salmonid. This is why biologists use Latin binomial names:
-          <em>Cynoscion nebulosus</em> carries no assumptions about ancestry, while
-          "trout" carries a misleading one. The molecular tree corrects the record.
+          Common names reflect appearance and culture, not ancestry. "Speckled Trout"
+          was named for its spots and table quality. DNA shows it's a drum, more closely
+          related to Red Drum and Atlantic Croaker than to any Salmonid.
         </p>
       </div>
     </details>
 
     <details>
-      <summary>Red Drum and Black Drum are sister taxa in every tree. What biological evidence from Galveston Bay is consistent with this close relationship?</summary>
+      <summary>Red Drum and Black Drum are sister taxa in every tree. What field evidence is consistent with that?</summary>
       <div class="details-body">
         <p>
-          Red Drum and Black Drum can interbreed and produce viable hybrids in the wild —
-          a phenomenon documented in Gulf coastal waters. Hybridization between species
-          typically requires a high degree of genetic similarity, particularly in the
-          molecular machinery governing reproduction. Sister taxa, by definition, share
-          the most recent common ancestor in the dataset, which places them genetically
-          closer to each other than either is to Speckled Trout or Atlantic Croaker.
-          The COI tree is thus consistent with what field biologists have observed: these
-          two species are close enough to occasionally cross the reproductive barrier.
+          They hybridize in the wild — documented in Gulf coastal waters. Hybridization
+          requires close genetic similarity, which sister-taxon status predicts.
         </p>
       </div>
     </details>
 
     <details>
-      <summary>Southern Flounder is consistently placed far from the drums despite living in the same estuary and sharing a similar bottom-dwelling lifestyle. What evolutionary concept explains this pattern?</summary>
+      <summary>Southern Flounder lives in the same estuary as the drums but sits far from them on the tree. What concept explains this?</summary>
       <div class="details-body">
         <p>
-          This is a textbook example of <a class="term" href="references.html#convergent-evolution">convergent evolution</a> — unrelated lineages
-          independently evolving similar traits in response to similar ecological pressures.
-          Southern Flounder and drums both occupy Galveston Bay's shallow estuarine habitat,
-          and both are ambush predators that benefit from camouflage against a sandy bottom.
-          But the flounder's dramatically flat body and eye migration evolved in the lineage
-          Paralichthyidae completely independently from anything that happened in Sciaenidae.
-          Shared habitat can produce shared adaptations without shared ancestry.
-          The molecular tree sees through the ecological convergence and recovers the true
-          history.
+          <a class="term" href="references.html#convergent-evolution">Convergent evolution</a>
+          — unrelated lineages independently evolving similar traits under similar
+          conditions. The flounder's flat body and camouflage evolved in Paralichthyidae
+          completely separately from anything in Sciaenidae. Same habitat, different
+          ancestry.
         </p>
       </div>
     </details>
 
     <details>
-      <summary>Some internal nodes within Sciaenidae have bootstrap values of 30–50% even though the family itself is supported at 100%. What does this mean, and is it a problem?</summary>
+      <summary>Internal Sciaenidae bootstrap values are 30–50%, but the family node is at 100%. Is that a contradiction?</summary>
       <div class="details-body">
         <p>
-          Bootstrap values measure confidence in a specific branching order, not in the
-          existence of a group. A node with 40% bootstrap support means that only 40% of
-          resampled datasets recovered that exact split — the remaining 60% recovered
-          slightly different arrangements among the same taxa. This reflects genuine
-          ambiguity about whether, say, Atlantic Croaker diverged before or after Speckled
-          Trout within Sciaenidae. For the question this tutorial is designed to ask —
-          does COI correctly identify family membership? — the answer is clearly yes.
-          All three methods (NJ, ML, Bayesian) unanimously place all four Sciaenidae
-          together at 100% support, separated from all other families. Resolving the
-          fine internal branching order would require more data, such as multiple loci
-          or a genome-wide approach.
+          No. The 100% means all four Sciaenidae always group together. The 30–50%
+          means the exact order in which they diverged is unresolved from 650 bp of COI.
+          The family is real and well-supported; resolving its internal structure needs
+          more data.
         </p>
       </div>
     </details>
 
     <details>
-      <summary>Rainbow Trout and Brown Trout cluster together at 100% bootstrap/PP in all three methods, completely separate from Speckled Trout. If you were a fisheries manager relying only on common names, what management mistakes might you make?</summary>
+      <summary>A fisheries manager groups all "trout" together based on common names. What mistakes might result?</summary>
       <div class="details-body">
         <p>
-          A manager using common names might group all "trout" together for stock
-          assessments, harvest limits, or habitat protection priorities. But Rainbow and
-          Brown Trout are coldwater Salmonidae requiring very different habitat conditions
-          than Speckled Trout, which is a warm-water estuarine drum. Treating them as
-          related would mean habitat restoration dollars might go to the wrong
-          environments, or harvest limits for one "trout" might be applied incorrectly
-          to another. DNA-based identification prevents this category error and ensures
-          that management decisions are grounded in actual evolutionary relationships
-          rather than superficial naming conventions.
+          Rainbow and Brown Trout are coldwater Salmonidae; Speckled Trout is a
+          warm-water estuarine drum. Treating them as related could direct habitat
+          restoration to the wrong environments and apply the wrong harvest limits
+          to the wrong species.
         </p>
       </div>
     </details>

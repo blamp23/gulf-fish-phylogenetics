@@ -25,12 +25,9 @@
   <main>
 
     <p>
-      This page walks through the complete analysis pipeline used to generate the trees on
-      the previous page — from downloading raw sequences off GenBank to producing a
-      publication-ready PDF figure in R. All four R scripts are available in the project
-      GitHub repository and can be run on any laptop running R&nbsp;4.0 or higher.
-      The guide is written for upper-division undergraduates and beginning graduate
-      students who are comfortable in R but new to phylogenetics.
+      This page walks through the full pipeline — from downloading sequences off GenBank
+      to a finished tree in R. All four scripts are in the GitHub repo and run on any
+      laptop with R 4.0+.
     </p>
 
 
@@ -40,13 +37,9 @@
     <h2>What You Need</h2>
 
     <p>
-      You will need R version 4.0 or higher, which is available at
-      <code>r-project.org</code>. The analysis uses four R packages: <code>ape</code> and
-      <code>phangorn</code> are on CRAN and can be installed in the standard way;
-      <code>msa</code> and <code>Biostrings</code> are Bioconductor packages and require
-      the BiocManager installer. Run the following block once in your R console to get
-      everything in place, then leave the lines commented out in your scripts so they
-      don't re-install on every run.
+      R 4.0+ from <code>r-project.org</code>. Four packages: <code>ape</code> and
+      <code>phangorn</code> from CRAN; <code>msa</code> and <code>Biostrings</code>
+      from Bioconductor. Run this once, then comment it out.
     </p>
 
 <pre><code>install.packages(c("ape", "phangorn"))
@@ -54,57 +47,41 @@ if (!requireNamespace("BiocManager")) install.packages("BiocManager")
 BiocManager::install(c("msa", "Biostrings"))</code></pre>
 
     <p>
-      For the Bayesian analysis you also need MrBayes, which runs outside R from the
-      terminal. On a Mac with Homebrew installed, <code>brew install mrbayes</code>
-      handles the whole thing. On other systems, precompiled binaries and source code
-      are available at <code>mrbayes.sourceforge.net</code>. Once installed, confirm
-      it works by typing <code>mb</code> in a terminal window — you should see the
-      MrBayes welcome banner.
+      For Bayesian analysis you also need MrBayes (runs in the terminal, outside R).
+      Mac: <code>brew install mrbayes</code>. Other systems: binaries at
+      <code>mrbayes.sourceforge.net</code>. Confirm with <code>mb</code> in a terminal.
     </p>
 
     <p>
-      All four R scripts for this project (<code>00_prepare_alignment.R</code>,
-      <code>01_tree_NJ.R</code>, <code>02_tree_ML.R</code>,
-      <code>03_tree_Bayesian.R</code>) are in the <code>R/</code> folder of the
-      project GitHub repository. Clone the repository or download the scripts
-      individually and place them in a folder called <code>R/</code>. The scripts
-      expect to be run from that folder as the working directory, and they will
-      create <code>out/rdata/</code> and <code>out/trees/</code> subdirectories
-      automatically on first run.
+      The four scripts (<code>00_prepare_alignment.R</code>, <code>01_tree_NJ.R</code>,
+      <code>02_tree_ML.R</code>, <code>03_tree_Bayesian.R</code>) are in the
+      <code>R/</code> folder of the repo. Run them from that folder as your working
+      directory. Output folders (<code>out/rdata/</code>, <code>out/trees/</code>) are
+      created automatically.
     </p>
 
 
     <details class="troubleshoot">
-      <summary>BiocManager::install() fails with a repository error or "cannot open URL." What should I try?</summary>
+      <summary>BiocManager::install() fails with a repository error or "cannot open URL."</summary>
       <div class="details-body">
         <p>
-          First confirm your internet connection is active and that R can reach CRAN
-          (try <code>install.packages("ape")</code> as a test). If CRAN installs work
-          but Bioconductor fails, try updating BiocManager itself:
-          <code>install.packages("BiocManager")</code>. If you get an SSL certificate
-          error, try <code>options(repos = c(CRAN = "http://cran.r-project.org"))</code>
-          (note <code>http</code>, not <code>https</code>) as a temporary workaround.
-          On a university network, a firewall or proxy may block Bioconductor's servers —
-          try from a personal network or VPN. Finally, check that your R version is
-          compatible with the current Bioconductor release:
-          <code>BiocManager::version()</code> prints the expected pairing.
+          Test CRAN first: <code>install.packages("ape")</code>. If that works, update
+          BiocManager: <code>install.packages("BiocManager")</code>. SSL error? Try
+          <code>options(repos = c(CRAN = "http://cran.r-project.org"))</code>. On a
+          university network, try from a personal connection or VPN. Check R/Bioconductor
+          version compatibility with <code>BiocManager::version()</code>.
         </p>
       </div>
     </details>
 
     <details class="troubleshoot">
-      <summary>I installed msa and Biostrings but R says "there is no package called 'msa'" when I try to load them. What went wrong?</summary>
+      <summary>Installed msa and Biostrings but R says "there is no package called 'msa'."</summary>
       <div class="details-body">
         <p>
-          Bioconductor packages install into a separate library path from CRAN packages.
-          Run <code>.libPaths()</code> to see which directories R is searching. If the
-          Bioconductor library is missing, run
-          <code>BiocManager::install(c("msa","Biostrings"))</code> again in a fresh R
-          session (restart R first — sometimes a prior failed install leaves a partial
-          file that blocks retry). If you have multiple R versions installed, make sure
-          you ran BiocManager from the <em>same</em> R version you are now running the
-          scripts in. On Windows, run R or RStudio as Administrator if you see permission
-          errors during the install.
+          Bioconductor installs to a separate library path. Run <code>.libPaths()</code>
+          to check. Try reinstalling in a fresh R session. If you have multiple R
+          versions, make sure BiocManager ran in the same version you're using now.
+          Windows: run RStudio as Administrator if you see permission errors.
         </p>
       </div>
     </details>
@@ -115,34 +92,15 @@ BiocManager::install(c("msa", "Biostrings"))</code></pre>
     <h2>Getting Sequences from GenBank</h2>
 
     <p>
-      All sequences in this analysis come from NCBI Nucleotide, the public repository
-      for DNA sequence data. The marker we used is COI — cytochrome oxidase subunit I,
-      a mitochondrial protein-coding gene that has become the standard barcode for
-      animal species identification. COI is ideal for this kind of analysis because it
-      sits in a sweet spot: it is conserved enough across the animal kingdom that a
-      single pair of universal PCR primers can amplify it from almost any fish species,
-      but it is variable enough between species that it reliably distinguishes them from
-      one another. The standard barcode region is approximately 650 base pairs long.
+      All sequences come from NCBI Nucleotide. The gene is COI — the standard DNA
+      barcode for animal species, ~650 bp long. Search with:
+      <code>[species name][ORGN] AND COI[GENE] AND 600:700[SLEN]</code>. Download
+      2–3 sequences per species in FASTA format. Combine them:
+      <code>cat *.fasta &gt; combined.fasta</code>. Edit headers to clean short names
+      like <code>&gt;Red_Drum_1</code>.
     </p>
 
-    <p>
-      To find COI sequences for a new species, go to
-      <code>ncbi.nlm.nih.gov/nucleotide</code> and search using the query
-      <code>[species name][ORGN] AND COI[GENE] AND 600:700[SLEN]</code>. The
-      <code>[ORGN]</code> field filters by organism name, <code>[GENE]</code> restricts
-      to sequences annotated as COI, and <code>600:700[SLEN]</code> limits results to
-      the barcode length range, excluding very short fragments and whole mitogenomes.
-      Choose two or three sequences per species if available — having replicates lets
-      you verify consistency, as described on the previous page. Download results in
-      FASTA format. Once you have individual FASTA files, combine them into one file
-      from the terminal with <code>cat *.fasta &gt; combined.fasta</code>, then open
-      the file in a text editor to give each sequence a clean, short header like
-      <code>&gt;Red_Drum_1</code> before passing it to R.
-    </p>
-
-    <p>
-      The table below lists every accession number used in this project.
-    </p>
+    <p>Accession numbers used in this project:</p>
 
     <table class="data-table">
       <thead>
@@ -207,35 +165,26 @@ BiocManager::install(c("msa", "Biostrings"))</code></pre>
 
 
     <details class="troubleshoot">
-      <summary>My NCBI search returns thousands of results but none are the right length, or the length filter doesn't seem to be working. What should I check?</summary>
+      <summary>NCBI search returns wrong-length results or the length filter isn't working.</summary>
       <div class="details-body">
         <p>
-          The <code>600:700[SLEN]</code> filter must appear in the search bar as part of
-          the query string, not entered into a separate field. Verify the query looks
-          exactly like: <code>Sciaenops ocellatus[ORGN] AND COI[GENE] AND 600:700[SLEN]</code>.
-          If you still get unexpected results, note that NCBI sometimes annotates the gene
-          as "cox1" rather than "COI" — try both: <code>COI[GENE] OR cox1[GENE]</code>.
-          Also try the title field: <code>cytochrome oxidase subunit I[TITL]</code>.
-          If no sequences exist for a species, GenBank may not have COI data for it —
-          check the BOLD Systems database (<code>boldsystems.org</code>) as an alternative
-          source.
+          Make sure <code>600:700[SLEN]</code> is in the query string itself, not a
+          separate field. NCBI sometimes annotates the gene as "cox1" not "COI" —
+          try <code>COI[GENE] OR cox1[GENE]</code>. If no results at all, check
+          BOLD Systems (<code>boldsystems.org</code>) as an alternative source.
         </p>
       </div>
     </details>
 
     <details class="troubleshoot">
-      <summary>I combined my FASTA files with <code>cat *.fasta > combined.fasta</code> but some sequences are missing or headers look garbled. What happened?</summary>
+      <summary>After <code>cat *.fasta > combined.fasta</code>, some headers look garbled or sequences are missing.</summary>
       <div class="details-body">
         <p>
-          The most common cause is that individual FASTA files downloaded from NCBI do
-          not end with a newline character. When <code>cat</code> concatenates them, the
-          last line of one sequence runs directly into the header of the next, producing
-          a garbled header and a sequence that reads as one continuous block. Fix: open
-          the combined file in a plain text editor and manually insert a blank line
-          between sequences, or use <code>awk 'FNR==1 && NR!=1{print ""}1'</code> to
-          insert newlines when combining. After combining, always open the file and
-          visually verify that each sequence begins with <code>&gt;</code> on its own
-          line and is followed by a clean sequence block before the next header.
+          NCBI FASTA files often don't end with a newline. When concatenated, the last
+          line of one sequence runs into the next header. Fix: use
+          <code>awk 'FNR==1 && NR!=1{print ""}1'</code> instead of <code>cat</code>.
+          Then open the file and visually confirm each sequence starts with
+          <code>&gt;</code> on its own line.
         </p>
       </div>
     </details>
@@ -246,29 +195,16 @@ BiocManager::install(c("msa", "Biostrings"))</code></pre>
     <h2>Script 00: Alignment and Setup</h2>
 
     <p>
-      <code>00_prepare_alignment.R</code> is the shared setup script that all three
-      tree scripts depend on. Run it once — it takes about 30 seconds — and it handles
-      everything from reading raw sequences to writing the NEXUS file for MrBayes.
+      <code>00_prepare_alignment.R</code> is the shared setup all three tree scripts
+      depend on. Run it once (~30 seconds). It reads sequences, aligns them, and writes
+      the NEXUS file for MrBayes.
     </p>
 
     <p>
-      The script opens the combined FASTA using
-      <code>Biostrings::readDNAStringSet()</code> rather than ape's <code>read.dna()</code>.
-      This matters because MUSCLE (the aligner) expects Biostrings format as input, and
-      going via ape's DNAbin format and then converting can introduce encoding artifacts
-      for ambiguous base codes — a silent error that produces a cryptic message about
-      unexpected characters. Starting in Biostrings format and converting
-      <em>after</em> alignment cleanly avoids this.
-    </p>
-
-    <p>
-      Before any tree can be built, every sequence must be aligned — that is, gaps must
-      be inserted so that column <em>n</em> in the alignment matrix contains the same
-      homologous nucleotide position across all 24 sequences. This step is mandatory
-      because distance calculations and likelihood functions both assume you are comparing
-      the same site in each sequence. Without alignment, you would be comparing random
-      positions to each other. The MUSCLE algorithm handles this in seconds for a
-      dataset this size, producing an aligned matrix of approximately 660 columns.
+      The script uses <code>Biostrings::readDNAStringSet()</code> — not
+      <code>ape::read.dna()</code> — because MUSCLE expects Biostrings input. Going
+      through ape first can introduce a silent encoding artifact for ambiguous bases.
+      Read with Biostrings, align, then convert.
     </p>
 
 <pre><code># Read unaligned sequences directly into Biostrings format
@@ -289,47 +225,34 @@ save(aln_dnabin, aln_phydat, family_colors, tip_color,
      file = "out/rdata/alignment_objects.RData")</code></pre>
 
     <p>
-      The script also writes two output files: <code>FASTA/gulf_fish_COI_aligned.fasta</code>
-      for inspection in alignment viewers like AliView or MEGA, and
-      <code>MrBayes/gulf_fish_COI_aligned.nex</code> as the NEXUS data block that
-      <code>03_tree_Bayesian.R</code> will append the MrBayes analysis settings to.
-      The <code>alignment_objects.RData</code> file is the main handoff to all three
-      tree scripts — it contains the aligned matrix in two formats plus the shared
-      color palette used by all figures.
+      Output: <code>FASTA/gulf_fish_COI_aligned.fasta</code> (inspect in AliView/MEGA),
+      <code>MrBayes/gulf_fish_COI_aligned.nex</code> (for Script 03), and
+      <code>out/rdata/alignment_objects.RData</code> — the main handoff to all three
+      tree scripts, containing the aligned matrix in both DNAbin and phyDat formats
+      plus the shared color palette.
     </p>
 
 
     <details class="troubleshoot">
-      <summary><code>readDNAStringSet()</code> throws "cannot open file — no such file or directory." How do I fix this?</summary>
+      <summary><code>readDNAStringSet()</code> throws "cannot open file — no such file or directory."</summary>
       <div class="details-body">
         <p>
-          Run <code>getwd()</code> in R to confirm your working directory. The scripts
-          expect to be run from the <code>R/</code> folder of the project repository,
-          and the FASTA path in the script is relative to that folder
-          (<code>FASTA/gulf_fish_COI_combined.fasta</code>). If you're running from
-          the project root instead, either change directory with
-          <code>setwd("R")</code> before running, or update the path in the script to
-          <code>R/FASTA/gulf_fish_COI_combined.fasta</code>. On Windows, check that
-          the path uses forward slashes or doubled backslashes —
-          <code>"R\\FASTA\\..."</code> or <code>"R/FASTA/..."</code> both work;
-          a single backslash will cause an error.
+          Run <code>getwd()</code>. Scripts expect the <code>R/</code> folder as working
+          directory. If you're in the project root, either <code>setwd("R")</code> or
+          update the path to <code>R/FASTA/gulf_fish_COI_combined.fasta</code>. Windows:
+          use forward slashes or double backslashes in paths.
         </p>
       </div>
     </details>
 
     <details class="troubleshoot">
-      <summary><code>msaConvert()</code> throws an error about "key 52" or an unexpected character. What is this?</summary>
+      <summary><code>msaConvert()</code> throws "key 52" or unexpected character error.</summary>
       <div class="details-body">
         <p>
-          This is the Biostrings encoding artifact bug described in the script comments.
-          It happens when sequences go through ape's <code>read.dna()</code> first,
-          which uses an internal byte encoding for ambiguous bases that Biostrings
-          does not recognize. The fix is already in the script: always start with
-          <code>Biostrings::readDNAStringSet()</code>, pass that directly to
-          <code>msa()</code>, and only convert to DNAbin/phyDat formats
-          <em>after</em> alignment using <code>msaConvert()</code>. If you see this
-          error, check that you haven't accidentally swapped the read step for
-          <code>ape::read.dna()</code>.
+          This happens when sequences go through <code>ape::read.dna()</code> first.
+          The fix is in the script: always read with
+          <code>Biostrings::readDNAStringSet()</code>, align, then convert. Check that
+          you haven't swapped the read step for <code>ape::read.dna()</code>.
         </p>
       </div>
     </details>
@@ -340,31 +263,16 @@ save(aln_dnabin, aln_phydat, family_colors, tip_color,
     <h2>Script 01: Neighbor-Joining</h2>
 
     <p>
-      <code>01_tree_NJ.R</code> builds two NJ trees — one rooted on Bull Shark and one
-      rooted on Flathead Mullet — and saves them with 1000 bootstrap replicates each.
-      NJ is the fastest of the three methods and serves both as a quick sanity check on
-      the data and as the starting topology for ML optimization.
+      <code>01_tree_NJ.R</code> builds two NJ trees (rooted on Bull Shark and Flathead
+      Mullet) with 1,000 bootstrap replicates each. NJ is the fastest method and serves
+      as both a sanity check and a starting topology for ML.
     </p>
 
     <p>
-      The first step is computing pairwise distances under the K80 model (Kimura
-      2-parameter, 1980). Raw p-distance — the fraction of positions that differ between
-      two sequences — underestimates true evolutionary distance because the same site can
-      change more than once, with later changes erasing the evidence of earlier ones.
-      K80 corrects for this multiple-hit problem. It also accounts for transition/transversion
-      bias: in mitochondrial DNA, transitions (purine-to-purine: A↔G; or
-      pyrimidine-to-pyrimidine: C↔T) happen two to three times more often than
-      transversions (purine-to-pyrimidine). K80 estimates a separate rate for each
-      category, which makes it significantly more accurate than p-distance while
-      requiring only two parameters.
-    </p>
-
-    <p>
-      The NJ algorithm itself (Saitou &amp; Nei 1987) builds the tree by iteratively
-      joining the pair of taxa whose merger minimizes the total branch length of the
-      tree — the minimum evolution criterion. It is computationally fast (O(<em>n</em>²)
-      for <em>n</em> taxa) and gives a good approximation of the true topology in most
-      cases, though it can struggle when rate variation among lineages is severe.
+      Pairwise distances use the K80 model, which corrects for multiple hits at the same
+      site and accounts for transition/transversion bias (transitions happen 2–3× more
+      often in mitochondrial DNA). NJ then iteratively joins the closest pair of taxa
+      until the tree is complete.
     </p>
 
 <pre><code># Compute K80 pairwise distances
@@ -388,48 +296,34 @@ boot_nj_shark &lt;- boot.phylo(
 )</code></pre>
 
     <p>
-      When reading the output PDF, look for three things: whether all members of the same
-      species cluster together (validates the sequence labels), whether all four Sciaenidae
-      cluster together to the exclusion of other families (tests family monophyly), and
-      the relative branch lengths. A very long branch on the outgroup and short branches
-      among closely related ingroup species is the expected pattern for a working barcode
-      dataset. Bootstrap values at the node uniting all Sciaenidae should be at or near
-      100%; values below 70% at internal nodes within the family indicate genuine
-      uncertainty about branching order rather than errors in the data.
+      When reading the output: check that same-species sequences cluster together
+      (validates labels), that all four Sciaenidae group together (tests family
+      monophyly), and that the outgroup has a long branch while closely related ingroup
+      species have short ones. Bootstrap at the Sciaenidae node should be near 100%;
+      below 70% at internal nodes just means branching order is unresolved, not an error.
     </p>
 
 
     <details class="troubleshoot">
-      <summary><code>boot.phylo()</code> has been running for over 10 minutes on a 24-taxon dataset. Is something wrong?</summary>
+      <summary><code>boot.phylo()</code> has been running for over 10 minutes on a 24-taxon dataset.</summary>
       <div class="details-body">
         <p>
-          For 24 sequences and 1,000 bootstrap replicates, <code>boot.phylo()</code>
-          should complete in 1–3 minutes. If it's taking much longer, first check that
-          <code>quiet = TRUE</code> is set — printing progress for 1,000 replicates adds
-          significant overhead. Also check that the distance function inside the bootstrap
-          call doesn't have extra arguments that force slower computation. If it's still
-          slow, try reducing to <code>B = 100</code> as a test run first. On Windows,
-          setting <code>mc.cores = 1</code> explicitly avoids parallel fork issues that
-          can cause hangs. If R appears completely frozen (no response to Escape), restart
-          the session and try again with a smaller <code>B</code>.
+          It should finish in 1–3 minutes. Check that <code>quiet = TRUE</code> is set.
+          Try <code>B = 100</code> as a test. Windows: set <code>mc.cores = 1</code> to
+          avoid parallel fork hangs.
         </p>
       </div>
     </details>
 
     <details class="troubleshoot">
-      <summary>My NJ tree has all sequences in one giant unresolved polytomy — every tip branches from a single node. What went wrong?</summary>
+      <summary>NJ tree is a star polytomy — every tip branches from one node.</summary>
       <div class="details-body">
         <p>
-          A star-shaped polytomy almost always means the distance matrix contains
-          <code>NA</code> or <code>Inf</code> values. Run
-          <code>sum(is.na(dist_k80))</code> and <code>sum(is.infinite(dist_k80))</code>
-          to check. <code>NA</code>s arise when two sequences have no overlapping
-          non-gap positions — typically because the alignment has a very large gap or
-          one sequence is much shorter than the others. <code>Inf</code> values arise
-          when K80 distance correction overflows (divergence too high for the model —
-          check whether non-fish sequences accidentally ended up in the alignment).
-          Fix the underlying sequence or alignment issue and rerun; the polytomy will
-          resolve once the matrix is clean.
+          Almost always means the distance matrix has <code>NA</code> or <code>Inf</code>
+          values. Check: <code>sum(is.na(dist_k80))</code> and
+          <code>sum(is.infinite(dist_k80))</code>. NAs = sequences with no overlapping
+          non-gap positions. Infs = divergence too high for K80 (non-fish sequence in
+          the alignment?). Fix the alignment issue and rerun.
         </p>
       </div>
     </details>
@@ -440,26 +334,16 @@ boot_nj_shark &lt;- boot.phylo(
     <h2>Script 02: Maximum Likelihood</h2>
 
     <p>
-      <code>02_tree_ML.R</code> runs model selection, fits a GTR+Gamma+I ML tree
-      starting from the NJ topology, runs 1000 bootstrap replicates, and saves the
-      result. Plan for 10–20 minutes of compute time on a standard laptop for this
-      dataset; larger datasets scale roughly linearly with the number of taxa.
+      <code>02_tree_ML.R</code> runs model selection, fits a GTR+Gamma+I tree starting
+      from the NJ topology, and runs 1,000 bootstrap replicates. Plan for 10–20 minutes
+      on a laptop.
     </p>
 
     <p>
-      The script first runs <code>modelTest()</code> from phangorn, which fits dozens of
-      standard substitution models to the data and ranks them by AIC (Akaike Information
-      Criterion). Lower AIC means better fit penalized for model complexity.
-      Regardless of the winner, the script proceeds with GTR+Gamma+I — the most general
-      standard model — as a conservative and widely accepted choice for publication.
-      GTR (General Time Reversible) allows all six possible substitution rates to differ
-      from one another, rather than assuming any symmetry between them. The +Gamma
-      component adds a shape parameter &alpha; that controls how much substitution rate
-      varies across the alignment: a small &alpha; means a few positions are evolving
-      very fast while most are nearly frozen, while a large &alpha; means rates are
-      relatively uniform. The +I component estimates the fraction of sites that are
-      completely invariant — a biologically realistic feature of conserved protein-coding
-      genes like COI.
+      <code>modelTest()</code> from phangorn ranks models by AIC. Regardless of the
+      winner, the script uses GTR+Gamma+I — all six substitution rates free, rate
+      variation across sites modeled with gamma, invariant sites estimated. It's the
+      standard conservative choice for COI barcodes.
     </p>
 
 <pre><code># Start ML search from the NJ topology (faster convergence)
@@ -479,56 +363,33 @@ bs_ml      &lt;- bootstrap.pml(fit_ml, bs = 1000, optNni = TRUE,
 tree_ml_bs &lt;- plotBS(fit_ml$tree, bs_ml, type = "n")</code></pre>
 
     <p>
-      The <code>rearrangement = "stochastic"</code> option combines random nearest-neighbor
-      interchange moves with standard NNI, making the topology search more thorough than
-      plain NNI at the cost of extra time. Starting from the NJ tree rather than a random
-      topology reduces the risk of the optimizer settling into a poor local maximum.
-    </p>
-
-    <p>
-      Bootstrap values are interpreted on a standard scale: values at or above 95% are
-      considered strong support and can be reported with confidence; 70–94% indicates
-      moderate support, worth noting with a brief caveat; 50–69% is weak and should be
-      described as tentative; values below 50% are typically not reported in published
-      trees and indicate that the branching order at that node is not recoverable from
-      this dataset. For a single 650 bp barcode gene, it is normal and expected to see
-      weak bootstrap support at internal nodes within a recently diversified family like
-      Sciaenidae.
+      <code>rearrangement = "stochastic"</code> adds random perturbations to avoid
+      local optima. Starting from the NJ tree speeds up convergence. Bootstrap scale:
+      ≥95% = strong; 70–94% = moderate; 50–69% = weak; &lt;50% = not usually reported.
+      Weak internal support within a recently diversified family like Sciaenidae is
+      normal for a single 650 bp gene.
     </p>
 
 
     <details class="troubleshoot">
-      <summary><code>optim.pml()</code> is running but the log-likelihood isn't improving after many iterations. Should I stop it?</summary>
+      <summary><code>optim.pml()</code> is running but the log-likelihood stopped improving.</summary>
       <div class="details-body">
         <p>
-          A plateau in log-likelihood usually means the optimizer has converged to a
-          local or global maximum — this is expected behavior, not a problem. Let it
-          finish. The <code>rearrangement = "stochastic"</code> setting already applies
-          random perturbations to escape local optima, so premature stopping risks
-          missing the true maximum. If the likelihood is genuinely stuck (the same
-          value for hundreds of iterations with stochastic moves), try restarting from
-          a different starting topology: replace <code>tree_nj_start</code> with
-          a random tree from <code>rtree(n)</code> to see if a different starting point
-          finds a higher likelihood. Compare the two final log-likelihoods; the higher
-          one is the better result.
+          A plateau usually means convergence — let it finish. If it's genuinely stuck
+          after hundreds of stochastic moves, try restarting from a random tree
+          (<code>rtree(n)</code>) and compare the final log-likelihoods. Higher is better.
         </p>
       </div>
     </details>
 
     <details class="troubleshoot">
-      <summary>My ML tree topology is substantially different from my NJ tree — several species moved to completely different positions. Is one of them wrong?</summary>
+      <summary>ML tree topology differs substantially from NJ — is one wrong?</summary>
       <div class="details-body">
         <p>
-          Not necessarily. NJ and ML can genuinely disagree, particularly at weakly
-          supported nodes where the data contain little signal. First check the bootstrap
-          values at the differing nodes: if both trees show low support (&lt;70%) at
-          those positions, neither is "right" — both are equally uncertain, and the
-          difference reflects noise rather than error. If the ML tree shows high bootstrap
-          at a node where NJ disagrees, the ML placement is better supported. Inspect
-          also whether the disagreement is at family-level groupings (which would be
-          concerning) or at internal nodes within a family (normal and expected for a
-          single barcode gene). Comparing the two trees in a figure side-by-side is
-          the clearest way to communicate the difference to a reader.
+          Not necessarily. Check bootstrap at the differing nodes. If both are &lt;70%,
+          both trees are uncertain and the difference is noise. If ML is high where NJ
+          disagrees, ML is better supported. Disagreement at family-level is concerning;
+          within-family is expected for a single barcode gene.
         </p>
       </div>
     </details>
@@ -539,36 +400,21 @@ tree_ml_bs &lt;- plotBS(fit_ml$tree, bs_ml, type = "n")</code></pre>
     <h2>Script 03: Bayesian Inference</h2>
 
     <p>
-      <code>03_tree_Bayesian.R</code> uses a two-step workflow. On the first run, the
-      script checks that the NEXUS file exists, appends the MrBayes analysis block to it,
-      prints instructions, and exits. You then run MrBayes from the terminal. On the
-      second run, the script detects the MrBayes output, reads the consensus tree, and
-      produces the figure.
+      <code>03_tree_Bayesian.R</code> runs in two steps. First run: appends the MrBayes
+      block to the NEXUS file and exits with instructions. Second run (after MrBayes
+      finishes): reads the consensus tree and produces the figure.
     </p>
 
     <h3>What MrBayes is doing</h3>
 
     <p>
-      Bayesian inference uses Markov chain Monte Carlo (MCMC) sampling to explore tree
-      space. Rather than finding a single best tree (as ML does), it runs a chain that
-      randomly proposes new trees, accepts or rejects each proposal based on how much
-      it increases or decreases the posterior probability of the data, and records every
-      accepted tree. After enough generations, the set of sampled trees approximates the
-      full posterior distribution — a probability distribution over all possible trees
-      given the data and the model. The first portion of the run, called the burn-in, is
-      discarded because the chain hasn't yet converged to the stationary distribution.
-      In this analysis we ran 500,000 generations, sampled every 500th generation
-      (1,000 total samples), and discarded the first 250 samples (25%) as burn-in,
-      leaving 750 post-burn-in trees for the consensus.
-    </p>
-
-    <p>
-      The MrBayes settings appended to the NEXUS file are shown below. The key
-      parameters are <code>nst=6</code> (GTR, matching the ML model),
-      <code>rates=gamma</code> (site rate variation), and <code>ngen=500000</code>
-      (total MCMC length). For larger datasets or to improve convergence, increase
-      <code>ngen</code> to 2,000,000 or more and adjust <code>burnin</code>
-      proportionally.
+      MrBayes uses MCMC to explore tree space, randomly proposing and accepting/rejecting
+      trees based on posterior probability. After a burn-in period, the surviving sampled
+      trees form a consensus. This run: 500,000 generations, sampled every 500th (1,000
+      total), first 250 discarded as burn-in, leaving 750 trees for the consensus.
+      Key settings: <code>nst=6</code> (GTR), <code>rates=gamma</code>,
+      <code>ngen=500000</code>. Increase <code>ngen</code> to 2,000,000+ for larger
+      datasets or poor convergence.
     </p>
 
 <pre><code>begin mrbayes;
@@ -582,80 +428,54 @@ end;</code></pre>
 
     <h3>Running MrBayes</h3>
 
-    <p>
-      After the first R run writes the MrBayes block, switch to a terminal window,
-      navigate into the <code>R/MrBayes/</code> folder, and run:
-    </p>
+    <p>After the first R run, switch to a terminal and run:</p>
 
 <pre><code>cd R/MrBayes
 mb gulf_fish_COI_aligned.nex</code></pre>
 
     <p>
-      MrBayes will print a progress table to the console every 1,000 generations
-      and takes roughly 5–10 minutes for this 24-taxon dataset. When it finishes,
-      it writes several output files into <code>R/MrBayes/</code>, including
-      <code>gulf_fish_COI_aligned.nex.con.tre</code> (the consensus tree) and
-      <code>gulf_fish_COI_aligned.nex.p</code> (the parameter log). Return to R and
-      run <code>03_tree_Bayesian.R</code> a second time — it will detect the output
-      files and produce <code>out/trees/tree_Bayesian.pdf</code>.
+      Takes ~5–10 minutes for this dataset. Output goes to <code>R/MrBayes/</code>,
+      including <code>.con.tre</code> (consensus tree) and <code>.p</code> (parameter
+      log). Then run <code>03_tree_Bayesian.R</code> a second time to produce the figure.
     </p>
 
     <h3>Checking MCMC convergence</h3>
 
     <p>
-      Before trusting the Bayesian tree, it's worth verifying that the MCMC actually
-      converged. The free program Tracer (available at <code>beast.community/tracer</code>)
-      reads the <code>.p</code> parameter log file and visualizes how each parameter
-      evolved over the run. A well-converged run shows a "fuzzy caterpillar" trace —
-      a rapidly fluctuating line with no visible trend after the burn-in — and reports
-      an Effective Sample Size (ESS) above 200 for all parameters, especially the
-      log-likelihood. If ESS values are low or the trace shows a drift, the chain hasn't
-      mixed well, and you should re-run with a larger <code>ngen</code>.
+      Load the <code>.p</code> file into Tracer (<code>beast.community/tracer</code>).
+      A good run shows a "fuzzy caterpillar" trace with no drift, and ESS &gt; 200 for
+      all parameters. Low ESS or a drifting trace means the chain hasn't converged —
+      re-run with larger <code>ngen</code>.
     </p>
 
     <p>
-      Posterior probability (PP) is interpreted differently from ML bootstrap. A
-      PP of 0.95 at a node means that 95% of post-burn-in sampled trees contained
-      that exact clade — a direct probability statement about clade reality given the
-      data and model. PP values tend to be numerically higher than ML bootstrap for
-      the same node, and the two are not directly comparable. Use them as
-      complementary lines of evidence: if both ML bootstrap and Bayesian PP are high,
-      the result is robust; if PP is high but bootstrap is moderate, treat the node
-      with some caution.
+      PP = 0.95 means 95% of sampled trees contained that clade — a direct probability
+      statement. PP values run numerically higher than ML bootstrap and aren't directly
+      comparable. Use them as complementary evidence.
     </p>
 
 
     <details class="troubleshoot">
-      <summary>MrBayes finished but the consensus tree file (<code>.con.tre</code>) is empty or the second R run can't find it. What happened?</summary>
+      <summary>MrBayes finished but <code>.con.tre</code> is empty or R can't find it.</summary>
       <div class="details-body">
         <p>
-          Check that you ran MrBayes from the <code>R/MrBayes/</code> directory and that
-          the NEXUS file name matches exactly what the script wrote. The consensus tree
-          is written to the same directory as the NEXUS file, so if you ran
-          <code>mb</code> from a different directory, look there for the output. If the
-          <code>.con.tre</code> exists but is empty, MrBayes likely crashed early —
-          scroll back through the terminal output to find the error. Common causes:
-          the MrBayes block wasn't appended (the NEXUS file ends before <code>begin mrbayes;</code>),
-          or the outgroup name in the block doesn't exactly match a tip label in the
-          alignment (check for extra spaces or underscores vs. spaces).
+          Make sure you ran <code>mb</code> from <code>R/MrBayes/</code> with the exact
+          NEXUS filename the script wrote. If <code>.con.tre</code> is empty, MrBayes
+          crashed — scroll back through the terminal. Common causes: MrBayes block wasn't
+          appended, or the outgroup name doesn't exactly match a tip label (check spaces
+          vs. underscores).
         </p>
       </div>
     </details>
 
     <details class="troubleshoot">
-      <summary>Tracer shows ESS values below 200 for log-likelihood or key parameters. The chain looks like it hasn't converged. What should I do?</summary>
+      <summary>Tracer shows ESS below 200. Chain hasn't converged. What do I do?</summary>
       <div class="details-body">
         <p>
-          Low ESS means the MCMC chain hasn't explored enough of parameter space to give
-          reliable estimates. The fix is to run longer: increase <code>ngen</code> in the
-          MrBayes block — try 2,000,000 as a first step, with <code>burnin</code> scaled
-          proportionally (e.g., 500 samples discarded out of 4,000 total). Also check the
-          trace plot for a "trend" — a gradual drift upward or downward in log-likelihood
-          after burn-in indicates the chain is still climbing and hasn't reached
-          stationarity. If re-running with more generations still produces low ESS,
-          consider increasing the number of MCMC chains (<code>nchains=4</code>) or
-          adjusting the temperature parameter to improve mixing. On TAMU HPRC, a parallel
-          MrBayes run with <code>ngen=5,000,000</code> takes a few hours rather than days.
+          Run longer — try <code>ngen=2,000,000</code> with burnin scaled proportionally.
+          Check the trace for drift after burn-in. Still low ESS? Increase
+          <code>nchains=4</code>. On TAMU HPRC, <code>ngen=5,000,000</code> runs in
+          a few hours.
         </p>
       </div>
     </details>
@@ -668,48 +488,29 @@ mb gulf_fish_COI_aligned.nex</code></pre>
     <h3>Adding your own species</h3>
 
     <p>
-      The pipeline is designed to be easy to extend. To add a new species, search NCBI
-      Nucleotide for its COI sequences using the query format described in Section 2,
-      download two or three sequences in FASTA format, give each one a clean header
-      (e.g., <code>&gt;Spotted_Seatrout_1</code>), and append the sequences to
-      <code>FASTA/gulf_fish_COI_combined.fasta</code>. Then re-run the scripts from the
-      beginning: <code>00_prepare_alignment.R</code> first to re-align and regenerate
-      the shared objects, then whichever tree scripts you want to update.
-      If the new species belongs to a family not already in the dataset, add it to the
-      <code>family_colors</code> vector in <code>00_prepare_alignment.R</code> with a
-      new hex color before running.
+      Download 2–3 COI sequences, clean the headers (e.g., <code>&gt;Spotted_Seatrout_1</code>),
+      and append them to <code>FASTA/gulf_fish_COI_combined.fasta</code>. Re-run from
+      Script 00. If the new species is a new family, add it to <code>family_colors</code>
+      in Script 00 first.
     </p>
 
     <h3>Using different genes</h3>
 
     <p>
-      COI is the default barcode gene, but other mitochondrial markers work well for
-      fish phylogenetics and may be better suited to specific questions. The 16S rRNA
-      gene is a popular alternative — it is more conserved than COI, which makes it
-      useful for resolving deeper divergences (across orders or classes) where COI may
-      be too variable for reliable alignment. Cytochrome b (<em>cytb</em>) is another
-      widely used mitochondrial marker with a large existing database in GenBank.
-      Multi-gene analyses, which concatenate two or more markers into a single alignment,
-      are generally more powerful than single-gene approaches because they provide more
-      informative characters and reduce the chance that any one gene's evolutionary
-      idiosyncrasies drive the result. The tradeoff is that multi-gene analyses require
-      sequences from the same individuals — mixing accessions from different specimens
-      across genes is not valid unless they come from verified voucher specimens.
+      COI is the default, but 16S rRNA (more conserved, better for deeper splits) and
+      cytochrome b (large GenBank database) both work well. Multi-gene analyses are more
+      powerful but require sequences from the same individuals — don't mix accessions
+      across genes from different specimens.
     </p>
 
     <h3>Scaling up with TAMU-HPRC</h3>
 
     <p>
-      For larger datasets — say, 50 or more species — or for thorough Bayesian runs
-      with <code>ngen=5,000,000</code> or higher, a laptop is no longer practical.
-      The Texas A&amp;M High Performance Research Computing cluster (HPRC) is available
-      to all TAMU students and faculty at no cost and can run the same MrBayes analysis
-      in hours rather than days. HPRC also supports parallel MrBayes runs (<code>mb</code>
-      compiled with MPI) and has phangorn and ape available as R modules. Getting started
-      takes about an afternoon: create an account, complete the short orientation module,
-      and submit jobs via SLURM batch scripts. Full documentation, example job scripts
-      for phylogenetics, and the account request form are at
-      <a href="https://hprc.tamu.edu">hprc.tamu.edu</a>.
+      For 50+ species or Bayesian runs with <code>ngen=5,000,000</code>+, a laptop
+      isn't practical. TAMU-HPRC is free for students and faculty and can finish the
+      same MrBayes run in hours. Get started at
+      <a href="https://hprc.tamu.edu">hprc.tamu.edu</a> — create an account, complete
+      the orientation, and submit via SLURM.
     </p>
 
 
@@ -717,39 +518,27 @@ mb gulf_fish_COI_aligned.nex</code></pre>
          PAGE NAVIGATION
     ══════════════════════════════════════════════════════ -->
     <details class="troubleshoot">
-      <summary>I added a new species and it clusters in a completely unexpected position — far from where I expected based on its taxonomy. Is my sequence wrong?</summary>
+      <summary>I added a species and it clusters somewhere completely unexpected. Is my sequence wrong?</summary>
       <div class="details-body">
         <p>
-          Not necessarily, but check these things in order. First, verify the sequence
-          header in your FASTA file matches the label you expect (a copy-paste error
-          is the most common culprit). Second, BLAST the sequence at
-          <code>blast.ncbi.nlm.nih.gov</code> against the NCBI nucleotide database —
-          if the top hit is a different species, the GenBank entry you downloaded was
-          mislabeled or the wrong accession. Third, check the alignment: open the FASTA
-          in AliView after re-running Script 00 and confirm the new sequence aligns
-          cleanly with the others, with no large gaps or mismatches that look structural
-          rather than evolutionary. If the sequence is correct and aligned correctly, an
-          unexpected placement is a real result — some species genuinely don't cluster
-          where common names or morphology predict, and COI may be revealing that.
+          Check in order: (1) verify the FASTA header matches the label you expect —
+          copy-paste errors are common; (2) BLAST the sequence at
+          <code>blast.ncbi.nlm.nih.gov</code> — if the top hit is a different species,
+          the GenBank entry was mislabeled; (3) open the alignment in AliView and confirm
+          it aligns cleanly. If everything checks out, the unexpected placement may be real.
         </p>
       </div>
     </details>
 
     <details class="troubleshoot">
-      <summary>I want to use a different gene (e.g., 16S or cytb) instead of COI. What do I need to change in the scripts?</summary>
+      <summary>I want to use 16S or cytb instead of COI. What changes in the scripts?</summary>
       <div class="details-body">
         <p>
-          The scripts are written around a single alignment file — swap the FASTA file
-          and the rest follows automatically. In <code>00_prepare_alignment.R</code>,
-          update the file path in <code>readDNAStringSet()</code> to point to your new
-          combined FASTA. Update any comments that reference COI. The alignment length
-          will differ (16S barcodes are typically ~500 bp, cytb ~1,100 bp) but
-          <code>msa()</code> handles any length automatically. One practical note: if
-          you're mixing data from GenBank where some sequences have ambiguous positions
-          or the length varies widely, you may need to trim sequences manually in AliView
-          before running the pipeline. The bootstrap and MCMC settings don't need to
-          change for a different gene, but if sequences are shorter you may need to
-          increase <code>ngen</code> to compensate for reduced signal.
+          Just swap the FASTA file in Script 00 — update the path in
+          <code>readDNAStringSet()</code>. Alignment length will differ (16S ~500 bp,
+          cytb ~1,100 bp) but <code>msa()</code> handles any length. If sequences vary
+          widely in length, trim manually in AliView first. You may need larger
+          <code>ngen</code> if using shorter sequences.
         </p>
       </div>
     </details>
