@@ -40,7 +40,7 @@
       <summary>A fish genome is ~800 million bp. How can 650 bp of COI reliably identify species?</summary>
       <div class="details-body">
         <p>
-          COI evolves at just the right rate — 2–15% divergence between species but
+              COI evolves at a useful rate: 2–15% divergence between species but
           less than 1% within a species. Once two populations stop interbreeding, their
           COI sequences accumulate differences independently. You don't need the whole
           genome; this one region acts as a reliable clock.
@@ -55,8 +55,7 @@
           GenBank sequences can be mislabeled or contaminated. Using two or three
           sequences per species gives a built-in check: if all three cluster tightly
           together (&lt;1% divergence), they're almost certainly correct. If one strays
-          far from its siblings, that's a red flag. In this dataset every within-species
-          group clustered perfectly.
+          far from its siblings, that's a red flag worth investigating.
         </p>
       </div>
     </details>
@@ -170,7 +169,7 @@
       <div class="details-body">
         <p>
           Conserved sites have been under strong selection for hundreds of millions of
-          years — every species has nearly the same base there. PCR primers bind most
+          years; every species has nearly the same base there. PCR primers bind most
           reliably to conserved sequence, so the same primer pair can amplify COI from
           Bull Shark, Red Drum, and Rainbow Trout alike. The variable region in the middle
           is what carries the species ID signal.
@@ -196,8 +195,8 @@
     <p>
       Three methods were used.
       <a class="term" href="references.html#neighbor-joining">Neighbor-Joining (NJ)</a><sup><a class="ref" href="references.html#ref-saitou1987">4</a></sup>
-      converts the alignment into pairwise distances and finds the shortest tree — fast
-      and a good first pass.
+      converts the alignment into pairwise distances and finds the shortest tree. It is
+      fast and a good first pass.
       <a class="term" href="references.html#maximum-likelihood">Maximum Likelihood (ML)</a><sup><a class="ref" href="references.html#ref-felsenstein1981">5</a></sup>
       asks which tree makes the observed data most probable under a DNA evolution model —
       slower but more accurate.
@@ -214,7 +213,7 @@
       <div class="details-body">
         <p>
           Low support across all three methods means the data genuinely can't resolve
-          those branches — not a methodology failure. The family grouping is still at
+          those branches. That is not a methodology failure. The family grouping is still at
           100%. The fine branching order within Sciaenidae just requires more data
           (more genes or whole genomes) to resolve.
         </p>
@@ -227,7 +226,7 @@
         <p>
           Report all three and describe the disagreement. PP = 0.62 means the data
           support both placements to some degree. Hiding it would misrepresent your
-          certainty. The disagreement is itself a finding — it tells you exactly where
+          certainty. The disagreement is itself a finding: it tells you exactly where
           more data would help.
         </p>
       </div>
@@ -236,13 +235,13 @@
     <h2>Reading a Phylogeny</h2>
 
     <p>
-      A phylogenetic tree has three parts. <strong>Tips</strong> are the taxa in the
-      study. <strong>Internal nodes</strong> are the hypothetical common ancestors where
-      lineages split. <strong>Branch lengths</strong> represent evolutionary distance —
-      longer branches mean more DNA change. The <strong>root</strong> gives the tree
-      direction in time; without an
+      A phylogenetic tree has three parts. <strong>Tips</strong> are the species being
+      analyzed. <strong>Internal nodes</strong> are the hypothetical common ancestors
+      where lineages split. <strong>Branch lengths</strong> represent evolutionary
+      distance; longer branches mean more DNA change. The <strong>root</strong> gives
+      the tree a direction in time. Without an
       <a class="term" href="references.html#outgroup">outgroup</a> to place it, the
-      tree is unrooted and has no ancestor–descendant direction.
+      tree is unrooted and has no ancestor-descendant direction.
     </p>
 
     <figure>
@@ -320,12 +319,12 @@
         <text x="62" y="312" font-size="10" fill="#444">0.05 substitutions/site</text>
 
       </svg>
-      <figcaption>Figure: anatomy of a phylogenetic tree. This diagram uses invented taxa — see the Explore page for trees built from real Gulf fish COI sequences.</figcaption>
+      <figcaption>Figure: anatomy of a phylogenetic tree. This diagram uses invented taxa. See the Explore page for trees built from real Gulf fish COI sequences.</figcaption>
     </figure>
 
     <p>
-      Bull Shark is the outgroup here — it diverged from all bony fish ~420 million
-      years ago, placing the root unambiguously at the base of the tree. A node with
+      Bull Shark is the outgroup here. It diverged from all bony fish roughly 420 million
+      years ago, placing the root at the base of the tree. A node with
       100% <a class="term" href="references.html#bootstrap">bootstrap</a><sup><a class="ref" href="references.html#ref-felsenstein1985">10</a></sup>
       support means that clade appeared in all 1,000 bootstrap replicates.
     </p>
@@ -334,7 +333,7 @@
     <p>
       An outgroup is a taxon that diverged from all ingroup members before any of them
       diverged from each other. It roots the tree — gives it a direction in time.
-      Without one, the tree only shows who's related to whom, not which lineage is older.
+      Without one, the tree only shows who is related to whom, not which lineage is older.
       Bull Shark is the primary outgroup here. Flathead Mullet is used as an alternative
       in sensitivity tests. The interactive outgroup explorer on the Explore page lets
       you re-root on any species to see what changes.
@@ -344,7 +343,7 @@
       <summary>If you rooted the tree on Speckled Trout instead of Bull Shark, what changes and what stays the same?</summary>
       <div class="details-body">
         <p>
-          The topology (who is related to whom) doesn't change — that's in the data.
+          The topology (who is related to whom) doesn't change; that's in the data.
           What changes is the direction. Rooting on Speckled Trout forces the drum
           family to appear split by the root, even though the underlying relationships
           are identical. Try it in the outgroup explorer on the Explore page.
@@ -355,7 +354,7 @@
     <h3>How Neighbor-Joining works</h3>
     <p>
       <a class="term" href="references.html#neighbor-joining">NJ</a> converts the
-      alignment into a pairwise distance matrix — using the
+      alignment into a pairwise distance matrix, using the
       <a class="term" href="references.html#k80">K80 model</a><sup><a class="ref" href="references.html#ref-kimura1980">3</a></sup>
       here, which corrects for the fact that transitions (A↔G, C↔T) happen more often
       than transversions in mitochondrial DNA. It then repeatedly joins the closest
@@ -375,7 +374,7 @@
           positions will look artificially similar in the distance matrix, and NJ may
           group them together incorrectly. ML evaluates each column under a model that
           accounts for independent convergence, so it can detect the pattern isn't due
-          to shared ancestry. This is called long-branch attraction — one of NJ's known
+          to shared ancestry. This is called long-branch attraction, one of NJ's known
           failure modes.
         </p>
       </div>
@@ -385,8 +384,8 @@
     <p>
       <a class="term" href="references.html#maximum-likelihood">ML</a> asks: given a
       DNA evolution model, what tree makes the observed data most probable?
-      This study uses <a class="term" href="references.html#gtr">GTR+Γ+I</a><sup><a class="ref" href="references.html#ref-tavare1986">6</a></sup>
-      — all six substitution rates can differ, rate variation across sites follows a
+      This tutorial uses <a class="term" href="references.html#gtr">GTR+Γ+I</a><sup><a class="ref" href="references.html#ref-tavare1986">6</a></sup>:
+      all six substitution rates can differ, rate variation across sites follows a
       gamma distribution, and some sites can be invariant. Every variable column in the
       alignment contributes. ML is slower than NJ but generally more accurate because
       it uses the full alignment rather than a single distance summary.
@@ -396,7 +395,7 @@
       <summary>Why not always use the simplest model (JC), and why not always use the most complex one?</summary>
       <div class="details-body">
         <p>
-          JC assumes all substitution rates are equal — not true for COI, where
+          JC assumes all substitution rates are equal, which is not true for COI, where
           transitions far outnumber transversions. An oversimplified model biases the
           result. But too many parameters can overfit the data, producing unstable
           estimates. Model selection tools like AIC find the right balance. For COI
@@ -422,7 +421,7 @@
       <summary>A Bayesian run returns PP = 1.00. A critic says this means the method is overconfident. How do you respond?</summary>
       <div class="details-body">
         <p>
-          PP = 1.00 means every sampled tree in the run contained that clade — the
+          PP = 1.00 means every sampled tree in the run contained that clade. The
           data strongly favor it. The critic's concern is valid only if the MCMC
           didn't converge (chain stuck, not exploring alternatives). Check ESS values
           in Tracer. If the chain converged, PP = 1.00 is the correct result, not
@@ -433,11 +432,11 @@
 
     <h3>Comparing the three methods</h3>
     <p>
-      All three methods agree on every family-level grouping in this dataset at 100%
-      bootstrap or PP ≥ 0.99. That agreement across independent frameworks is strong
-      evidence the results reflect real evolutionary history. Where the methods disagree
-      — typically at weakly supported internal nodes within Sciaenidae — that flags a
-      region where COI alone doesn't have enough signal, and where more data would help.
+      When all three methods agree on a grouping, that agreement across independent
+      frameworks is strong evidence the result reflects real evolutionary history.
+      Where the methods disagree, typically at weakly supported internal nodes within
+      a recently diversified family, that flags a region where a single barcode gene
+      doesn't have enough signal and more data would help.
     </p>
 
     <details>
@@ -448,7 +447,7 @@
           method-specific artifacts. NJ is transparent and fast; ML uses the full
           alignment; Bayesian gives direct probability statements. When all three agree,
           confidence is higher than any single method can provide. Disagreements are
-          equally useful — they pinpoint exactly where more data is needed.
+          equally useful: they pinpoint exactly where more data is needed.
         </p>
       </div>
     </details>
