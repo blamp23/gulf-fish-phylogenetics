@@ -43,7 +43,7 @@
       <dt id="alignment">Alignment (multiple sequence alignment)</dt>
       <dd>
         The process of inserting gap characters into DNA sequences so that homologous
-        positions (sites descended from the same ancestral nucleotide) line up in the
+        positions (sites from the ancestral nucleotide) line up in the
         same column across all sequences. The resulting matrix (rows = taxa, columns =
         aligned positions) is the direct input to all tree-building methods.
         See also: <a href="#muscle">MUSCLE</a>.
@@ -55,37 +55,32 @@
         A phylogenetic method that estimates the probability distribution over all possible
         trees given the sequence data and a substitution model, using
         <a href="#mcmc">Markov chain Monte Carlo (MCMC)</a> sampling. Returns
-        <a href="#posterior-probability">posterior probabilities</a> for each clade rather
-        than point estimates. Implemented in the program MrBayes.
+        <a href="#posterior-probability">posterior probabilities</a> for each clade. Implemented in the program MrBayes.
         <span class="gloss-ref"><a href="#ref-ronquist2003">Ronquist &amp; Huelsenbeck, 2003</a></span>
       </dd>
 
       <dt id="bootstrap">Bootstrap support</dt>
       <dd>
-        A resampling measure of confidence in a tree node. Alignment columns are sampled
-        with replacement hundreds of times to create pseudo-replicates; a fresh tree is
+        A resampling measure of confidence. Alignment columns are sampled
+        with replacement n-times to create pseudo-replicates; a fresh tree is
         built for each. The bootstrap percentage on a node is the fraction of replicate
-        trees containing that clade. Values ≥ 95% are generally considered strong support;
-        values below 50% indicate genuine ambiguity in the data.
+        trees containing that clade. Values ≥ 95% are considered strong support,
+        values below 50% indicate ambiguity.
         <span class="gloss-ref"><a href="#ref-felsenstein1985">Felsenstein, 1985</a></span>
       </dd>
 
       <dt id="clade">Clade</dt>
       <dd>
-        A group consisting of an ancestor and <em>all</em> of its descendants, forming
-        complete branch of the tree of life. Clades are identified by shared derived
-        characters (synapomorphies). Example: all four Sciaenidae in this study
-        (Red Drum, Black Drum, Speckled Trout, Atlantic Croaker) form a clade, supported
-        at 100% by all three methods.
+        A group consisting of an ancestor and allof its descendants, forming
+        complete branch of the tree of life. 
       </dd>
 
       <dt id="coi">COI (cytochrome oxidase I)</dt>
       <dd>
-        A mitochondrial protein-coding gene encoding subunit I of cytochrome c oxidase, the
-        terminal enzyme in the electron transport chain. Its moderate evolutionary rate,
-        universal PCR primers (LCO1490/HCO2198), and ~650 bp usable length make it the
+        A mitochondrial protein-coding gene encoding subunit I of cytochrome c oxidase.
+        Its moderate evolutionary rate, universal PCR primers, and ~650 bp usable length make it the
         standard <a href="#dna-barcoding">DNA barcode</a> marker for animal species
-        identification, catalogued in the Barcode of Life Data System (BOLD).
+        identification.
         <span class="gloss-ref"><a href="#ref-hebert2003">Hebert et al., 2003</a>;
         <a href="#ref-ward2005">Ward et al., 2005</a></span>
       </dd>
@@ -93,19 +88,12 @@
       <dt id="convergent-evolution">Convergent evolution</dt>
       <dd>
         The independent evolution of similar traits in distantly related lineages in
-        response to similar ecological pressures. Example in this study: Southern Flounder
-        and drum-family species share a shallow estuarine habitat, but their body plans
-        evolved independently; a molecular phylogeny sees through the ecological
-        similarity and recovers the true history.
+        response to similar ecological pressures.
       </dd>
 
       <dt id="cryptic-species">Cryptic species</dt>
       <dd>
-        Genetically distinct populations that are morphologically indistinguishable. A
-        single nominal species may actually comprise multiple reproductively isolated units
-        with different responses to fishing pressure; a harvest quota calculated for one
-        "species" that is really two could inadvertently collapse one population while
-        leaving the other intact.
+        Genetically distinct populations that are morphologically indistinguishable.
       </dd>
 
       <dt id="dna-barcoding">DNA barcoding</dt>
@@ -119,8 +107,7 @@
 
       <dt id="genbank">GenBank</dt>
       <dd>
-        The NIH genetic sequence database maintained by the National Center for
-        Biotechnology Information (NCBI), archiving all publicly submitted nucleotide
+        The NIH genetic sequence database maintained by NCBI, archiving all publicly submitted nucleotide
         sequences with associated metadata (taxonomy, collection locality, publication).
         Every COI sequence used in this study was downloaded from GenBank; accession
         numbers are listed on the Build Your Own Tree page.
@@ -129,7 +116,7 @@
       <dt id="gtr">GTR model (General Time Reversible)</dt>
       <dd>
         A DNA substitution model that allows all six possible nucleotide substitution rates
-        (A↔G, C↔T, A↔C, A↔T, G↔C, G↔T) to take independent values, along with unequal
+        (A/G, C/T, A/C, A/T, G/C, G/T) to take independent values, along with unequal
         base frequencies. The most general time-reversible model; commonly extended with
         +Γ (gamma distribution of rate variation across sites) and +I (proportion of
         invariant sites). Used for Maximum Likelihood and Bayesian analyses in this tutorial.
@@ -137,10 +124,9 @@
 
       <dt id="k80">K80 model (Kimura 2-parameter)</dt>
       <dd>
-        A DNA substitution model that distinguishes between transitions (purine↔purine:
-        A↔G; pyrimidine↔pyrimidine: C↔T) and transversions (purine↔pyrimidine), reflecting
-        the biological observation that transitions occur roughly twice as often. The ratio
-        of transition to transversion rates is the κ (kappa) parameter. Used in this
+        A DNA substitution model that distinguishes between transitions (purine/purine:
+        A/G; pyrimidine/pyrimidine: C/T) and transversions (purine/pyrimidine), reflecting
+        the biological observation that transitions occur roughly twice as often. Used in this
         study for Neighbor-Joining pairwise distance calculation.
         <span class="gloss-ref"><a href="#ref-kimura1980">Kimura, 1980</a></span>
       </dd>
@@ -148,7 +134,7 @@
       <dt id="maximum-likelihood">Maximum Likelihood (ML)</dt>
       <dd>
         A phylogenetic method that finds the tree topology and branch lengths maximizing
-        the probability of observing the sequence data under an explicit substitution
+        the probability of observing the sequence data under an explicit
         model. Uses the full alignment column-by-column rather than a pairwise distance
         summary, making it generally more accurate than
         <a href="#neighbor-joining">Neighbor-Joining</a> but more computationally
@@ -168,8 +154,7 @@
       <dt id="muscle">MUSCLE</dt>
       <dd>
         A fast multiple sequence alignment algorithm optimized for protein-coding
-        sequences. Uses progressive alignment with profile–profile comparison to produce
-        accurate alignments in seconds even for hundreds of sequences. Used in this study
+        sequences. Used in this study
         via the R <code>msa</code> package.
         <span class="gloss-ref"><a href="#ref-edgar2004">Edgar, 2004</a></span>
       </dd>
@@ -197,10 +182,7 @@
       <dt id="pcr">PCR (polymerase chain reaction)</dt>
       <dd>
         A laboratory technique for exponentially amplifying a specific DNA region from a
-        complex template. Short oligonucleotide primers flanking the target anneal to
-        complementary strands; repeated cycles of denaturation, annealing, and extension
-        by a heat-stable polymerase produce millions of copies of the target segment,
-        enough for downstream sequencing.
+        complex template.
       </dd>
 
       <dt id="phylogeny">Phylogeny / phylogenetic tree</dt>
@@ -224,21 +206,13 @@
 
       <dt id="sanger">Sanger sequencing</dt>
       <dd>
-        The gold-standard method for generating individual DNA sequences. Fluorescently
-        labeled dideoxynucleotides (chain terminators) are incorporated at random during
-        synthesis, producing a ladder of fragments of every possible length. Capillary
-        electrophoresis separates them by size; a laser detector reads the fluorescent
-        color at each position, producing a chromatogram from which a ~650 bp sequence is
-        called automatically.
+        The gold-standard method for generating individual DNA sequences. 
       </dd>
 
       <dt id="sister-taxa">Sister taxa</dt>
       <dd>
         Two taxa (or <a href="#clade">clades</a>) that share the most recent common
         ancestor in a given tree; they are each other's closest relative in the dataset.
-        Example in this study: Red Drum and Black Drum are sister taxa in every tree,
-        consistent with the documented occurrence of natural hybrids between them in Gulf
-        waters.
       </dd>
 
     </dl>
@@ -321,8 +295,7 @@
         Zhu, M., et al. (2015). A Silurian maxillate placoderm illuminates jaw evolution.
         <em>Nature</em>, 525, 652–656.
         <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4648279/" target="_blank" rel="noopener">PMC4648279</a>
-        [Key finding: Chondrichthyes and Osteichthyes diverged at least 423 million years ago.]
-      </li>
+       
 
       <li id="ref-flmnh">
         Florida Museum of Natural History. Spotted Seatrout (<em>Cynoscion nebulosus</em>) species profile.
@@ -342,8 +315,7 @@
         polyphyletic origin of their specialized body plan.
         <em>Nature Genetics</em>, 53, 742–751.
         <a href="https://doi.org/10.1038/s41588-021-00836-9" target="_blank" rel="noopener">doi:10.1038/s41588-021-00836-9</a>
-        [Key finding: the flatfish body plan evolved independently from multiple percoid
-        ancestors — direct genomic evidence for convergent evolution of the flatfish form.]
+
       </li>
 
     </ol>
