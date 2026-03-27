@@ -332,21 +332,18 @@
     <h3>What is an outgroup and why does it matter?</h3>
     <p>
       An outgroup is a taxon that diverged from all ingroup members before any of them
-      diverged from each other. It roots the tree — gives it a direction in time.
-      Without one, the tree only shows who is related to whom, not which lineage is older.
-      Bull Shark is the primary outgroup here. Flathead Mullet is used as an alternative
-      in sensitivity tests. The interactive outgroup explorer on the Explore page lets
-      you re-root on any species to see what changes.
+      diverged from each other. Bull Shark is the primary outgroup here. The interactive outgroup 
+      explorer on the Explore page lets you re-root on any species to see what changes.
     </p>
 
     <details>
       <summary>If you rooted the tree on Speckled Trout instead of Bull Shark, what changes and what stays the same?</summary>
       <div class="details-body">
         <p>
-          The topology (who is related to whom) doesn't change; that's in the data.
+          The topology doesn't change; that's in the data.
           What changes is the direction. Rooting on Speckled Trout forces the drum
           family to appear split by the root, even though the underlying relationships
-          are identical. Try it in the outgroup explorer on the Explore page.
+          are identical. 
         </p>
       </div>
     </details>
@@ -356,29 +353,12 @@
       <a class="term" href="references.html#neighbor-joining">NJ</a> converts the
       alignment into a pairwise distance matrix, using the
       <a class="term" href="references.html#k80">K80 model</a><sup><a class="ref" href="references.html#ref-kimura1980">3</a></sup>
-      here, which corrects for the fact that transitions (A↔G, C↔T) happen more often
-      than transversions in mitochondrial DNA. It then repeatedly joins the closest
-      pair of taxa until the tree is complete. NJ is very fast and reliable when
-      sequences diverge by less than ~20%. Its weakness is that it discards all
-      column-by-column information once the distance matrix is built.
-      <a class="term" href="references.html#bootstrap">Bootstrap</a> support is
-      calculated by resampling alignment columns 1,000 times and rebuilding the tree
+      here, which corrects for the fact that transitions (A to G, C to T) happen more often
+      than transversions in mitochondrial DNA. It repeatedly joins the closest
+      pair of taxa until the tree is complete. <a class="term" href="references.html#bootstrap">Bootstrap</a> support is
+      calculated by resampling alignment columns n=1,000 times and rebuilding the tree
       each time.
     </p>
-
-    <details>
-      <summary>Give an example where NJ's distance compression could lead to the wrong tree, but ML would get it right.</summary>
-      <div class="details-body">
-        <p>
-          Two unrelated species that independently evolved the same base at many
-          positions will look artificially similar in the distance matrix, and NJ may
-          group them together incorrectly. ML evaluates each column under a model that
-          accounts for independent convergence, so it can detect the pattern isn't due
-          to shared ancestry. This is called long-branch attraction, one of NJ's known
-          failure modes.
-        </p>
-      </div>
-    </details>
 
     <h3>How Maximum Likelihood works</h3>
     <p>
@@ -395,11 +375,10 @@
       <summary>Why not always use the simplest model (JC), and why not always use the most complex one?</summary>
       <div class="details-body">
         <p>
-          JC assumes all substitution rates are equal, which is not true for COI, where
-          transitions far outnumber transversions. An oversimplified model biases the
-          result. But too many parameters can overfit the data, producing unstable
-          estimates. Model selection tools like AIC find the right balance. For COI
-          barcodes, GTR+Γ+I is almost always the justified choice.
+          JC assumes all substitution rates are equal, which is not true for COI.
+          An oversimplified model can bias the result. 
+          Too many parameters can overfit the data, producing unstable
+          estimates. Some complex models are also extreemly computationally intense, and simple model estimates should be made first. 
         </p>
       </div>
     </details>
@@ -409,22 +388,22 @@
       <a class="term" href="references.html#bayesian">Bayesian inference</a><sup><a class="ref" href="references.html#ref-ronquist2003">7</a></sup>
       uses the same model as ML but instead of finding the single best tree, it estimates
       a probability distribution over all possible trees. This is done with
-      <a class="term" href="references.html#mcmc">MCMC</a>: a chain runs for millions
+      <a class="term" href="references.html#mcmc">Monte-Carlo Markov-Chains</a>: a chain runs for millions
       of steps, proposing and accepting or rejecting trees based on posterior probability.
       After a burn-in period, the surviving trees are summarized into a consensus tree.
       The fraction of sampled trees containing a given clade is that clade's
       <a class="term" href="references.html#posterior-probability">posterior probability</a>.
-      PP = 0.95 means 95% of sampled trees contained that grouping. MrBayes was used here.
+      PP = 0.95 means 95% of sampled trees contained that grouping. MrBayes was the software used here.
     </p>
 
     <details>
-      <summary>A Bayesian run returns PP = 1.00. A critic says this means the method is overconfident. How do you respond?</summary>
+      <summary>A Bayesian run returns PP = 1.00. A critic says this is overconfident. How do you respond?</summary>
       <div class="details-body">
         <p>
           PP = 1.00 means every sampled tree in the run contained that clade. The
           data strongly favor it. The critic's concern is valid only if the MCMC
-          didn't converge (chain stuck, not exploring alternatives). Check ESS values
-          in Tracer. If the chain converged, PP = 1.00 is the correct result, not
+          didn't converge (chain stuck, not exploring alternatives). 
+          Pro-Tip, Look for ESS values: If the chain converged, PP = 1.00 is the correct result, not
           overconfidence.
         </p>
       </div>
@@ -433,21 +412,19 @@
     <h3>Comparing the three methods</h3>
     <p>
       When all three methods agree on a grouping, that agreement across independent
-      frameworks is strong evidence the result reflects real evolutionary history.
-      Where the methods disagree, typically at weakly supported internal nodes within
-      a recently diversified family, that flags a region where a single barcode gene
+      mathematical algorythims is strong evidence of evolutionary history.
+      Where the methods disagree, that flags a region where a single barcode gene
       doesn't have enough signal and more data would help.
     </p>
 
     <details>
-      <summary>A reviewer asks why you ran all three methods instead of just reporting ML. What do you say?</summary>
+      <summary>A reviewer asks why you ran all three methods instead of just reporting one. What do you say?</summary>
       <div class="details-body">
         <p>
           Each method uses a different mathematical framework, so agreement rules out
-          method-specific artifacts. NJ is transparent and fast; ML uses the full
-          alignment; Bayesian gives direct probability statements. When all three agree,
+          method-specific artifacts. When all three agree,
           confidence is higher than any single method can provide. Disagreements are
-          equally useful: they pinpoint exactly where more data is needed.
+          useful too. They can pinpoint exactly where more data is needed.
         </p>
       </div>
     </details>
