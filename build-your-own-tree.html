@@ -50,7 +50,7 @@ BiocManager::install(c("msa", "Biostrings"))</code></pre>
     <p>
       For Bayesian analysis you also need MrBayes (runs in the terminal, outside R).
       Mac: <code>brew install mrbayes</code>. Other systems: binaries at
-      <code>mrbayes.sourceforge.net</code>. Confirm with <code>mb</code> in a terminal.
+      <code>mrbayes.sourceforge.net</code>. Confirm by parsing  <code>mb</code> in a terminal.
     </p>
 
     <p>
@@ -82,7 +82,7 @@ BiocManager::install(c("msa", "Biostrings"))</code></pre>
           Bioconductor installs to a separate library path. Run <code>.libPaths()</code>
           to check. Try reinstalling in a fresh R session. If you have multiple R
           versions, make sure BiocManager ran in the same version you're using now.
-          Windows: run RStudio as Administrator if you see permission errors.
+          Windows: run RStudio as Administrator if you see permission errors. Permission errors can be an issue with university owned laptops as well. You may need to enter admin mode. 
         </p>
       </div>
     </details>
@@ -201,13 +201,6 @@ BiocManager::install(c("msa", "Biostrings"))</code></pre>
       the NEXUS file for MrBayes.
     </p>
 
-    <p>
-      The script uses <code>Biostrings::readDNAStringSet()</code>, not
-      <code>ape::read.dna()</code>, because MUSCLE expects Biostrings input. Going
-      through ape first can introduce a silent encoding artifact for ambiguous bases.
-      Read with Biostrings, align, then convert.
-    </p>
-
 <pre><code># Read unaligned sequences directly into Biostrings format
 dna_strings &lt;- Biostrings::readDNAStringSet(
   "FASTA/gulf_fish_COI_combined.fasta"
@@ -226,7 +219,7 @@ save(aln_dnabin, aln_phydat, family_colors, tip_color,
      file = "out/rdata/alignment_objects.RData")</code></pre>
 
     <p>
-      Output: <code>FASTA/gulf_fish_COI_aligned.fasta</code> (inspect in AliView/MEGA),
+      Output: <code>FASTA/gulf_fish_COI_aligned.fasta</code>,
       <code>MrBayes/gulf_fish_COI_aligned.nex</code> (for Script 03), and
       <code>out/rdata/alignment_objects.RData</code>, the main handoff to all three
       tree scripts, containing the aligned matrix in both DNAbin and phyDat formats
@@ -246,17 +239,6 @@ save(aln_dnabin, aln_phydat, family_colors, tip_color,
       </div>
     </details>
 
-    <details class="troubleshoot">
-      <summary><code>msaConvert()</code> throws "key 52" or unexpected character error.</summary>
-      <div class="details-body">
-        <p>
-          This happens when sequences go through <code>ape::read.dna()</code> first.
-          The fix is in the script: always read with
-          <code>Biostrings::readDNAStringSet()</code>, align, then convert. Check that
-          you haven't swapped the read step for <code>ape::read.dna()</code>.
-        </p>
-      </div>
-    </details>
 
     <!-- ══════════════════════════════════════════════════════
          SECTION 4 — SCRIPT 01: NEIGHBOR-JOINING
@@ -267,13 +249,6 @@ save(aln_dnabin, aln_phydat, family_colors, tip_color,
       <code>01_tree_NJ.R</code> builds two NJ trees (rooted on Bull Shark and Flathead
       Mullet) with 1,000 bootstrap replicates each. NJ is the fastest method and serves
       as both a sanity check and a starting topology for ML.
-    </p>
-
-    <p>
-      Pairwise distances use the K80 model, which corrects for multiple hits at the same
-      site and accounts for transition/transversion bias (transitions happen 2–3× more
-      often in mitochondrial DNA). NJ then iteratively joins the closest pair of taxa
-      until the tree is complete.
     </p>
 
 <pre><code># Compute K80 pairwise distances
@@ -310,24 +285,11 @@ boot_nj_shark &lt;- boot.phylo(
       <div class="details-body">
         <p>
           It should finish in 1–3 minutes. Check that <code>quiet = TRUE</code> is set.
-          Try <code>B = 100</code> as a test. Windows: set <code>mc.cores = 1</code> to
-          avoid parallel fork hangs.
+          Try <code>B = 100</code> as a test. 
         </p>
       </div>
     </details>
 
-    <details class="troubleshoot">
-      <summary>NJ tree is a star polytomy: every tip branches from one node.</summary>
-      <div class="details-body">
-        <p>
-          Almost always means the distance matrix has <code>NA</code> or <code>Inf</code>
-          values. Check: <code>sum(is.na(dist_k80))</code> and
-          <code>sum(is.infinite(dist_k80))</code>. NAs = sequences with no overlapping
-          non-gap positions. Infs = divergence too high for K80 (non-fish sequence in
-          the alignment?). Fix the alignment issue and rerun.
-        </p>
-      </div>
-    </details>
 
     <!-- ══════════════════════════════════════════════════════
          SECTION 5 — SCRIPT 02: MAXIMUM LIKELIHOOD
@@ -343,8 +305,7 @@ boot_nj_shark &lt;- boot.phylo(
     <p>
       <code>modelTest()</code> from phangorn ranks models by AIC. Regardless of the
       winner, the script uses GTR+Gamma+I: all six substitution rates free, rate
-      variation across sites modeled with gamma, invariant sites estimated. It's the
-      standard conservative choice for COI barcodes.
+      variation across sites modeled with gamma, invariant sites estimated. 
     </p>
 
 <pre><code># Start ML search from the NJ topology (faster convergence)
@@ -371,17 +332,6 @@ tree_ml_bs &lt;- plotBS(fit_ml$tree, bs_ml, type = "n")</code></pre>
       normal for a single 650 bp gene.
     </p>
 
-
-    <details class="troubleshoot">
-      <summary><code>optim.pml()</code> is running but the log-likelihood stopped improving.</summary>
-      <div class="details-body">
-        <p>
-          A plateau usually means convergence; let it finish. If it's genuinely stuck
-          after hundreds of stochastic moves, try restarting from a random tree
-          (<code>rtree(n)</code>) and compare the final log-likelihoods. Higher is better.
-        </p>
-      </div>
-    </details>
 
     <details class="troubleshoot">
       <summary>ML tree topology differs substantially from NJ; is one wrong?</summary>
@@ -525,8 +475,7 @@ mb gulf_fish_COI_aligned.nex</code></pre>
           Check in order: (1) verify the FASTA header matches the label you expect;
           copy-paste errors are common; (2) BLAST the sequence at
           <code>blast.ncbi.nlm.nih.gov</code>; if the top hit is a different species,
-          the GenBank entry was mislabeled; (3) open the alignment in AliView and confirm
-          it aligns cleanly. If everything checks out, the unexpected placement may be real.
+          the GenBank entry was mislabeled
         </p>
       </div>
     </details>
@@ -537,8 +486,7 @@ mb gulf_fish_COI_aligned.nex</code></pre>
         <p>
           Just swap the FASTA file in Script 00; update the path in
           <code>readDNAStringSet()</code>. Alignment length will differ (16S ~500 bp,
-          cytb ~1,100 bp) but <code>msa()</code> handles any length. If sequences vary
-          widely in length, trim manually in AliView first. You may need larger
+          cytb ~1,100 bp) but <code>msa()</code> handles any length. You may need larger
           <code>ngen</code> if using shorter sequences.
         </p>
       </div>

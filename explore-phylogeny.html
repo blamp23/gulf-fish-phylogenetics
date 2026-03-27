@@ -170,23 +170,23 @@
 
       const DISC = {
         "Bull Shark":
-          "Bull Shark (Chondrichthyes) diverged from all bony fish ~420 million years ago — the deepest root available in this dataset. All bony fish form one ingroup clade united by their shared ray-finned ancestry.",
+          "Bull Shark (Chondrichthyes) diverged from all bony fish ~420 million years ago, it is the deepest root available in this dataset. All bony fish form one ingroup clade united by their shared ray-finned ancestry.",
         "Flathead Mullet":
-          "Flathead Mullet (Mugilidae, order Mugiliformes) is bony like the ingroup but belongs to a different order, placing the root at a shallower level than Bull Shark. Do the major groupings change with this choice, or only where the root falls?",
+          "Flathead Mullet (Mugilidae, order Mugiliformes) is bony like the ingroup but belongs to a different order, placing the root at a shallower level than Bull Shark.",
         "Southern Flounder":
-          "Southern Flounder (Paralichthyidae) is within the broader Perciformes. Rooting here forces it to appear as the earliest-diverging bony fish in the dataset. The Sciaenidae and Salmonidae clades should still hold together internally — those groupings are robust to root placement.",
+          "Southern Flounder (Paralichthyidae) is within the broader Perciformes. Rooting here forces it to appear as the earliest-diverging bony fish in the dataset. The Sciaenidae and Salmonidae clades should hold together internally.",
         "Sheepshead":
           "Sheepshead (Sparidae) is a perciform in a different family from the drums, making it a reasonable secondary outgroup for testing Sciaenidae stability. Rainbow and Brown Trout should still cluster together and remain clearly separated from Speckled Trout.",
         "Red Drum":
-          "Red Drum is Sciaenidae, so placing it as outgroup splits the drum family artificially (paraphyletic). Notice that Rainbow and Brown Trout still cluster clearly away from Speckled Trout — DNA leaves no ambiguity about which 'trout' is real.",
+          "Red Drum is Sciaenidae, so placing it as outgroup splits the drum family artificially (paraphyletic). Rainbow and Brown Trout still cluster clearly away from Speckled Trout.",
         "Black Drum":
           "Black Drum is also Sciaenidae, so this again splits the family artificially. Toggle between Red Drum and Black Drum outgroups: the internal drum arrangement shifts, but Rainbow and Brown Trout always land far from Speckled Trout.",
         "Speckled Trout":
-          "Speckled Trout is Sciaenidae (a drum, not a trout), so rooting here splits the family artificially. But Rainbow and Brown Trout still cluster together, completely apart from Speckled Trout — DNA shows it is more closely related to Red Drum than to any true trout. Common names mislead.",
+          "Speckled Trout is Sciaenidae (a drum, not a trout), so rooting here splits the family artificially. But Rainbow and Brown Trout still cluster together, completely apart from Speckled Trout. DNA shows it is more closely related to Red Drum than to any true trout. Common names mislead.",
         "Atlantic Croaker":
           "Atlantic Croaker is the fourth Sciaenidae. Like the other drum outgroups, rooting here splits the family artificially but leaves the key signal intact: Rainbow and Brown Trout always cluster together, always far from Speckled Trout.",
         "Rainbow Trout":
-          "Rooting on Rainbow Trout (Salmonidae) places it as outgroup to all Gulf fish. Speckled Trout now sits deep inside the ingroup alongside the drums — the clearest demonstration that its common name is evolutionarily meaningless.",
+          "Rooting on Rainbow Trout (Salmonidae) places it as outgroup to all Gulf fish. Speckled Trout now sits deep inside the ingroup alongside the drums. It really seems that the common name is evolutionarily meaningless.",
         "Brown Trout":
           "Brown Trout (Salmonidae) produces the same result as Rainbow Trout outgroup: Speckled Trout lands firmly among the drums. Brown Trout and Rainbow Trout are genuinely related to each other and genuinely unrelated to Speckled Trout."
       };
@@ -273,22 +273,6 @@
         Figure 3. Maximum Likelihood tree (GTR+Gamma+I), rooted on Bull Shark. Node values = bootstrap support (1000 replicates); values below 50% not shown. Salmonidae (pink) are clearly separated from all Sciaenidae (blue).
       </figcaption>
     </figure>
-
-
-    <details>
-      <summary>What is the α (alpha) shape parameter, and what does a small value (e.g., 0.1) vs. a large value (e.g., 2.0) tell you about how COI evolves across the alignment?</summary>
-      <div class="details-body">
-        <p>
-          α (alpha) is the shape parameter of the gamma distribution used to model
-          among-site rate variation — it controls how unequal substitution rates are
-          across alignment positions. A <strong>small α</strong> (e.g., 0.1) means most
-          sites barely change while a few "hot" positions (typically third codon positions
-          in protein-coding genes) accumulate substitutions rapidly. A <strong>large α</strong>
-          (e.g., 2.0) means rates are relatively uniform across sites. For COI, α values
-          of 0.2–1.0 are typical.
-        </p>
-      </div>
-    </details>
 
 
     <!-- ══════════════════════════════════════════════════════
