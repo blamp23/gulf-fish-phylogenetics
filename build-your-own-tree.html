@@ -26,7 +26,7 @@
   <main>
 
     <p>
-      This page walks through the full pipeline — from downloading sequences off GenBank
+      This page walks through the full pipeline: from downloading sequences off GenBank
       to a finished tree in R. All four scripts are in the GitHub repo and run on any
       laptop with R 4.0+.
     </p>
@@ -93,7 +93,7 @@ BiocManager::install(c("msa", "Biostrings"))</code></pre>
     <h2>Getting Sequences from GenBank</h2>
 
     <p>
-      All sequences come from NCBI Nucleotide. The gene is COI — the standard DNA
+      All sequences come from NCBI Nucleotide. The gene is COI, the standard DNA
       barcode for animal species, ~650 bp long. Search with:
       <code>[species name][ORGN] AND COI[GENE] AND 600:700[SLEN]</code>. Download
       2–3 sequences per species in FASTA format. Combine them:
@@ -170,7 +170,7 @@ BiocManager::install(c("msa", "Biostrings"))</code></pre>
       <div class="details-body">
         <p>
           Make sure <code>600:700[SLEN]</code> is in the query string itself, not a
-          separate field. NCBI sometimes annotates the gene as "cox1" not "COI" —
+          separate field. NCBI sometimes annotates the gene as "cox1" not "COI";
           try <code>COI[GENE] OR cox1[GENE]</code>. If no results at all, check
           BOLD Systems (<code>boldsystems.org</code>) as an alternative source.
         </p>
@@ -202,8 +202,8 @@ BiocManager::install(c("msa", "Biostrings"))</code></pre>
     </p>
 
     <p>
-      The script uses <code>Biostrings::readDNAStringSet()</code> — not
-      <code>ape::read.dna()</code> — because MUSCLE expects Biostrings input. Going
+      The script uses <code>Biostrings::readDNAStringSet()</code>, not
+      <code>ape::read.dna()</code>, because MUSCLE expects Biostrings input. Going
       through ape first can introduce a silent encoding artifact for ambiguous bases.
       Read with Biostrings, align, then convert.
     </p>
@@ -228,14 +228,14 @@ save(aln_dnabin, aln_phydat, family_colors, tip_color,
     <p>
       Output: <code>FASTA/gulf_fish_COI_aligned.fasta</code> (inspect in AliView/MEGA),
       <code>MrBayes/gulf_fish_COI_aligned.nex</code> (for Script 03), and
-      <code>out/rdata/alignment_objects.RData</code> — the main handoff to all three
+      <code>out/rdata/alignment_objects.RData</code>, the main handoff to all three
       tree scripts, containing the aligned matrix in both DNAbin and phyDat formats
       plus the shared color palette.
     </p>
 
 
     <details class="troubleshoot">
-      <summary><code>readDNAStringSet()</code> throws "cannot open file — no such file or directory."</summary>
+      <summary><code>readDNAStringSet()</code> throws "cannot open file: no such file or directory."</summary>
       <div class="details-body">
         <p>
           Run <code>getwd()</code>. Scripts expect the <code>R/</code> folder as working
@@ -317,7 +317,7 @@ boot_nj_shark &lt;- boot.phylo(
     </details>
 
     <details class="troubleshoot">
-      <summary>NJ tree is a star polytomy — every tip branches from one node.</summary>
+      <summary>NJ tree is a star polytomy: every tip branches from one node.</summary>
       <div class="details-body">
         <p>
           Almost always means the distance matrix has <code>NA</code> or <code>Inf</code>
@@ -342,7 +342,7 @@ boot_nj_shark &lt;- boot.phylo(
 
     <p>
       <code>modelTest()</code> from phangorn ranks models by AIC. Regardless of the
-      winner, the script uses GTR+Gamma+I — all six substitution rates free, rate
+      winner, the script uses GTR+Gamma+I: all six substitution rates free, rate
       variation across sites modeled with gamma, invariant sites estimated. It's the
       standard conservative choice for COI barcodes.
     </p>
@@ -376,7 +376,7 @@ tree_ml_bs &lt;- plotBS(fit_ml$tree, bs_ml, type = "n")</code></pre>
       <summary><code>optim.pml()</code> is running but the log-likelihood stopped improving.</summary>
       <div class="details-body">
         <p>
-          A plateau usually means convergence — let it finish. If it's genuinely stuck
+          A plateau usually means convergence; let it finish. If it's genuinely stuck
           after hundreds of stochastic moves, try restarting from a random tree
           (<code>rtree(n)</code>) and compare the final log-likelihoods. Higher is better.
         </p>
@@ -384,7 +384,7 @@ tree_ml_bs &lt;- plotBS(fit_ml$tree, bs_ml, type = "n")</code></pre>
     </details>
 
     <details class="troubleshoot">
-      <summary>ML tree topology differs substantially from NJ — is one wrong?</summary>
+      <summary>ML tree topology differs substantially from NJ; is one wrong?</summary>
       <div class="details-body">
         <p>
           Not necessarily. Check bootstrap at the differing nodes. If both are &lt;70%,
@@ -445,12 +445,12 @@ mb gulf_fish_COI_aligned.nex</code></pre>
     <p>
       Load the <code>.p</code> file into Tracer (<code>beast.community/tracer</code>).
       A good run shows a "fuzzy caterpillar" trace with no drift, and ESS &gt; 200 for
-      all parameters. Low ESS or a drifting trace means the chain hasn't converged —
+      all parameters. Low ESS or a drifting trace means the chain hasn't converged;
       re-run with larger <code>ngen</code>.
     </p>
 
     <p>
-      PP = 0.95 means 95% of sampled trees contained that clade — a direct probability
+      PP = 0.95 means 95% of sampled trees contained that clade, a direct probability
       statement. PP values run numerically higher than ML bootstrap and aren't directly
       comparable. Use them as complementary evidence.
     </p>
@@ -462,7 +462,7 @@ mb gulf_fish_COI_aligned.nex</code></pre>
         <p>
           Make sure you ran <code>mb</code> from <code>R/MrBayes/</code> with the exact
           NEXUS filename the script wrote. If <code>.con.tre</code> is empty, MrBayes
-          crashed — scroll back through the terminal. Common causes: MrBayes block wasn't
+          crashed; scroll back through the terminal. Common causes: MrBayes block wasn't
           appended, or the outgroup name doesn't exactly match a tip label (check spaces
           vs. underscores).
         </p>
@@ -473,7 +473,7 @@ mb gulf_fish_COI_aligned.nex</code></pre>
       <summary>Tracer shows ESS below 200. Chain hasn't converged. What do I do?</summary>
       <div class="details-body">
         <p>
-          Run longer — try <code>ngen=2,000,000</code> with burnin scaled proportionally.
+          Run longer; try <code>ngen=2,000,000</code> with burnin scaled proportionally.
           Check the trace for drift after burn-in. Still low ESS? Increase
           <code>nchains=4</code>. On TAMU HPRC, <code>ngen=5,000,000</code> runs in
           a few hours.
@@ -500,7 +500,7 @@ mb gulf_fish_COI_aligned.nex</code></pre>
     <p>
       COI is the default, but 16S rRNA (more conserved, better for deeper splits) and
       cytochrome b (large GenBank database) both work well. Multi-gene analyses are more
-      powerful but require sequences from the same individuals — don't mix accessions
+      powerful but require sequences from the same individuals; don't mix accessions
       across genes from different specimens.
     </p>
 
@@ -510,7 +510,7 @@ mb gulf_fish_COI_aligned.nex</code></pre>
       For 50+ species or Bayesian runs with <code>ngen=5,000,000</code>+, a laptop
       isn't practical. TAMU-HPRC is free for students and faculty and can finish the
       same MrBayes run in hours. Get started at
-      <a href="https://hprc.tamu.edu">hprc.tamu.edu</a> — create an account, complete
+      <a href="https://hprc.tamu.edu">hprc.tamu.edu</a>; create an account, complete
       the orientation, and submit via SLURM.
     </p>
 
@@ -522,9 +522,9 @@ mb gulf_fish_COI_aligned.nex</code></pre>
       <summary>I added a species and it clusters somewhere completely unexpected. Is my sequence wrong?</summary>
       <div class="details-body">
         <p>
-          Check in order: (1) verify the FASTA header matches the label you expect —
+          Check in order: (1) verify the FASTA header matches the label you expect;
           copy-paste errors are common; (2) BLAST the sequence at
-          <code>blast.ncbi.nlm.nih.gov</code> — if the top hit is a different species,
+          <code>blast.ncbi.nlm.nih.gov</code>; if the top hit is a different species,
           the GenBank entry was mislabeled; (3) open the alignment in AliView and confirm
           it aligns cleanly. If everything checks out, the unexpected placement may be real.
         </p>
@@ -535,7 +535,7 @@ mb gulf_fish_COI_aligned.nex</code></pre>
       <summary>I want to use 16S or cytb instead of COI. What changes in the scripts?</summary>
       <div class="details-body">
         <p>
-          Just swap the FASTA file in Script 00 — update the path in
+          Just swap the FASTA file in Script 00; update the path in
           <code>readDNAStringSet()</code>. Alignment length will differ (16S ~500 bp,
           cytb ~1,100 bp) but <code>msa()</code> handles any length. If sequences vary
           widely in length, trim manually in AliView first. You may need larger

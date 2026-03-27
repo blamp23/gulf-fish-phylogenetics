@@ -45,13 +45,13 @@
       Three <a class="term" href="references.html#coi">COI</a><sup><a class="ref" href="references.html#ref-hebert2003">1</a></sup>
       sequences per species were downloaded from
       <a class="term" href="references.html#genbank">GenBank</a> (24 total), then
-      aligned with <a class="term" href="references.html#muscle">MUSCLE</a><sup><a class="ref" href="references.html#ref-edgar2004">8</a></sup>
-      to a ~660 bp matrix. Multiple sequences per species act as a quality check — if
+      aligned with <a class="term" href="references.html#muscle">MUSCLE</a><sup><a class="ref" href="references.html#ref-edgar2004">7</a></sup>
+      to a ~660 bp matrix. Multiple sequences per species act as a quality check: if
       all three cluster tightly together, the data are clean. Every within-species group
       clustered perfectly here. Trees were built with
       <a class="term" href="references.html#neighbor-joining">NJ</a><sup><a class="ref" href="references.html#ref-saitou1987">4</a></sup>,
       <a class="term" href="references.html#maximum-likelihood">ML</a><sup><a class="ref" href="references.html#ref-felsenstein1981">5</a></sup>,
-      and <a class="term" href="references.html#bayesian">Bayesian inference</a><sup><a class="ref" href="references.html#ref-ronquist2003">7</a></sup>.
+      and <a class="term" href="references.html#bayesian">Bayesian inference</a><sup><a class="ref" href="references.html#ref-ronquist2003">6</a></sup>.
     </p>
 
 
@@ -97,7 +97,7 @@
       documented occurrences of natural hybrids between them. Southern
       Flounder sits isolated from all Perciformes at 100%. Its flat body evolved
       independently from the drum lineage. Internal nodes <em>within</em> Sciaenidae
-      show bootstrap values of 30–47% — the family grouping itself is at 100%, but
+      show bootstrap values of 30–47%; the family grouping itself is at 100%, but
       COI alone can't resolve the exact order within the family.
     </p>
 
@@ -118,7 +118,7 @@
       <summary>In the outgroup explorer, switch between Bull Shark and Speckled Trout as outgroup. What changes, and what stays the same?</summary>
       <div class="details-body">
         <p>
-          With Bull Shark, the root falls between all bony fish and the shark — correct.
+          With Bull Shark, the root falls between all bony fish and the shark: correct.
           With Speckled Trout, the root is forced inside Sciaenidae, making the drum
           family look split, the underlying data does not change. Rainbow and Brown
           Trout still cluster together regardless of root choice. Outgroup choice changes
@@ -133,7 +133,7 @@
     <div id="og-widget" style="border:1px solid #cde8ed; border-radius:8px; padding:1.5rem; margin:2rem 0; background:#fff;">
 
       <h3 style="margin:0 0 0.3rem; font-size:1.05rem; color:#064f5a;">Interactive: Choose Your Outgroup</h3>
-      <p style="margin:0 0 1rem; color:#555; font-size:0.88rem; line-height:1.5;">Select any species as the evolutionary outgroup and see how the tree changes. Some choices are biologically justified — others are instructive mistakes.</p>
+      <p style="margin:0 0 1rem; color:#555; font-size:0.88rem; line-height:1.5;">Select any species as the evolutionary outgroup and see how the tree changes. Some choices are biologically justified; others are instructive mistakes.</p>
 
       <!-- Toggle buttons — one per species, color-coded by family -->
       <div id="og-btns" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:1rem;"></div>
@@ -160,7 +160,7 @@
       </div>
 
       <!-- Footer note -->
-      <p style="font-size:0.78rem; color:#999; margin:0.9rem 0 0; font-style:italic;">Trees are Neighbor-Joining (K80 distances), generated in R using the ape package. Each tree uses the _1 sequence of the selected species as outgroup. Cladogram style — branch lengths not drawn to scale. Rainbow Trout and Brown Trout (Salmonidae) are included to anchor the true phylogenetic position of &ldquo;trout&rdquo; relative to Gulf fish species.</p>
+      <p style="font-size:0.78rem; color:#999; margin:0.9rem 0 0; font-style:italic;">Trees are Neighbor-Joining (K80 distances), generated in R using the ape package. Each tree uses the _1 sequence of the selected species as outgroup. Cladogram style; branch lengths not drawn to scale. Rainbow Trout and Brown Trout (Salmonidae) are included to anchor the true phylogenetic position of &ldquo;trout&rdquo; relative to Gulf fish species.</p>
     </div>
 
     <script>
@@ -181,25 +181,25 @@
 
       const DISC = {
         "Bull Shark":
-          "Bull Shark is a cartilaginous fish (Chondrichthyes) — it diverged from all bony fish roughly 420 million years ago. Placing it as outgroup anchors the root at the deepest possible split in this dataset, giving the tree the clearest evolutionary direction. Notice how all bony fish — drums, flounder, sheepshead, mullet, and both trout species — form one large ingroup clade united by their shared ray-finned ancestry.",
+          "Bull Shark is a cartilaginous fish (Chondrichthyes); it diverged from all bony fish roughly 420 million years ago. Placing it as outgroup anchors the root at the deepest possible split in this dataset, giving the tree the clearest evolutionary direction. Notice how all bony fish (drums, flounder, sheepshead, mullet, and both trout species) form one large ingroup clade united by their shared ray-finned ancestry.",
         "Flathead Mullet":
-          "Flathead Mullet (Mugilidae, order Mugiliformes) is a bony fish like the ingroup, but belongs to a different order. Using it as outgroup places the root at a shallower level than Bull Shark. Compare this tree to the Bull Shark version — do the major groupings change, or only where the root falls? Notice that Rainbow Trout and Brown Trout still cluster together far from Speckled Trout regardless of this outgroup choice.",
+          "Flathead Mullet (Mugilidae, order Mugiliformes) is a bony fish like the ingroup, but belongs to a different order. Using it as outgroup places the root at a shallower level than Bull Shark. Compare this tree to the Bull Shark version: do the major groupings change, or only where the root falls? Notice that Rainbow Trout and Brown Trout still cluster together far from Speckled Trout regardless of this outgroup choice.",
         "Southern Flounder":
-          "Southern Flounder (Paralichthyidae) is in the broader Perciformes group. Rooting here forces the flatfish lineage to appear as the earliest-diverging bony fish in the dataset. The Sciaenidae clade and the Salmonidae clade (Rainbow and Brown Trout) should still hold together internally — those groupings are robust to this rooting choice.",
+          "Southern Flounder (Paralichthyidae) is in the broader Perciformes group. Rooting here forces the flatfish lineage to appear as the earliest-diverging bony fish in the dataset. The Sciaenidae clade and the Salmonidae clade (Rainbow and Brown Trout) should still hold together internally; those groupings are robust to this rooting choice.",
         "Sheepshead":
-          "Sheepshead (Sparidae) is a perciform bony fish in a different family from the drums. It makes a reasonable secondary outgroup for testing Sciaenidae stability. Notice where Rainbow Trout and Brown Trout land — they should still cluster together and remain clearly separated from Speckled Trout, reinforcing that Speckled Trout belongs with the drums regardless of root placement.",
+          "Sheepshead (Sparidae) is a perciform bony fish in a different family from the drums. It makes a reasonable secondary outgroup for testing Sciaenidae stability. Notice where Rainbow Trout and Brown Trout land: they should still cluster together and remain clearly separated from Speckled Trout, reinforcing that Speckled Trout belongs with the drums regardless of root placement.",
         "Red Drum":
-          "Placing Red Drum as outgroup is biologically inappropriate — it is a member of Sciaenidae, the family we are studying. The root now falls inside the drum family, making the remaining Sciaenidae appear paraphyletic. One useful side effect: with the root forced into Sciaenidae, notice how clearly Rainbow Trout and Brown Trout cluster away from Speckled Trout — DNA leaves no ambiguity about which 'trout' is a real trout.",
+          "Placing Red Drum as outgroup is biologically inappropriate: it is a member of Sciaenidae, the family we are studying. The root now falls inside the drum family, making the remaining Sciaenidae appear paraphyletic. One useful side effect: with the root forced into Sciaenidae, notice how clearly Rainbow Trout and Brown Trout cluster away from Speckled Trout. DNA leaves no ambiguity about which 'trout' is a real trout.",
         "Black Drum":
-          "Black Drum is also Sciaenidae, so rooting here again splits the family artificially. Compare this tree carefully to the Red Drum outgroup version — the internal arrangement of the remaining drums shifts, but Rainbow Trout and Brown Trout always land in the same place far from Speckled Trout. That consistency across all rootings is strong evidence of a real evolutionary signal.",
+          "Black Drum is also Sciaenidae, so rooting here again splits the family artificially. Compare this tree carefully to the Red Drum outgroup version: the internal arrangement of the remaining drums shifts, but Rainbow Trout and Brown Trout always land in the same place far from Speckled Trout. That consistency across all rootings is strong evidence of a real evolutionary signal.",
         "Speckled Trout":
-          "This is one of the most instructive outgroup choices in the dataset. Speckled Trout is Sciaenidae — a drum, not a trout — so rooting here splits the drum family artificially. But look at where Rainbow Trout and Brown Trout land: they cluster together in their own clade, completely separate from Speckled Trout. Despite sharing the word 'trout' in their common names, DNA shows that Speckled Trout is more closely related to Red Drum and Black Drum than it is to any true trout. Common names can profoundly mislead.",
+          "This is one of the most instructive outgroup choices in the dataset. Speckled Trout is Sciaenidae (a drum, not a trout), so rooting here splits the drum family artificially. But look at where Rainbow Trout and Brown Trout land: they cluster together in their own clade, completely separate from Speckled Trout. Despite sharing the word 'trout' in their common names, DNA shows that Speckled Trout is more closely related to Red Drum and Black Drum than it is to any true trout. Common names can profoundly mislead.",
         "Atlantic Croaker":
-          "Atlantic Croaker is the fourth Sciaenidae in this dataset. Rooting on any Sciaenidae member produces the same artificial split within the family. By toggling through all four drum outgroups (Red Drum, Black Drum, Speckled Trout, Atlantic Croaker), you can see that the distortion always looks similar — and Rainbow Trout and Brown Trout always stay together, always far from Speckled Trout.",
+          "Atlantic Croaker is the fourth Sciaenidae in this dataset. Rooting on any Sciaenidae member produces the same artificial split within the family. By toggling through all four drum outgroups (Red Drum, Black Drum, Speckled Trout, Atlantic Croaker), you can see that the distortion always looks similar; Rainbow Trout and Brown Trout always stay together, always far from Speckled Trout.",
         "Rainbow Trout":
-          "Rainbow Trout (Oncorhynchus mykiss, Salmonidae) is included in this dataset specifically to anchor the true position of 'trout' on the tree. Rooting here places the Salmonidae lineage as outgroup to all the Gulf fish. Notice that Speckled Trout — despite its name — now sits deep inside the bony fish ingroup alongside Red Drum, Black Drum, and Atlantic Croaker, completely separated from Rainbow Trout by hundreds of millions of years of evolution. This is the clearest demonstration of why common names are unreliable guides to evolutionary relationships.",
+          "Rainbow Trout (Oncorhynchus mykiss, Salmonidae) is included in this dataset specifically to anchor the true position of 'trout' on the tree. Rooting here places the Salmonidae lineage as outgroup to all the Gulf fish. Notice that Speckled Trout, despite its name, now sits deep inside the bony fish ingroup alongside Red Drum, Black Drum, and Atlantic Croaker, completely separated from Rainbow Trout by hundreds of millions of years of evolution. This is the clearest demonstration of why common names are unreliable guides to evolutionary relationships.",
         "Brown Trout":
-          "Brown Trout (Salmo trutta, Salmonidae) is the second true trout in the dataset, included alongside Rainbow Trout to show that Salmonidae is a real, well-supported clade. Rooting here produces a similar result to Rainbow Trout outgroup — Speckled Trout lands firmly among the drums. Brown Trout and Rainbow Trout are genuinely related to each other and genuinely unrelated to Speckled Trout. DNA makes this unambiguous in a way that common names never could."
+          "Brown Trout (Salmo trutta, Salmonidae) is the second true trout in the dataset, included alongside Rainbow Trout to show that Salmonidae is a real, well-supported clade. Rooting here produces a similar result to Rainbow Trout outgroup: Speckled Trout lands firmly among the drums. Brown Trout and Rainbow Trout are genuinely related to each other and genuinely unrelated to Speckled Trout. DNA makes this unambiguous in a way that common names never could."
       };
 
       const img         = document.getElementById("og-img");
@@ -264,12 +264,12 @@
 
     <p>
       The <a class="term" href="references.html#maximum-likelihood">ML</a> tree used
-      <a class="term" href="references.html#gtr">GTR+Gamma+I</a><sup><a class="ref" href="references.html#ref-tavare1986">6</a></sup>
-      — all six substitution rates estimated independently, rate variation across sites
+      <a class="term" href="references.html#gtr">GTR+Gamma+I</a>
+: all six substitution rates estimated independently, rate variation across sites
       modeled with a gamma distribution, and invariant sites accounted for. The
       family-level topology came out identical to NJ. Salmonidae holds at 100% bootstrap,
       cleanly separated from Sciaenidae, and Speckled Trout falls within Sciaenidae at
-      the same support. Internal Sciaenidae nodes sit at 25–64% — the same uncertainty
+      the same support. Internal Sciaenidae nodes sit at 25–64%; the same uncertainty
       seen in NJ, which suggests this reflects genuine signal rather than a modeling
       artifact. Three sequences (Bull Shark 3, Southern Flounder 3, Flathead Mullet 2)
       shift position slightly, though their within-species distances are ≤0.0016, making
@@ -292,7 +292,7 @@
       <div class="details-body">
         <p>
           Small α: most sites barely change, but a few "hot" positions accumulate
-          substitutions rapidly — typical of protein-coding genes where third codon
+          substitutions rapidly, typical of protein-coding genes where third codon
           positions are nearly free to vary. Large α: rates are relatively uniform
           across sites. For COI, α values of 0.2–1.0 are typical.
         </p>
@@ -303,7 +303,7 @@
       <summary>Why do near-identical sequences produce unstable placement in the ML tree?</summary>
       <div class="details-body">
         <p>
-          When two sequences are nearly identical, the likelihood surface is nearly flat —
+          When two sequences are nearly identical, the likelihood surface is nearly flat:
           there's almost no signal favoring one placement over another. Small random
           differences in the optimization path push the sequence wherever has the tiny
           numerical edge. This is harmless for family-level topology; it's within-species
@@ -328,11 +328,11 @@
 
     <p>
       The only lower-support nodes (PP = 0.70, 0.58, 0.51) are internal splits within
-      Sciaenidae — the same ones that showed weak support in NJ and ML. All three methods
+      Sciaenidae, the same ones that showed weak support in NJ and ML. All three methods
       agreeing on where uncertainty lies confirms this is a biological limitation, not a
       methodological one. A
       <a class="term" href="references.html#posterior-probability">posterior probability</a>
-      of 0.58 doesn't mean the node is wrong — it means there's 58% probability for that
+      of 0.58 doesn't mean the node is wrong; it means there's 58% probability for that
       branching order and 42% for alternatives. PP values tend to run numerically higher
       than ML bootstrap and aren't directly comparable.
     </p>
@@ -353,7 +353,7 @@
         <p>
           PP = 0.58 means 58% probability for that branching order, 42% for alternatives
           among those same taxa. The family grouping is at PP = 1.00 and not in doubt.
-          The uncertainty is only about which drum diverged first — a much narrower
+          The uncertainty is only about which drum diverged first, a much narrower
           question that needs more data to resolve.
         </p>
       </div>
@@ -365,76 +365,12 @@
         <p>
           Each method has its own failure modes. For all three to produce the same wrong
           answer, the artifact would have to affect NJ, ML, and Bayesian inference
-          simultaneously in the same direction — extremely unlikely. Agreement rules out
+          simultaneously in the same direction, which is extremely unlikely. Agreement rules out
           method-specific explanations and is qualitatively stronger than any single
           result.
         </p>
       </div>
     </details>
-
-    <!-- ══════════════════════════════════════════════════════
-         SECTION 5 — DISCUSSION QUESTIONS
-    ══════════════════════════════════════════════════════ -->
-    <h2>Discussion Questions</h2>
-
-    <details>
-      <summary>Speckled Trout clusters with drums, not freshwater trout. What does this say about common names as evolutionary guides?</summary>
-      <div class="details-body">
-        <p>
-          Common names reflect appearance and culture, not ancestry. "Speckled Trout"
-          was named for its spots and table quality. DNA shows it's a drum, more closely
-          related to Red Drum and Atlantic Croaker than to any Salmonid.
-        </p>
-      </div>
-    </details>
-
-    <details>
-      <summary>Red Drum and Black Drum are sister taxa in every tree. What field evidence is consistent with that?</summary>
-      <div class="details-body">
-        <p>
-          They hybridize in the wild — documented in Gulf coastal waters. Hybridization
-          requires close genetic similarity, which sister-taxon status predicts.
-        </p>
-      </div>
-    </details>
-
-    <details>
-      <summary>Southern Flounder lives in the same estuary as the drums but sits far from them on the tree. What concept explains this?</summary>
-      <div class="details-body">
-        <p>
-          <a class="term" href="references.html#convergent-evolution">Convergent evolution</a>
-          — unrelated lineages independently evolving similar traits under similar
-          conditions. The flounder's flat body and camouflage evolved in Paralichthyidae
-          completely separately from anything in Sciaenidae. Same habitat, different
-          ancestry.
-        </p>
-      </div>
-    </details>
-
-    <details>
-      <summary>Internal Sciaenidae bootstrap values are 30–50%, but the family node is at 100%. Is that a contradiction?</summary>
-      <div class="details-body">
-        <p>
-          No. The 100% means all four Sciaenidae always group together. The 30–50%
-          means the exact order in which they diverged is unresolved from 650 bp of COI.
-          The family is real and well-supported; resolving its internal structure needs
-          more data.
-        </p>
-      </div>
-    </details>
-
-    <details>
-      <summary>A fisheries manager groups all "trout" together based on common names. What mistakes might result?</summary>
-      <div class="details-body">
-        <p>
-          Rainbow and Brown Trout are coldwater Salmonidae; Speckled Trout is a
-          warm-water estuarine drum. Treating them as related could direct habitat
-          restoration to the wrong environments and apply the wrong harvest limits
-          to the wrong species.
-        </p>
-      </div>
-    </details>
-
 
     <!-- ══════════════════════════════════════════════════════
          PAGE NAVIGATION

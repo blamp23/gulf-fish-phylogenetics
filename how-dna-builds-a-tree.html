@@ -68,7 +68,7 @@
       characters so that column <em>n</em> in the matrix represents the same position
       across all sequences. This matrix is the direct input to every tree-building
       method. This tutorial uses the
-      <a class="term" href="references.html#muscle">MUSCLE</a><sup><a class="ref" href="references.html#ref-edgar2004">8</a></sup>
+      <a class="term" href="references.html#muscle">MUSCLE</a><sup><a class="ref" href="references.html#ref-edgar2004">7</a></sup>
       <a class="term" href="references.html#alignment">alignment</a> algorithm.
     </p>
 
@@ -199,9 +199,9 @@
       converts the alignment into pairwise distances and finds the shortest tree. It is
       fast and a good first pass.
       <a class="term" href="references.html#maximum-likelihood">Maximum Likelihood (ML)</a><sup><a class="ref" href="references.html#ref-felsenstein1981">5</a></sup>
-      asks which tree makes the observed data most probable under a DNA evolution model —
+      asks which tree makes the observed data most probable under a DNA evolution model:
       slower but more accurate.
-      <a class="term" href="references.html#bayesian">Bayesian inference</a><sup><a class="ref" href="references.html#ref-ronquist2003">7</a></sup>
+      <a class="term" href="references.html#bayesian">Bayesian inference</a><sup><a class="ref" href="references.html#ref-ronquist2003">6</a></sup>
       uses <a class="term" href="references.html#mcmc">MCMC</a> sampling to estimate a
       probability distribution over possible trees, returning
       <a class="term" href="references.html#posterior-probability">posterior probabilities</a>.
@@ -325,8 +325,8 @@
 
     <p>
       Bull Shark is the outgroup here. It diverged from all bony fish roughly 420 million
-      years ago, placing the root at the base of the tree. A node with
-      100% <a class="term" href="references.html#bootstrap">bootstrap</a><sup><a class="ref" href="references.html#ref-felsenstein1985">10</a></sup>
+      years ago,<sup><a class="ref" href="references.html#ref-zhu2015">10</a></sup> placing the root at the base of the tree. A node with
+      100% <a class="term" href="references.html#bootstrap">bootstrap</a><sup><a class="ref" href="references.html#ref-felsenstein1985">9</a></sup>
       support means that clade appeared in all 1,000 bootstrap replicates.
     </p>
 
@@ -365,7 +365,7 @@
     <p>
       <a class="term" href="references.html#maximum-likelihood">ML</a> asks: given a
       DNA evolution model, what tree makes the observed data most probable?
-      This tutorial uses <a class="term" href="references.html#gtr">GTR+Γ+I</a><sup><a class="ref" href="references.html#ref-tavare1986">6</a></sup>:
+      This tutorial uses <a class="term" href="references.html#gtr">GTR+Γ+I</a>:
       all six substitution rates can differ, rate variation across sites follows a
       gamma distribution, and some sites can be invariant. Every variable column in the
       alignment contributes. ML is slower than NJ but generally more accurate because
@@ -386,7 +386,7 @@
 
     <h3>How Bayesian Inference works</h3>
     <p>
-      <a class="term" href="references.html#bayesian">Bayesian inference</a><sup><a class="ref" href="references.html#ref-ronquist2003">7</a></sup>
+      <a class="term" href="references.html#bayesian">Bayesian inference</a><sup><a class="ref" href="references.html#ref-ronquist2003">6</a></sup>
       uses the same model as ML but instead of finding the single best tree, it estimates
       a probability distribution over all possible trees. This is done with
       <a class="term" href="references.html#mcmc">Monte-Carlo Markov-Chains</a>: a chain runs for millions
