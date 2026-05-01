@@ -314,18 +314,7 @@
       </div>
     </details>
 
-    <h3>How Neighbor-Joining works</h3>
-    <p>
-      <a class="term" href="references.html#neighbor-joining">NJ</a> converts the
-      alignment into a pairwise distance matrix, using the
-      <a class="term" href="references.html#k80">K80 model</a><sup><a class="ref" href="references.html#ref-kimura1980">3</a></sup>,
-      which corrects for transitions (A to G, C to T) happen more often
-      than transversions in mitochondrial DNA. It repeatedly joins the closest
-      pair of taxa until the tree is complete. <a class="term" href="references.html#bootstrap">Bootstrap</a> support is
-      calculated by resampling alignment columns n=1,000 times and rebuilding the tree
-      each time.
-    </p>
-
+    <h3>Measuring Distance</h3>
     <p>
       Once sequences are aligned, the first step is measuring how different they are.
       Two sequences that share almost every base are closely related. Two that differ
@@ -342,14 +331,18 @@
       build the <a class="term" href="references.html#neighbor-joining">Neighbor-Joining</a> tree.
     </p>
 
+    <h3>Three Methods, One Question</h3>
     <p>Three methods were used to build trees, each approaching the problem differently.</p>
 
+    <h3>Neighbor-Joining</h3>
     <p>
       <a class="term" href="references.html#neighbor-joining">Neighbor-Joining (NJ)</a><sup><a class="ref" href="references.html#ref-saitou1987">4</a></sup>
-      groups the two most similar sequences first, then works outward until all species
-      are connected. It is fast and serves as a starting point for the other methods.
+      is the simplest of the three. It groups the two most similar sequences first,
+      then works outward until all species are connected. It is fast and serves as a
+      starting point for the other methods.
     </p>
 
+    <h3>Maximum Likelihood</h3>
     <p>
       <a class="term" href="references.html#maximum-likelihood">Maximum Likelihood (ML)</a><sup><a class="ref" href="references.html#ref-felsenstein1981">5</a></sup>
       starts from the Neighbor-Joining tree and refines it using a more detailed model
@@ -358,6 +351,7 @@
       the observed sequences most probable under that model.
     </p>
 
+    <h3>Bayesian Inference</h3>
     <p>
       <a class="term" href="references.html#bayesian">Bayesian Inference</a><sup><a class="ref" href="references.html#ref-ronquist2003">6</a></sup>
       uses the same GTR model but works differently. Instead of finding one best tree,
@@ -367,11 +361,25 @@
       score based on how often it appeared.
     </p>
 
+    <h3>When Methods Agree and Disagree</h3>
     <p>
       When all three methods agree on a grouping, that is strong evidence the
       relationship is real. When they disagree, it usually means one gene does not carry
       enough signal to resolve that branch, and more data would help.
     </p>
+
+    <details>
+      <summary>NJ and ML agree on a grouping but Bayesian gives it a low confidence score. What do you conclude?</summary>
+      <div class="details-body">
+        <p>
+          Two out of three methods recovering the same grouping is meaningful, but low
+          Bayesian support means the MCMC chain didn't consistently find it. This could
+          reflect genuine ambiguity in the data — the signal is there but weak. Report
+          all three results and note the disagreement rather than picking the answer you
+          prefer. More genes or longer sequences would help resolve it.
+        </p>
+      </div>
+    </details>
 
   </main>
 
