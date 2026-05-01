@@ -326,72 +326,52 @@
       each time.
     </p>
 
-    <h3>How Maximum Likelihood works</h3>
     <p>
-      <a class="term" href="references.html#maximum-likelihood">ML</a> asks: given a
-      DNA evolution model, what tree makes the observed data most probable?
-      This tutorial uses <a class="term" href="references.html#gtr">GTR+Γ+I</a>:
-      all six substitution rates can differ, rate variation across sites follows a
-      gamma distribution, and some sites can be invariant. Every variable column in the
-      alignment contributes. To summarize, ML is slower than NJ but can be more accurate because
-      it uses the full alignment rather than a single distance summary.
+      Once sequences are aligned, the first step is measuring how different they are.
+      Two sequences that share almost every base are closely related. Two that differ
+      at many positions are more distantly related. A distance model turns that
+      difference into a single number.
     </p>
 
-    <details>
-      <summary>Why not always use the simplest model (JC), and why not always use the most complex one?</summary>
-      <div class="details-body">
-        <p>
-          JC assumes all substitution rates are equal, which is not true for COI.
-          An oversimplified model can bias the result. 
-          Too many parameters can overfit the data, producing unstable
-          estimates. Some complex models are also extreemly computationally intense, and simple model estimates should be made first. 
-        </p>
-      </div>
-    </details>
-
-    <h3>How Bayesian Inference works</h3>
     <p>
-      <a class="term" href="references.html#bayesian">Bayesian inference</a><sup><a class="ref" href="references.html#ref-ronquist2003">6</a></sup>
-      uses the same model as ML but instead of finding the single best tree, it estimates
-      a probability distribution over all possible trees. This is done with
-      <a class="term" href="references.html#mcmc">Monte-Carlo Markov-Chains</a>: a chain runs for millions
-      of steps, accepting or rejecting trees based on posterior probability.
-      After trimming (burn-in), the surviving trees are summarized into a consensus tree.
-      The fraction of sampled trees containing a given clade is that clade's
-      <a class="term" href="references.html#posterior-probability">posterior probability</a>.
-      PP = 0.95 means 95% of sampled trees contained that grouping. MrBayes was the software package used here.
+      A simple count of mismatches underestimates true evolutionary distance because
+      the same site can mutate more than once over millions of years. The
+      <a class="term" href="references.html#k80">K80 model</a><sup><a class="ref" href="references.html#ref-kimura1980">3</a></sup>
+      corrects for this, and also accounts for the fact that some types of mutations
+      happen more often than others in mitochondrial DNA. K80 distances were used to
+      build the <a class="term" href="references.html#neighbor-joining">Neighbor-Joining</a> tree.
     </p>
 
-    <details>
-      <summary>A Bayesian run returns PP = 1.00. A critic says this is overconfident. How do you respond?</summary>
-      <div class="details-body">
-        <p>
-          PP = 1.00 means every sampled tree in the run contained that clade. The
-          data strongly favor it. The critic's concern is valid only if the MCMC
-          didn't converge (chain stuck, not exploring alternatives). 
-          In order to evaluate convergence in MrBayes, Look for ESS values. 
-        </p>
-      </div>
-    </details>
+    <p>Three methods were used to build trees, each approaching the problem differently.</p>
 
-    <h3>Comparing the three methods</h3>
     <p>
-      When all three methods agree on a grouping, that agreement across independent
-      mathematical algorythims is strong evidence of evolutionary history.
-      Where the methods disagree, that flags a region where a single barcode gene
-      doesn't have enough signal and more data would help.
+      <a class="term" href="references.html#neighbor-joining">Neighbor-Joining (NJ)</a><sup><a class="ref" href="references.html#ref-saitou1987">4</a></sup>
+      groups the two most similar sequences first, then works outward until all species
+      are connected. It is fast and serves as a starting point for the other methods.
     </p>
 
-    <details>
-      <summary>A reviewer asks why you ran all three methods instead of just reporting one. What do you say?</summary>
-      <div class="details-body">
-        <p>
-          Each method uses a different mathematical framework, so agreement rules out
-          method-specific artifacts. When all three agree,
-          confidence is higher than any single method can provide. Disagreements can pinpoint where more data is needed.
-        </p>
-      </div>
-    </details>
+    <p>
+      <a class="term" href="references.html#maximum-likelihood">Maximum Likelihood (ML)</a><sup><a class="ref" href="references.html#ref-felsenstein1981">5</a></sup>
+      starts from the Neighbor-Joining tree and refines it using a more detailed model
+      called <a class="term" href="references.html#gtr">GTR</a>, which gives every type
+      of DNA substitution its own rate. It searches for the tree arrangement that makes
+      the observed sequences most probable under that model.
+    </p>
+
+    <p>
+      <a class="term" href="references.html#bayesian">Bayesian Inference</a><sup><a class="ref" href="references.html#ref-ronquist2003">6</a></sup>
+      uses the same GTR model but works differently. Instead of finding one best tree,
+      it runs a long chain of random steps, constantly testing new tree arrangements and
+      keeping the ones that fit the data better. After millions of steps, the trees that
+      kept showing up are summarized into a final result. Each grouping gets a confidence
+      score based on how often it appeared.
+    </p>
+
+    <p>
+      When all three methods agree on a grouping, that is strong evidence the
+      relationship is real. When they disagree, it usually means one gene does not carry
+      enough signal to resolve that branch, and more data would help.
+    </p>
 
   </main>
 
