@@ -292,17 +292,20 @@
       is the simplest of the three methods. It groups the two most similar sequences
       first, then works outward until all species are connected. It is fast, which makes
       it useful as a sanity check and a starting point for more rigorous analyses. NJ is
-      rarely published as a final result on its own — its distance-based approach
+      rarely published as a final result on its own,  its distance-based approach
       discards too much information compared to ML and Bayesian methods.
     </p>
 
     <h3>Maximum Likelihood</h3>
     <p>
       <a class="term" href="references.html#maximum-likelihood">Maximum Likelihood (ML)</a><sup><a class="ref" href="references.html#ref-felsenstein1981">5</a></sup>
-      starts from the NJ tree and refines it using a more detailed model called
-      <a class="term" href="references.html#gtr">GTR</a>, which gives every type of DNA
-      substitution its own rate. It searches for the tree arrangement that makes the
-      observed sequences most probable under that model.
+      searches the full space of possible trees for the arrangement that makes the
+      observed sequences most probable under a model of DNA evolution. Because that
+      space is enormous, the NJ tree is used as a starting point so the search begins
+      somewhere reasonable rather than at random. The
+      <a class="term" href="references.html#gtr">GTR</a> model is then used to score
+      each candidate tree, assigning independent rates to every type of substitution
+      and computing the likelihood of the alignment given that topology.
     </p>
 
     <h3>Bayesian Inference</h3>
