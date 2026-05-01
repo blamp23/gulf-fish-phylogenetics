@@ -167,45 +167,6 @@
 
     <h2>Inferring the Tree</h2>
 
-    <p>
-      Three methods were used.
-      <a class="term" href="references.html#neighbor-joining">Neighbor-Joining (NJ)</a><sup><a class="ref" href="references.html#ref-saitou1987">4</a></sup>
-      converts the alignment into pairwise distances and finds the shortest tree. It is compuationally light, 
-      fast, and a good first attempt.
-      <a class="term" href="references.html#maximum-likelihood">Maximum Likelihood (ML)</a><sup><a class="ref" href="references.html#ref-felsenstein1981">5</a></sup>
-      asks which tree makes the observed data most probable under a DNA evolution model. It is
-      slower but more accurate.
-      <a class="term" href="references.html#bayesian">Bayesian inference</a><sup><a class="ref" href="references.html#ref-ronquist2003">6</a></sup>
-      uses <a class="term" href="references.html#mcmc">MCMC</a> sampling to estimate a
-      probability distribution over possible trees, returning
-      <a class="term" href="references.html#posterior-probability">posterior probabilities</a>.
-      When all three agree, confidence is high. When they disagree, it flags a region
-      the data can't resolve with a single gene.
-    </p>
-
-    <details>
-      <summary>All three methods agree on families but disagree on two internal Sciaenidae nodes (NJ 38%, ML 29%, PP 0.54). What do you conclude?</summary>
-      <div class="details-body">
-        <p>
-          Low support across all three methods means the data genuinely can't resolve
-          those branches. That is not neccicarily a failure. The family grouping is still at
-          100%. The fine branching order within Sciaenidae just requires more data
-          (more genes or whole genomes) to resolve.
-        </p>
-      </div>
-    </details>
-
-    <details>
-      <summary>NJ and ML agree but Bayesian places one species differently at PP = 0.62. Which do you report?</summary>
-      <div class="details-body">
-        <p>
-          Report all three and describe the disagreement. PP = 0.62 means the data
-          support both placements to some degree. Hiding it would misrepresent your
-          certainty. The disagreement can tell you where more data would help.
-        </p>
-      </div>
-    </details>
-
     <h2>Reading a Phylogeny</h2>
 
     <p>
@@ -316,67 +277,59 @@
 
     <h3>Measuring Distance</h3>
     <p>
-      Once sequences are aligned, the first step is measuring how different they are.
-      Two sequences that share almost every base are closely related. Two that differ
-      at many positions are more distantly related. A distance model turns that
-      difference into a single number.
-    </p>
-
-    <p>
-      A simple count of mismatches underestimates true evolutionary distance because
-      the same site can mutate more than once over millions of years. The
+      Before building a tree, every pair of sequences needs a distance score. A raw
+      count of mismatches underestimates true evolutionary distance because the same
+      site can mutate more than once over millions of years. The
       <a class="term" href="references.html#k80">K80 model</a><sup><a class="ref" href="references.html#ref-kimura1980">3</a></sup>
-      corrects for this, and also accounts for the fact that some types of mutations
-      happen more often than others in mitochondrial DNA. K80 distances were used to
-      build the <a class="term" href="references.html#neighbor-joining">Neighbor-Joining</a> tree.
+      corrects for this and accounts for the fact that some mutation types are more
+      common than others in mitochondrial DNA. These corrected distances feed directly
+      into the Neighbor-Joining tree.
     </p>
-
-    <h3>Three Methods, One Question</h3>
-    <p>Three methods were used to build trees, each approaching the problem differently.</p>
 
     <h3>Neighbor-Joining</h3>
     <p>
       <a class="term" href="references.html#neighbor-joining">Neighbor-Joining (NJ)</a><sup><a class="ref" href="references.html#ref-saitou1987">4</a></sup>
-      is the simplest of the three. It groups the two most similar sequences first,
-      then works outward until all species are connected. It is fast and serves as a
-      starting point for the other methods.
+      is the simplest of the three methods. It groups the two most similar sequences
+      first, then works outward until all species are connected. It is fast, which makes
+      it useful as a sanity check and a starting point for more rigorous analyses. NJ is
+      rarely published as a final result on its own — its distance-based approach
+      discards too much information compared to ML and Bayesian methods.
     </p>
 
     <h3>Maximum Likelihood</h3>
     <p>
       <a class="term" href="references.html#maximum-likelihood">Maximum Likelihood (ML)</a><sup><a class="ref" href="references.html#ref-felsenstein1981">5</a></sup>
-      starts from the Neighbor-Joining tree and refines it using a more detailed model
-      called <a class="term" href="references.html#gtr">GTR</a>, which gives every type
-      of DNA substitution its own rate. It searches for the tree arrangement that makes
-      the observed sequences most probable under that model.
+      starts from the NJ tree and refines it using a more detailed model called
+      <a class="term" href="references.html#gtr">GTR</a>, which gives every type of DNA
+      substitution its own rate. It searches for the tree arrangement that makes the
+      observed sequences most probable under that model.
     </p>
 
     <h3>Bayesian Inference</h3>
     <p>
       <a class="term" href="references.html#bayesian">Bayesian Inference</a><sup><a class="ref" href="references.html#ref-ronquist2003">6</a></sup>
       uses the same GTR model but works differently. Instead of finding one best tree,
-      it runs a long chain of random steps, constantly testing new tree arrangements and
+      it runs a long chain of random steps, constantly testing new arrangements and
       keeping the ones that fit the data better. After millions of steps, the trees that
-      kept showing up are summarized into a final result. Each grouping gets a confidence
-      score based on how often it appeared.
+      kept appearing are summarized into a final result. Each grouping gets a confidence
+      score based on how often it showed up.
     </p>
 
     <h3>When Methods Agree and Disagree</h3>
     <p>
       When all three methods agree on a grouping, that is strong evidence the
-      relationship is real. When they disagree, it usually means one gene does not carry
-      enough signal to resolve that branch, and more data would help.
+      relationship is real. When they disagree, it usually means the gene does not carry
+      enough signal to resolve that branch — more data would help.
     </p>
 
     <details>
-      <summary>NJ and ML agree on a grouping but Bayesian gives it a low confidence score. What do you conclude?</summary>
+      <summary>All three methods agree on families but disagree on two internal nodes (NJ 38%, ML 29%, PP 0.54). What do you conclude?</summary>
       <div class="details-body">
         <p>
-          Two out of three methods recovering the same grouping is meaningful, but low
-          Bayesian support means the MCMC chain didn't consistently find it. This could
-          reflect genuine ambiguity in the data — the signal is there but weak. Report
-          all three results and note the disagreement rather than picking the answer you
-          prefer. More genes or longer sequences would help resolve it.
+          Low support across all three methods means the data genuinely cannot resolve
+          those branches. That is not necessarily a failure — the family-level grouping
+          is still solid. The fine branching order within the family just requires more
+          data, such as additional genes or whole genomes, to resolve.
         </p>
       </div>
     </details>
